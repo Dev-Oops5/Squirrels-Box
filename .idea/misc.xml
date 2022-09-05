@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/dw_item_box_1.xml" value="0.2225" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_label.xml" value="0.2225" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_pw.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
       </map>
     </option>

@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SquirrelsBox</string>
+    <string name="linkWhite"><u><b>Click Here</b></u></string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+
+    <string name="menuProfile">Profile</string>
+    <string name="menuShared">Shared</string>
+    <string name="menuDownloads">Downloads</string>
+    <string name="menuSettings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--    Strings for delete dialogs-->
+    <string name="delete_box_txt">You are about to delete the box <b>Box 1</b>. Please type the <b>box name</b> if you are sure to erase it</string>
+    <string name="delete_section_txt">You are about to delete the section <b>Section 1</b> from box <b>Box 1</b>. Please type the <b>section name</b> if you are sure to erase it</string>
+    <string name="delete_item_txt">You are about to delete the item <b>Item 1</b> from section <b>Section 1</b> of box <b>Box 1</b>. Please type the <b>item name</b> if you are sure to erase it</string>
+    <string name="log_out_text"><b><u>Log Out</u></b></string>
 </resources>
