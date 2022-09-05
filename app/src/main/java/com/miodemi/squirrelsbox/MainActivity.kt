@@ -20,5 +20,11 @@ class MainActivity : AppCompatActivity() {
             // start your next activity
             startActivity(intent)
         }
+
+        binding.linkNotAccTV.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
     }
 }
