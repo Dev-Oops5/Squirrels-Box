@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".dialogs.item.AddItemDialogFragment"
+    android:background="@drawable/vc_round_shape_pw"
+    android:minWidth="260dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:id="@+id/titleLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/boxNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Box 1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/sectionNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boxNameTv"
+                android:text="Section 1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionNameTv"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:text="Add your item"
+                android:textColor="@color/primary_orange_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/itemNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleLy"
+            android:text="Item name"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <!--Item name-->
+        <EditText
+            android:id="@+id/boxNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemNameTv"
+            android:hint="Ex. Amazing item" />
+
+        <LinearLayout
+            android:id="@+id/specsLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/boxNameEt">
+
+            <!--Color-->
+            <TextView
+                android:id="@+id/selectionColorTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Section color"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/colorEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Blue"
+                android:drawableEnd="@drawable/ic_custom_color_palette_24"/>
+
+            <!--Description-->
+            <TextView
+                android:id="@+id/descriptionTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/descriptionEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter here"/>
+
+            <!--Amount-->
+            <TextView
+                android:id="@+id/amountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/amountEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ex. 1"/>
+
+            <!--Picture-->
+            <TextView
+                android:id="@+id/pictureTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Picture"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/pictureEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Take a picture"
+                android:drawableEnd="@drawable/ic_baseline_photo_camera_24"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/copyLy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/specsLy"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            >
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_add_box_24"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/shareBoxTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Add characteristic "/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerLayoutForBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/copyLy"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <!--Create Box Button-->
+
+            <Button
+                android:id="@+id/editBoxBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Add item" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
