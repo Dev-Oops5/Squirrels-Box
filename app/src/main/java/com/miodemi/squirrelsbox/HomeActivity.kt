@@ -15,6 +15,8 @@ import com.miodemi.squirrelsbox.dialogs.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.dialogs.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.dialogs.section.AddSectionDialogFragment
 import com.miodemi.squirrelsbox.fragments.ManageMainFragment
+import com.miodemi.squirrelsbox.ui.profile.MenuProfileFragment
+import com.miodemi.squirrelsbox.ui.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
 
@@ -27,6 +29,10 @@ class HomeActivity : AppCompatActivity() {
 
     //Navigation Fragments
     private val mainFragment = ManageMainFragment()
+
+    //UI Fragments
+    private val profileFragment = MenuProfileFragment()
+    private val settingsFragment = MenuSettingsFragment()
 
     // floating action buttons and a boolean variable.
     lateinit var menuFAB: FloatingActionButton
@@ -43,6 +49,10 @@ class HomeActivity : AppCompatActivity() {
         //assign current and max boxes amount in text view
         binding.actBoxTV.text = actBox.toString()
         binding.maxBoxTV.text = maxBox.toString()
+
+        //assign  current and max boxes amount in progress bar
+        binding.actBoxesPb.max = maxBox
+        binding.actBoxesPb.progress = actBox
 
         //show fragment
         replaceFragment(mainFragment)
@@ -62,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
                     drawerLY.close()
                     // - - Here insert fragment - -
                     titleLy.isGone = true
+                    replaceFragment(profileFragment)
                     false
                 }
                 R.id.nav_shared -> {
@@ -80,6 +91,7 @@ class HomeActivity : AppCompatActivity() {
                     // - - Here insert fragment - -
                     drawerLY.close()
                     titleLy.isGone = true
+                    replaceFragment(settingsFragment)
                     false
                 }
                 else -> false
