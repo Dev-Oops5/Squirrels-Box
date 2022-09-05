@@ -70,9 +70,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_profile -> {
                     Toast.makeText(applicationContext, "Profile clicked..", Toast.LENGTH_SHORT).show()
                     drawerLY.close()
-                    // - - Here insert fragment - -
-                    titleLy.isGone = true
                     replaceFragment(profileFragment)
+                    titleLy.isGone = true
                     false
                 }
                 R.id.nav_shared -> {
@@ -88,10 +87,9 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_settings -> {
                     Toast.makeText(applicationContext, "Settings clicked..", Toast.LENGTH_SHORT).show()
-                    // - - Here insert fragment - -
                     drawerLY.close()
-                    titleLy.isGone = true
                     replaceFragment(settingsFragment)
+                    titleLy.isGone = true
                     false
                 }
                 else -> false
@@ -134,13 +132,6 @@ class HomeActivity : AppCompatActivity() {
         //add box fab
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
-//            var addDialog = AddBoxDialogFragment()
-//
-//            if (mainFragment.isVisible)
-//            {
-//                addDialog = AddBoxDialogFragment()
-//                addDialog.show(supportFragmentManager, "customDialog")
-//            }
             when {
                 mainFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
 //                boxFragment.isVisible -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
