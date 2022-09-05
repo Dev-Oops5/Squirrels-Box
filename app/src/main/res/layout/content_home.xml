@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/primary_white">
+
+    <LinearLayout
+        android:id="@+id/titleLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/menuNvIb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_menu_24"
+            android:background="?attr/selectableItemBackground"
+            android:padding="10dp"
+            app:tint="@color/primary_orange_dark"
+            android:contentDescription="menuNavigationView"
+            android:layout_gravity="center"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxStrokeWidth="0dp"
+            android:textColorHint="#7C7C7C"
+            app:hintEnabled="false"
+            >
+
+            <EditText
+                android:id="@+id/searchET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Username"
+                android:background="@drawable/vc_rectangle_label_search"
+                android:hint="Search your box..."
+                android:textColorHint="@color/gray"
+                android:inputType="text"
+                android:textColor="#7C7C7C"
+                android:drawableEnd="@drawable/ic_baseline_photo_camera_24"
+                android:drawableTint="@color/gray"
+                android:padding="15dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/contentLy"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleLy" />
+</RelativeLayout>
