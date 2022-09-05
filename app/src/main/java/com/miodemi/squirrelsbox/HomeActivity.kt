@@ -3,12 +3,17 @@ package com.miodemi.squirrelsbox
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
+import com.miodemi.squirrelsbox.dialogs.box.AddBoxDialogFragment
+import com.miodemi.squirrelsbox.dialogs.item.AddItemDialogFragment
+import com.miodemi.squirrelsbox.dialogs.section.AddSectionDialogFragment
 import com.miodemi.squirrelsbox.fragments.ManageMainFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
@@ -22,6 +27,13 @@ class HomeActivity : AppCompatActivity() {
 
     //Navigation Fragments
     private val mainFragment = ManageMainFragment()
+
+    // floating action buttons and a boolean variable.
+    lateinit var menuFAB: FloatingActionButton
+    lateinit var addBoxFAB: FloatingActionButton
+    lateinit var favouriteFAB: FloatingActionButton
+    lateinit var homeFAB: FloatingActionButton
+    private var fabVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +85,103 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        // initializing fab
+        menuFAB = menuFab
+        addBoxFAB = addBoxFab
+        favouriteFAB = favouriteFab
+        homeFAB = homeFab
+
+        // on below line we are initializing our
+        // fab visibility boolean variable
+        fabVisible = false
+
+        // on below line we are adding on click listener
+        // for our add floating action button
+        menuFAB.setOnClickListener {
+            // on below line we are checking
+            // fab visible variable.
+            if (!fabVisible) {
+                openMenuFAB()
+            } else {
+                closeMenuFAB()
+            }
+        }
+
+        //Add fab on click actions
+
+        //home fab
+        homeFAB.setOnClickListener {
+            // on below line we are displaying a toast message.
+            Toast.makeText(this , "Home clicked..", Toast.LENGTH_SHORT).show()
+            titleLy.isGone = false
+            replaceFragment(mainFragment)
+            closeMenuFAB()
+        }
+
+        //add box fab
+        addBoxFAB.setOnClickListener{
+            // initializing fab dialogs
+//            var addDialog = AddBoxDialogFragment()
+//
+//            if (mainFragment.isVisible)
+//            {
+//                addDialog = AddBoxDialogFragment()
+//                addDialog.show(supportFragmentManager, "customDialog")
+//            }
+            when {
+                mainFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+//                boxFragment.isVisible -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+//                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
+            }
+
+            closeMenuFAB()
+        }
+
+        //favourite fab
+        favouriteFAB.setOnClickListener {
+            // on below line we are displaying a toast message
+            Toast.makeText(this, "Favourites clicked..", Toast.LENGTH_SHORT).show()
+
+            closeMenuFAB()
+        }
+    }
+
+    private fun openMenuFAB() {
+        // if its false we are displaying home fab
+        // and settings fab by changing their
+        // visibility to visible.
+        addBoxFAB.show()
+        favouriteFAB.show()
+        homeFAB.show()
+        // make the additional fab visible
+        addBoxFAB.visibility = View.VISIBLE
+        favouriteFAB.visibility = View.VISIBLE
+        homeFAB.visibility = View.VISIBLE
+
+        // change the acorn icon to cross icon
+        menuFAB.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_close_24))
+
+        // on below line we are changing
+        // fab visible to true
+        fabVisible = true
+    }
+
+    private fun closeMenuFAB() {
+        // if the condition is true then we hide home, add and favourite fab
+        addBoxFAB.hide()
+        favouriteFAB.hide()
+        homeFAB.hide()
+
+        // change visibility of home, add and favourite fab
+        addBoxFAB.visibility = View.GONE
+        favouriteFAB.visibility = View.GONE
+        homeFAB.visibility = View.GONE
+
+        // changing back the cross icon to acorn icon
+        menuFAB.setImageDrawable(resources.getDrawable(R.drawable.iv_acorn_1))
+        //after click you make it disappear
+        fabVisible = false
     }
 
     //basic function for fragment replacement
