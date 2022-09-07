@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/dw_item_box_1.xml" value="0.2225" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/dw_section_tag.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/ic__738100_acorn_fruit_fresh_vegetarian_nut.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/ic_baseline_add_box_24.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/ic_baseline_brightness_medium_24.xml" value="0.2225" />
@@ -25,6 +26,7 @@
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_od_2.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_od_3.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_pw.xml" value="0.2225" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_round_color.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout-v28/fragment_register_user_info.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/activity_home.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
@@ -42,6 +44,9 @@
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_menu_settings.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_register_mobile.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_register_user_info.xml" value="0.358695652173913" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/item_box.xml" value="0.358695652173913" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/item_object.xml" value="0.358695652173913" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/item_section.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/navigation_header.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/menu/navigation_menu.xml" value="0.38697916666666665" />
       </map>
