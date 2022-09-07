@@ -82,14 +82,133 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/sendCodeLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobilePhoneLy"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <!--Create Box Button-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/smsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="@string/send_sms"
+            android:textSize="18sp"
+            android:layout_marginEnd="20dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/callBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="Call me"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mobilePhoneLy"
-        android:layout_marginTop="30dp"
+        android:layout_below="@id/sendCodeLy"
+        android:layout_marginTop="50dp"
         android:text="This verification code will help us to identify your phone number. Plase enter your 6 digits code"
         android:textColor="@color/primary_orange_dark"
         android:textSize="18sp" />
 
+    <LinearLayout
+        android:id="@+id/verificationCodeLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/code1Et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/vc_rectangle_od_3"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textColorHint="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <EditText
+            android:id="@+id/code2Et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/vc_rectangle_od_3"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textColorHint="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <EditText
+            android:id="@+id/code3Et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/vc_rectangle_od_3"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textColorHint="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <EditText
+            android:id="@+id/code4Et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/vc_rectangle_od_3"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textColorHint="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <EditText
+            android:id="@+id/code5Et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/vc_rectangle_od_3"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textColorHint="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <EditText
+            android:id="@+id/code6Et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vc_rectangle_od_3"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textAlignment="center"
+            android:textColor="@color/primary_white"
+            android:textColorHint="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+    </LinearLayout>
 </RelativeLayout>

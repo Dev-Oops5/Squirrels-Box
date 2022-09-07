@@ -23,6 +23,7 @@
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_label.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_od.xml" value="0.25" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_od_2.xml" value="0.2225" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_od_3.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/drawable/vc_rectangle_pw.xml" value="0.2225" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout-v28/fragment_register_user_info.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/activity_home.xml" value="0.358695652173913" />
@@ -34,6 +35,7 @@
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_dialog_add_item.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_dialog_add_section.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_dialog_delete_box.xml" value="0.358695652173913" />
+        <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_dialog_delete_item.xml" value="0.18819655521783182" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_dialog_update_item.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_manage_main.xml" value="0.358695652173913" />
         <entry key="..\:/GitHub_Projects/Squirrels-Box/app/src/main/res/layout/fragment_menu_profile.xml" value="0.358695652173913" />
