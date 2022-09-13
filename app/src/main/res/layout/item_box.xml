@@ -45,7 +45,7 @@
                 style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_item_edit"
+                android:src="@drawable/ic_baseline_more_horiz_24"
                 app:tint="@color/primary_white"
                 android:layout_marginTop="-10dp"
                 android:background="?android:attr/selectableItemBackground"
