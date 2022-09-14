@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "285481194653",
+    "firebase_url": "https://squirrelbox-9259a-default-rtdb.firebaseio.com",
+    "project_id": "squirrelbox-9259a",
+    "storage_bucket": "squirrelbox-9259a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285481194653:android:b5a31914f047ce9565b074",
+        "android_client_info": {
+          "package_name": "com.miodemi.squirrelsbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285481194653-4hpnofs3fek6b7o4nad1qsvkhn82rm8k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhDGRQ3qoUvEWnZkPL0qJ9Fc17VRh8Wvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285481194653-4hpnofs3fek6b7o4nad1qsvkhn82rm8k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
