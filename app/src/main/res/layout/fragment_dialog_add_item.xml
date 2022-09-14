@@ -112,6 +112,7 @@
                 android:id="@+id/amountEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="Ex. 1"/>
 
             <!--Picture-->
@@ -171,7 +172,7 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/editBoxBtn"
+                android:id="@+id/addItemBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"

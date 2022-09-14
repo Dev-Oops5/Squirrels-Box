@@ -52,7 +52,7 @@
             android:orientation="vertical">
 
             <RadioGroup
-                android:id="@+id/statusRg"
+                android:id="@+id/boxTypeRg"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
@@ -148,7 +148,7 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/editBoxBtn"
+                android:id="@+id/addBoxBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"

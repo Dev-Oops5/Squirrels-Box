@@ -94,7 +94,7 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/editBoxBtn"
+                android:id="@+id/addSectionBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
