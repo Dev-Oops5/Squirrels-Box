@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentHomeBinding
-import com.miodemi.squirrelsbox.detail.homebox.HomeBoxAdapter
 import com.miodemi.squirrelsbox.detail.homebox.HomeBoxViewModel
+import com.miodemi.squirrelsbox.detail.homebox.HomeBoxAdapter
 
 class HomeFragment : Fragment() {
 

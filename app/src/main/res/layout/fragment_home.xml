@@ -69,15 +69,15 @@
                 android:id="@+id/allBoxesRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setItems="@{viewModel.boxDataLiveData}"/>
+                app:setItems="@{viewModel.boxDataLiveData}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
 
     </RelativeLayout>
 
     <data>
-
         <variable
             name="viewModel"
             type="com.miodemi.squirrelsbox.detail.homebox.HomeBoxViewModel" />
-    </data>>
+    </data>
 </layout>
