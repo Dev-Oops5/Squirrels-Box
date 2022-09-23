@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.miodemi.squirrelsbox.R
-import com.miodemi.squirrelsbox.databinding.FragmentManageMainBinding
 import com.miodemi.squirrelsbox.databinding.FragmentRegisterUserInfoBinding
 import kotlinx.android.synthetic.main.fragment_register_user_info.*
 
