@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.miodemi.squirrelsbox.data.BoxData
+import com.miodemi.squirrelsbox.data.models.BoxData
 import com.miodemi.squirrelsbox.databinding.FragmentDialogAddBoxBinding
 import java.util.*
 

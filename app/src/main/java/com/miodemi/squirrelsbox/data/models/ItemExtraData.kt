@@ -1,4 +1,4 @@
-package com.miodemi.squirrelsbox.data
+package com.miodemi.squirrelsbox.data.models
 
 data class ItemExtraData(val id:String? = null,
                          val name:String? = null,
