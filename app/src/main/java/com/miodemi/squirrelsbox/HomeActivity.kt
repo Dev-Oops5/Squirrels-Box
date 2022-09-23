@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private var maxBox = 10
 
     //Navigation Fragments
-    private val mainFragment = HomeFragment()
+    private val homeFragment = HomeFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
@@ -53,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         binding.actBoxesPb.progress = actBox
 
         //show fragment
-        replaceFragment(mainFragment)
+        replaceFragment(homeFragment)
 
         menuNvIb.setOnClickListener{
             //hide active qwerty keyboard
@@ -123,7 +123,7 @@ class HomeActivity : AppCompatActivity() {
             // on below line we are displaying a toast message.
             Toast.makeText(this , "Home clicked..", Toast.LENGTH_SHORT).show()
             titleLy.isGone = false
-            replaceFragment(mainFragment)
+            replaceFragment(homeFragment)
             closeMenuFAB()
         }
 
@@ -131,7 +131,7 @@ class HomeActivity : AppCompatActivity() {
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
             when {
-                mainFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                homeFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
 //                boxFragment.isVisible -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
 //                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
             }
