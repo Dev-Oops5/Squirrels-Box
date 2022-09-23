@@ -12,11 +12,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
 import com.miodemi.squirrelsbox.dialogs.box.AddBoxDialogFragment
-import com.miodemi.squirrelsbox.dialogs.item.AddItemDialogFragment
-import com.miodemi.squirrelsbox.dialogs.section.AddSectionDialogFragment
 import com.miodemi.squirrelsbox.fragments.ManageMainFragment
-import com.miodemi.squirrelsbox.ui.profile.MenuProfileFragment
-import com.miodemi.squirrelsbox.ui.settings.MenuSettingsFragment
+import com.miodemi.squirrelsbox.navigation.profile.MenuProfileFragment
+import com.miodemi.squirrelsbox.navigation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
 

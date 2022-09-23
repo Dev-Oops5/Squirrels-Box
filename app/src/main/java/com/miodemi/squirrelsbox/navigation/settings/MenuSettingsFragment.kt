@@ -1,11 +1,10 @@
-package com.miodemi.squirrelsbox.ui.settings
+package com.miodemi.squirrelsbox.navigation.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentMenuSettingsBinding
 
 class MenuSettingsFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.miodemi.squirrelsbox.data
+package com.miodemi.squirrelsbox.data.models
 
 import java.util.*
 
