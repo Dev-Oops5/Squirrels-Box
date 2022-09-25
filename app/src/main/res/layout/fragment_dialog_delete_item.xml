@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".dialogs.item.DeleteItemDialogFragment"
+    tools:context=".inventory.components.item.DeleteItemDialogFragment"
     android:background="@drawable/vc_round_shape_pw"
     android:minWidth="260dp"
     >
