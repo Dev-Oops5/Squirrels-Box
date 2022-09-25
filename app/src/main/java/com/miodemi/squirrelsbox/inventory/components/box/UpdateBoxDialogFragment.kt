@@ -8,13 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentDialogUpdateBoxBinding
+import com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxViewModel
 
 class UpdateBoxDialogFragment : DialogFragment() {
 
     //binding
     internal lateinit var binding: FragmentDialogUpdateBoxBinding
+
+    private val viewModel: UpdateBoxDialogModelViewFragment by lazy {
+        ViewModelProvider(this)[UpdateBoxDialogModelViewFragment::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +32,9 @@ class UpdateBoxDialogFragment : DialogFragment() {
         //this value must be returned
         val view : View = binding.root
 
-        //--Insert actions here--//
+        val args = this.arguments
+        val inputData = args?.get("currBoxId")
+        binding.titleTv.text = inputData.toString()
 
         // Inflate the layout for this fragment
         return view

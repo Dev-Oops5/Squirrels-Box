@@ -1,6 +1,7 @@
 package com.miodemi.squirrelsbox.inventory.navigation.homebox
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +34,20 @@ class HomeBoxAdapter(
             homeBoxItem : BoxData
         ){
             binding.boxNameTv.text = homeBoxItem.name.toString()
+            val boxId = homeBoxItem.name.toString()
             binding.editBtn.setOnClickListener { v : View ->
                 Toast.makeText(itemView.context, "You clicked on item # ${position + 1}", Toast.LENGTH_SHORT).show()
                 val activity = v.context as AppCompatActivity
-                UpdateBoxDialogFragment().show(activity.supportFragmentManager, "updateBoxDialog")
+                val updateBoxDialogFragment = UpdateBoxDialogFragment()
+                val bundle = Bundle()
+                bundle.putString("currBoxId", boxId)
+                updateBoxDialogFragment.arguments = bundle
+
+                activity.supportFragmentManager.beginTransaction()
+                    .add(updateBoxDialogFragment, "updateBoxDialog")
+                    .commit()
+
+
             }
         }
 
@@ -44,8 +55,7 @@ class HomeBoxAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as HomeBoxItemViewHolder).onBind(
-            homeBoxItem = homeBoxItems[position]
-        )
+            homeBoxItem = homeBoxItems[position])
     }
 
     override fun getItemCount(): Int = homeBoxItems.size

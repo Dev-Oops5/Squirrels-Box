@@ -18,7 +18,6 @@ import com.miodemi.squirrelsbox.databinding.FragmentDialogAddBoxBinding
 import java.util.*
 
 class AddBoxDialogFragment : DialogFragment() {
-
     //Realtime database
     private lateinit var database: DatabaseReference
 
