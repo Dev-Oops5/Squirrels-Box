@@ -62,4 +62,7 @@ dependencies {
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:28.4.0')
+
+    //Fragment-model view
+    implementation 'androidx.fragment:fragment-ktx:1.5.3'
 }

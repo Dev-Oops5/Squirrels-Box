@@ -16,6 +16,8 @@ class DeleteBoxDialogFragment : DialogFragment() {
     //binding
     internal lateinit var binding: FragmentDialogDeleteBoxBinding
 
+    private val repository = DeleteBoxDialogRepository()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +28,20 @@ class DeleteBoxDialogFragment : DialogFragment() {
         //this value must be returned
         val view : View = binding.root
 
-        //--Insert actions here--//
+        val args = this.arguments
+        val inputId = args?.get("currBoxId").toString()
+        val inputName = args?.get("currBoxName").toString()
+
+        binding.boxTv.text = inputName
+
+        binding.deleteBoxBtn.setOnClickListener {
+            repository.deleteData(inputId)
+            dialog?.dismiss()
+        }
+
+        binding.cancelBoxBtn.setOnClickListener {
+            dialog?.dismiss()
+        }
 
         // Inflate the layout for this fragment
         return view

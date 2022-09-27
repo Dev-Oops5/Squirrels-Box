@@ -73,7 +73,7 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/updateBoxBtn"
+                android:id="@+id/deleteBoxBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
