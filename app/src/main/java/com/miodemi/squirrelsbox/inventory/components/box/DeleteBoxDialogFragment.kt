@@ -15,7 +15,7 @@ class DeleteBoxDialogFragment : DialogFragment() {
     //binding
     internal lateinit var binding: FragmentDialogDeleteBoxBinding
 
-    private val viewModel : BoxDialogModelViewFragment by activityViewModels()
+    private val viewModel : BoxDialogViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

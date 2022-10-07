@@ -7,6 +7,7 @@
     app:cardCornerRadius="10dp"
     android:padding="10dp"
     android:layout_margin="10dp"
+    style="@style/Widget.Material3.Button"
     >
 
     <ImageView
@@ -18,6 +19,7 @@
         android:src="@drawable/dw_item_box_group" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/boxCV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

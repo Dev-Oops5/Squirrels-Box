@@ -2,28 +2,21 @@ package com.miodemi.squirrelsbox.inventory.components.box
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.icu.text.SimpleDateFormat
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.miodemi.squirrelsbox.inventory.data.BoxData
 import com.miodemi.squirrelsbox.databinding.FragmentDialogAddBoxBinding
-import java.util.*
 
 class AddBoxDialogFragment : DialogFragment() {
 
     //binding
     internal lateinit var binding: FragmentDialogAddBoxBinding
 
-    private val viewModel : BoxDialogModelViewFragment by activityViewModels()
+    private val viewModel : BoxDialogViewModel by activityViewModels()
 
     private var name = ""
     private var boxType = true

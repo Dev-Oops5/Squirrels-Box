@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.navigation.home.HomeFragment"
+        tools:context=".profile.navigation.home.HomeBoxFragment"
         android:padding="20dp">
 
         <LinearLayout
