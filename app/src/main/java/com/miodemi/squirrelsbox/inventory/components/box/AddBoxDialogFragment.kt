@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.miodemi.squirrelsbox.inventory.data.BoxData
@@ -18,21 +19,18 @@ import com.miodemi.squirrelsbox.databinding.FragmentDialogAddBoxBinding
 import java.util.*
 
 class AddBoxDialogFragment : DialogFragment() {
-    //Realtime database
-    private lateinit var database: DatabaseReference
 
     //binding
     internal lateinit var binding: FragmentDialogAddBoxBinding
 
-    private var id = ""
+    private val viewModel : BoxDialogModelViewFragment by activityViewModels()
+
     private var name = ""
-    private var dateCreated = ""
     private var boxType = true
     private var privateLink = ""
     private var download = true
     private var favourite = true
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,34 +41,17 @@ class AddBoxDialogFragment : DialogFragment() {
         val view : View = binding.root
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        //init realtime database
-        database = FirebaseDatabase.getInstance().getReference("boxes")
 
         binding.addBoxBtn.setOnClickListener{
-            storeData()
+            name = binding.boxNameEt.text.toString().trim()
+            boxType = binding.activeRb.isChecked
+
+            viewModel.storeData(name, boxType, privateLink, download, favourite)
             Toast.makeText(this.activity,"Box added successfully :)", Toast.LENGTH_SHORT).show()
             dialog!!.dismiss()
         }
 
         // Inflate the layout for this fragment
         return view
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun storeData() {
-        id = UUID.randomUUID().toString();
-        name = binding.boxNameEt.text.toString().trim()
-        boxType = binding.activeRb.isChecked
-
-        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        val currentDate = sdf.format(Date())
-        dateCreated = currentDate
-
-        //missing private link
-        //missing download
-        //missing favourite
-
-        val boxData = BoxData(id,name,dateCreated,boxType,privateLink,download,favourite)
-        database.child(id).setValue(boxData)
     }
 }
