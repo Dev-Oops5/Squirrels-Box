@@ -29,27 +29,26 @@
 
             <TextView
                 android:id="@+id/boxNameTv"
-                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="top"
                 android:text="Box 1"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/editBtn"
-                android:layout_alignParentEnd="true"
                 style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_more_horiz_24"
-                app:tint="@color/primary_white"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="-10dp"
                 android:background="?android:attr/selectableItemBackground"
-                />
+                android:src="@drawable/ic_baseline_more_horiz_24"
+                app:tint="@color/primary_white" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -65,19 +64,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
                     android:text="by "
                     android:textColor="@color/white"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="10dp"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="Pipo"
                     android:textColor="@color/white"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

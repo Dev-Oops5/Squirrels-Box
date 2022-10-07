@@ -11,12 +11,10 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
-import com.miodemi.squirrelsbox.dialogs.box.AddBoxDialogFragment
-import com.miodemi.squirrelsbox.dialogs.item.AddItemDialogFragment
-import com.miodemi.squirrelsbox.dialogs.section.AddSectionDialogFragment
-import com.miodemi.squirrelsbox.fragments.ManageMainFragment
-import com.miodemi.squirrelsbox.ui.profile.MenuProfileFragment
-import com.miodemi.squirrelsbox.ui.settings.MenuSettingsFragment
+import com.miodemi.squirrelsbox.inventory.components.box.AddBoxDialogFragment
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeFragment
+import com.miodemi.squirrelsbox.profile.navigation.profile.MenuProfileFragment
+import com.miodemi.squirrelsbox.profile.navigation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
 
@@ -28,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private var maxBox = 10
 
     //Navigation Fragments
-    private val mainFragment = ManageMainFragment()
+    private val homeFragment = HomeFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
@@ -55,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
         binding.actBoxesPb.progress = actBox
 
         //show fragment
-        replaceFragment(mainFragment)
+        replaceFragment(homeFragment)
 
         menuNvIb.setOnClickListener{
             //hide active qwerty keyboard
@@ -125,7 +123,7 @@ class HomeActivity : AppCompatActivity() {
             // on below line we are displaying a toast message.
             Toast.makeText(this , "Home clicked..", Toast.LENGTH_SHORT).show()
             titleLy.isGone = false
-            replaceFragment(mainFragment)
+            replaceFragment(homeFragment)
             closeMenuFAB()
         }
 
@@ -133,7 +131,7 @@ class HomeActivity : AppCompatActivity() {
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
             when {
-                mainFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                homeFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
 //                boxFragment.isVisible -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
 //                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
             }
