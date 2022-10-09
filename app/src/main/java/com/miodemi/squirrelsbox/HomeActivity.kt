@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
 import com.miodemi.squirrelsbox.inventory.components.box.AddBoxDialogFragment
-import com.miodemi.squirrelsbox.profile.navigation.home.HomeFragment
+import com.miodemi.squirrelsbox.inventory.components.section.AddSectionDialogFragment
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeBoxFragment
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeSectionFragment
 import com.miodemi.squirrelsbox.profile.navigation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.navigation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -26,7 +28,8 @@ class HomeActivity : AppCompatActivity() {
     private var maxBox = 10
 
     //Navigation Fragments
-    private val homeFragment = HomeFragment()
+    private val homeBoxFragment = HomeBoxFragment()
+    private val homeSectionFragment = HomeSectionFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
@@ -53,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
         binding.actBoxesPb.progress = actBox
 
         //show fragment
-        replaceFragment(homeFragment)
+        replaceFragment(homeBoxFragment)
 
         menuNvIb.setOnClickListener{
             //hide active qwerty keyboard
@@ -123,7 +126,7 @@ class HomeActivity : AppCompatActivity() {
             // on below line we are displaying a toast message.
             Toast.makeText(this , "Home clicked..", Toast.LENGTH_SHORT).show()
             titleLy.isGone = false
-            replaceFragment(homeFragment)
+            replaceFragment(homeBoxFragment)
             closeMenuFAB()
         }
 
@@ -131,8 +134,8 @@ class HomeActivity : AppCompatActivity() {
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
             when {
-                homeFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-//                boxFragment.isVisible -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+                homeBoxFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                homeSectionFragment.allowEnterTransitionOverlap -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
 //                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
             }
 

@@ -1,4 +1,4 @@
-package com.miodemi.squirrelsbox.inventory.navigation.homebox
+package com.miodemi.squirrelsbox.inventory.navigation.home
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
@@ -30,11 +30,5 @@ class HomeBoxRepository {
                 }
             })
     }
-
-
-
-//    fun updateFavoriteStatus(id: String, isFavorite: Boolean) {
-//        newsFeedReference.child(id).child("favorite").setValue(isFavorite)
-//    }
 
 }

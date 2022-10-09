@@ -1,4 +1,4 @@
-package com.miodemi.squirrelsbox.inventory.navigation.homebox
+package com.miodemi.squirrelsbox.inventory.navigation.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.inventory.data.BoxData
 import com.miodemi.squirrelsbox.databinding.ItemBoxBinding
-import com.miodemi.squirrelsbox.inventory.components.box.BoxDialogModelViewFragment
+import com.miodemi.squirrelsbox.inventory.components.box.BoxDialogViewModel
 import com.miodemi.squirrelsbox.inventory.components.box.UpdateBoxDialogFragment
+import com.miodemi.squirrelsbox.inventory.components.section.SectionDialogViewModel
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeSectionFragment
 
 class HomeBoxAdapter(
 
@@ -37,15 +39,32 @@ class HomeBoxAdapter(
             binding.boxNameTv.text = homeBoxItem.name.toString()
             val boxId = homeBoxItem.id.toString()
             val boxName = homeBoxItem.name.toString()
+            val boxDateCreated = homeBoxItem.dateCreated.toString()
             binding.editBtn.setOnClickListener { v : View ->
-                Toast.makeText(itemView.context, "You clicked on item # ${position + 1}", Toast.LENGTH_SHORT).show()
                 val activity = v.context as AppCompatActivity
-                val fragmentViewFragment : BoxDialogModelViewFragment by activity.viewModels()
+                val fragmentViewFragment : BoxDialogViewModel by activity.viewModels()
                 fragmentViewFragment.setId(boxId)
                 fragmentViewFragment.setName(boxName)
-                fragmentViewFragment.setDate(boxName)
+                fragmentViewFragment.setDate(boxDateCreated)
 
                 UpdateBoxDialogFragment().show(activity.supportFragmentManager, "UpdateBoxDialog")
+            }
+            binding.boxCV.setOnClickListener{v : View ->
+                val activity = v.context as AppCompatActivity
+                val homeSectionViewModel : HomeSectionViewModel by activity.viewModels()
+                val sectionDialogViewModel : SectionDialogViewModel by activity.viewModels()
+
+                homeSectionViewModel.setId(boxId)
+                homeSectionViewModel.setName(boxName)
+
+                sectionDialogViewModel.setBoxId(boxId)
+                sectionDialogViewModel.setBoxName(boxName)
+
+                Toast.makeText(itemView.context, "You clicked on item # ${position + 1}", Toast.LENGTH_SHORT).show()
+
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.contentLy, HomeSectionFragment()).addToBackStack(null)
+                    .commit()
             }
         }
 
@@ -59,7 +78,7 @@ class HomeBoxAdapter(
     override fun getItemCount(): Int = homeBoxItems.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(newsFeedItems: List<BoxData>?) {
+    fun setHomeBoxItems(newsFeedItems: List<BoxData>?) {
         this.homeBoxItems.clear()
         this.homeBoxItems.addAll(newsFeedItems ?: emptyList())
         notifyDataSetChanged()

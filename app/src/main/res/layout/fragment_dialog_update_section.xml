@@ -38,7 +38,7 @@
                 android:layout_margin="5dp"/>
 
             <ImageView
-                android:id="@+id/deleteBoxIc"
+                android:id="@+id/deleteSectionIc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -103,14 +103,14 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/updateBoxBtn"
+                android:id="@+id/updateSectionBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="Update" />
 
             <Button
-                android:id="@+id/cancelBoxBtn"
+                android:id="@+id/cancelSectionBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

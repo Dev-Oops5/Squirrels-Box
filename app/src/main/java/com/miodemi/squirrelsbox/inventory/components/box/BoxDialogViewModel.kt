@@ -1,12 +1,10 @@
 package com.miodemi.squirrelsbox.inventory.components.box
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class BoxDialogModelViewFragment : ViewModel() {
+class BoxDialogViewModel : ViewModel() {
 
 //    internal val data = MutableLiveData<String>()
 //
@@ -41,8 +39,8 @@ class BoxDialogModelViewFragment : ViewModel() {
         boxRepository.storeData(name, boxType, privateLink, download, favourite)
     }
 
-    fun updateData(currentData: String){
-        _id.value?.let { boxRepository.updateData(it,currentData) }
+    fun updateData(currentName: String){
+        _id.value?.let { boxRepository.updateData(it,currentName) }
     }
 
     fun deleteData(){

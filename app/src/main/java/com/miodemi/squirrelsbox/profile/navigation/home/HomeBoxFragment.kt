@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.miodemi.squirrelsbox.databinding.FragmentHomeBinding
-import com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxViewModel
-import com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxAdapter
+import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
 
-class HomeFragment : Fragment() {
+class HomeBoxFragment : Fragment() {
 
     //binding
-    internal lateinit var binding: FragmentHomeBinding
+    internal lateinit var binding: FragmentHomeBoxBinding
 
     private val viewModel: HomeBoxViewModel by lazy {
         ViewModelProvider(this)[HomeBoxViewModel::class.java]
@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //init data binding in a fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding = FragmentHomeBoxBinding.inflate(layoutInflater)
         //this value must be returned
         val view : View = binding.root
 

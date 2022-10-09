@@ -8,13 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentDialogUpdateSectionBinding
+import com.miodemi.squirrelsbox.inventory.components.box.BoxDialogViewModel
+import com.miodemi.squirrelsbox.inventory.components.box.DeleteBoxDialogFragment
 
 class UpdateSectionDialogFragment : DialogFragment() {
 
     //binding
     internal lateinit var binding: FragmentDialogUpdateSectionBinding
+
+    private val viewModel : SectionDialogViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +31,27 @@ class UpdateSectionDialogFragment : DialogFragment() {
         //this value must be returned
         val view : View = binding.root
 
-        //--Insert actions here--//
+        viewModel.name.observe(viewLifecycleOwner) {
+            binding.titleTv.text = it
+        }
 
+        viewModel.boxName.observe(viewLifecycleOwner) {
+            binding.boxNameTv.text = it
+        }
+
+        binding.updateSectionBtn.setOnClickListener {
+            viewModel.updateData(binding.sectionNameEt.text.toString(), binding.colorEt.text.toString())
+            dialog!!.dismiss()
+        }
+
+        binding.deleteSectionIc.setOnClickListener{
+            activity?.let { it -> DeleteSectionDialogFragment().show(it.supportFragmentManager, "DeleteBoxDialog") }
+            dialog?.dismiss()
+        }
+
+        binding.cancelSectionBtn.setOnClickListener {
+            dialog?.dismiss()
+        }
         // Inflate the layout for this fragment
         return view
     }
