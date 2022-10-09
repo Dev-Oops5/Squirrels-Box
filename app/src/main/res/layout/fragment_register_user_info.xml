@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.fragments.RegisterUserInfoFragment"
+    tools:context=".session.fragments.RegisterUserInfoFragment"
     android:padding="20dp">
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
-        android:text="User Regitration"
+        android:text="User Registration"
         android:textColor="@color/primary_orange_dark"
         android:textSize="24sp"
         android:textStyle="bold" />
