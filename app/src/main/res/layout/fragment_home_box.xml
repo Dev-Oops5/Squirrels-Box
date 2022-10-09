@@ -69,7 +69,7 @@
                 android:id="@+id/allBoxesRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setItems="@{viewModel.boxDataLiveData}"
+                app:setHomeBoxItems="@{viewModel.boxDataLiveData}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
 
@@ -78,6 +78,6 @@
     <data>
         <variable
             name="viewModel"
-            type="com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxViewModel" />
+            type="com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel" />
     </data>
 </layout>

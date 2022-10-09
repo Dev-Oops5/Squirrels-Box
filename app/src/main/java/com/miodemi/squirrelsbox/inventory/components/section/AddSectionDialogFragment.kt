@@ -10,26 +10,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.miodemi.squirrelsbox.inventory.data.SectionData
 import com.miodemi.squirrelsbox.databinding.FragmentDialogAddSectionBinding
+import com.miodemi.squirrelsbox.inventory.components.box.BoxDialogViewModel
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionViewModel
 import java.util.*
 
 class AddSectionDialogFragment : DialogFragment() {
 
-    //Realtime database
-    private lateinit var database: DatabaseReference
-
     //binding
     internal lateinit var binding: FragmentDialogAddSectionBinding
 
-    private var id = ""
-    private var name = ""
-    private var dateCreated = ""
-    private var color = ""
-    private var favourite = true
+    private val viewModel : SectionDialogViewModel by activityViewModels()
 
+    private var name = ""
+    private var color = ""
+    private var favourite = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,32 +38,22 @@ class AddSectionDialogFragment : DialogFragment() {
         val view : View = binding.root
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        //init realtime database
-        database = FirebaseDatabase.getInstance().getReference("boxes")
+        viewModel.boxName.observe(viewLifecycleOwner) {
+            binding.boxNameTv.text = it
+        }
 
         binding.addSectionBtn.setOnClickListener{
-            storeData()
+
+            name = binding.sectionNameEt.text.toString()
+            color = binding.colorEt.text.toString()
+
+            viewModel.storeData(name, color, favourite)
+
             Toast.makeText(this.activity,"Section added successfully :)", Toast.LENGTH_SHORT).show()
             dialog!!.dismiss()
         }
 
-
         // Inflate the layout for this fragment
         return view
-    }
-
-    private fun storeData() {
-        id = UUID.randomUUID().toString();
-        name = binding.sectionNameEt.text.toString().trim()
-
-        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-        val currentDate = sdf.format(Date())
-        dateCreated = currentDate
-
-        //missing color
-        //missing favourite
-
-        val sectionData = SectionData(id,name,dateCreated,color, favourite)
-        database.child(id).setValue(sectionData)
     }
 }

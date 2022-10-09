@@ -1,4 +1,4 @@
-package com.miodemi.squirrelsbox.inventory.navigation.homebox
+package com.miodemi.squirrelsbox.inventory.navigation.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

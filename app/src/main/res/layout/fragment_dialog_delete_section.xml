@@ -32,13 +32,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/itemTv"
+                android:id="@+id/sectionTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Item 1"
+                android:text="Section 1"
                 android:textColor="@color/primary_orange_dark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -65,14 +65,14 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/updateBoxBtn"
+                android:id="@+id/deleteSectionBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="Delete" />
 
             <Button
-                android:id="@+id/cancelBoxBtn"
+                android:id="@+id/cancelSectionBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

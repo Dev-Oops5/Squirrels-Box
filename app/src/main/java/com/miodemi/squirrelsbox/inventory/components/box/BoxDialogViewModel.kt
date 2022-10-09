@@ -39,8 +39,8 @@ class BoxDialogViewModel : ViewModel() {
         boxRepository.storeData(name, boxType, privateLink, download, favourite)
     }
 
-    fun updateData(currentData: String){
-        _id.value?.let { boxRepository.updateData(it,currentData) }
+    fun updateData(currentName: String){
+        _id.value?.let { boxRepository.updateData(it,currentName) }
     }
 
     fun deleteData(){

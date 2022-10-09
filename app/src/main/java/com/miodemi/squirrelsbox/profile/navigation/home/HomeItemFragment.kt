@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.miodemi.squirrelsbox.R
-import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
 import com.miodemi.squirrelsbox.databinding.FragmentHomeItemBinding
-import com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxAdapter
 
 class HomeItemFragment : Fragment() {
 

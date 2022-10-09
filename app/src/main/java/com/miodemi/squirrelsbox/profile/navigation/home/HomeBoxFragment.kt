@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
-import com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxViewModel
-import com.miodemi.squirrelsbox.inventory.navigation.homebox.HomeBoxAdapter
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
 
 class HomeBoxFragment : Fragment() {
 
