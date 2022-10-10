@@ -33,7 +33,8 @@ class SectionDialogRepository {
 
     fun updateData(boxId: String, sectionId: String, sectionName: String, color : String) {
 
-        database = FirebaseDatabase.getInstance().getReference("boxes").child(boxId).child("sections")
+        database = FirebaseDatabase.getInstance().getReference("boxes")
+            .child(boxId).child("sections")
         val section = mapOf<String,String>(
             "name" to sectionName,
             "color" to color

@@ -1,23 +1,32 @@
 package com.miodemi.squirrelsbox
 
 import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
 import com.miodemi.squirrelsbox.inventory.components.box.AddBoxDialogFragment
+import com.miodemi.squirrelsbox.inventory.components.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.section.AddSectionDialogFragment
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeItemViewModel
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeBoxFragment
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeItemFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeSectionFragment
 import com.miodemi.squirrelsbox.profile.navigation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.navigation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.content_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -30,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
     //Navigation Fragments
     private val homeBoxFragment = HomeBoxFragment()
     private val homeSectionFragment = HomeSectionFragment()
+    private val homeItemFragment = HomeItemFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
@@ -41,6 +51,8 @@ class HomeActivity : AppCompatActivity() {
     lateinit var favouriteFAB: FloatingActionButton
     lateinit var homeFAB: FloatingActionButton
     private var fabVisible = false
+
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -133,11 +145,21 @@ class HomeActivity : AppCompatActivity() {
         //add box fab
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
-            when {
-                homeBoxFragment.isVisible -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-                homeSectionFragment.allowEnterTransitionOverlap -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
-//                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
+
+            when (viewModel.id.value) {
+                null -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                1 -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                2 -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+                3 -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
             }
+
+//            if (homeBoxFragment.isVisible)
+//                AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+//            else if (!homeSectionFragment.isVisible)
+//                AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+//            else
+//                AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
+
 
             closeMenuFAB()
         }
@@ -190,9 +212,11 @@ class HomeActivity : AppCompatActivity() {
 
     //basic function for fragment replacement
     private fun replaceFragment(fragment: Fragment) {
+
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.contentLy, fragment)
         transaction.addToBackStack(null).commit()
+
     }
 
     //hide keyboard function

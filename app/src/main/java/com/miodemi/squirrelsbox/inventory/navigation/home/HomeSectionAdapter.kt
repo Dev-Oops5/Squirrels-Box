@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.miodemi.squirrelsbox.HomeViewModel
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.ItemSectionBinding
+import com.miodemi.squirrelsbox.inventory.components.item.ItemDialogViewModel
 import com.miodemi.squirrelsbox.inventory.components.section.SectionDialogViewModel
 import com.miodemi.squirrelsbox.inventory.components.section.UpdateSectionDialogFragment
 import com.miodemi.squirrelsbox.inventory.data.SectionData
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeItemFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeSectionFragment
 
 class HomeSectionAdapter(
@@ -49,10 +52,27 @@ class HomeSectionAdapter(
                 UpdateSectionDialogFragment().show(activity.supportFragmentManager, "UpdateSectionDialog")
             }
 
-//            binding.sectionCV.setOnClickListener { v : View ->
-//                val activity = v.context as AppCompatActivity
-//
-//            }
+            binding.sectionCV.setOnClickListener { v : View ->
+                val activity = v.context as AppCompatActivity
+                val homeItemViewModel : HomeItemViewModel by activity.viewModels()
+                val itemDialogViewModel : ItemDialogViewModel by activity.viewModels()
+
+                homeItemViewModel.setBoxId(boxId)
+                itemDialogViewModel.setBoxId(boxId)
+
+                homeItemViewModel.setSectionId(sectionId)
+                itemDialogViewModel.setSectionId(sectionId)
+
+                homeItemViewModel.setSectionName(sectionName)
+                itemDialogViewModel.setSectionName(sectionName)
+
+                val homeViewModel : HomeViewModel by activity.viewModels()
+                homeViewModel.setId(3)
+
+                activity.supportFragmentManager.beginTransaction()
+                    .replace(R.id.contentLy, HomeItemFragment()).addToBackStack(null)
+                    .commit()
+            }
 
         }
     }
