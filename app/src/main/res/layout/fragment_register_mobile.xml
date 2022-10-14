@@ -75,7 +75,7 @@
                 android:autofillHints="Username"
                 android:background="@drawable/vc_rectangle_od"
                 android:hint="Phone number"
-                android:inputType="number"
+                android:inputType="phone"
                 android:textColor="@color/primary_white"
                 android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -210,5 +210,46 @@
             android:textColorHint="@color/primary_white"
             android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/verificationCod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/verificationCodeLy"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/verifCode1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/primary_white"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/primary_white">
+
+        <EditText
+            android:id="@+id/verifCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="Phone number"
+            android:inputType="number"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verifBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="Verification"
+            android:textSize="18sp"
+            android:layout_marginEnd="20dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </RelativeLayout>
