@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.miodemi.squirrelsbox.databinding.FragmentHomeItemBinding
+import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeItemAdapter
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeItemViewModel
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionAdapter
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionViewModel
 
 class HomeItemFragment : Fragment() {
 
@@ -18,11 +17,16 @@ class HomeItemFragment : Fragment() {
     internal lateinit var binding: FragmentHomeItemBinding
 
     private val viewModel : HomeItemViewModel by activityViewModels()
+    private val viewModelFAB : AddDialogViewFab by activityViewModels()
+
+    lateinit var _addview : AddDialogViewFab
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModelFAB.setData("item")
         //init data binding in a fragment
         binding = FragmentHomeItemBinding.inflate(layoutInflater)
         //this value must be returned

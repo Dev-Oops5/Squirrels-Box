@@ -2,8 +2,6 @@ package com.miodemi.squirrelsbox
 
 
 import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MotionEvent
@@ -19,6 +17,7 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
+import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.components.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.section.AddSectionDialogFragment
@@ -29,8 +28,6 @@ import com.miodemi.squirrelsbox.profile.navigation.home.HomeSectionFragment
 import com.miodemi.squirrelsbox.profile.navigation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.navigation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.content_home.*
 
 
@@ -59,6 +56,7 @@ class HomeActivity : AppCompatActivity() {
     private var fabVisible = false
 
     private val viewModel: HomeViewModel by viewModels()
+    private val viewModelFAB: AddDialogViewFab by viewModels()
 
     private var our_request_code : Int = 123
 
@@ -188,19 +186,16 @@ class HomeActivity : AppCompatActivity() {
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
 
-            when (viewModel.id.value) {
-                null -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-                1 -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-                2 -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
-                3 -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
-            }
+  //          when {
+   //             homeBoxFragment-> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+ //               homeSectionFragment.allowEnterTransitionOverlap -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+//                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
 
-//            if (homeBoxFragment.isVisible)
-//                AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-//            else if (!homeSectionFragment.isVisible)
-//                AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
-//            else
-//                AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
+            when (viewModelFAB.data.value) {
+                "box" -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                "section" -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+                "item" -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
+            }
 
 
             closeMenuFAB()
