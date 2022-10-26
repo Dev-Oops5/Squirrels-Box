@@ -54,6 +54,7 @@ class HomeActivity : AppCompatActivity() {
     private var fabVisible = false
 
     private val viewModel: HomeViewModel by viewModels()
+    private val viewModelFAB: AddDialogViewFab by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,10 +153,10 @@ class HomeActivity : AppCompatActivity() {
  //               homeSectionFragment.allowEnterTransitionOverlap -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
 //                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
 
-            when {
-                homeBoxFragment.isVisible && homeBoxFragment._addview==AddDialogViewFab.BOX -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog"
-                homeSectionFragment.isVisible && homeSectionFragment._addview==AddDialogViewFab.SECTION -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog"
-                homeItemFragment.isVisible && homeItemFragment._addview==AddDialogViewFab.ITEM -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog"
+            when (viewModelFAB.data.value) {
+                "box" -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+                "section" -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+                "item" -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
             }
 
 

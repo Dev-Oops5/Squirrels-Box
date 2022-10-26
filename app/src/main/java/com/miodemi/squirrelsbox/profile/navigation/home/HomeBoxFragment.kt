@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
 import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
@@ -16,6 +17,8 @@ class HomeBoxFragment : Fragment() {
     //binding
     internal lateinit var binding: FragmentHomeBoxBinding
 
+    private val viewModelFAB : AddDialogViewFab by activityViewModels()
+
     private val viewModel: HomeBoxViewModel by lazy {
         ViewModelProvider(this)[HomeBoxViewModel::class.java]
     }
@@ -26,7 +29,7 @@ class HomeBoxFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _addview = AddDialogViewFab.BOX
+        viewModelFAB.setData("box")
         //init data binding in a fragment
         binding = FragmentHomeBoxBinding.inflate(layoutInflater)
         //this value must be returned

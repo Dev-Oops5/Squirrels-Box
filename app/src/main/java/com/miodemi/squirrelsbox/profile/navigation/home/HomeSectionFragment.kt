@@ -21,6 +21,7 @@ class HomeSectionFragment : Fragment() {
     internal lateinit var binding: FragmentHomeSectionBinding
 
     private val viewModel1 : HomeSectionViewModel by activityViewModels()
+    private val viewModelFAB : AddDialogViewFab by activityViewModels()
 
 //    private val viewModel1: HomeSectionViewModel by lazy {
 //        ViewModelProvider(this)[HomeSectionViewModel::class.java]
@@ -32,7 +33,7 @@ class HomeSectionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _addview = AddDialogViewFab.SECTION
+        viewModelFAB.setData("section")
         //init data binding in a fragment
         binding = FragmentHomeSectionBinding.inflate(layoutInflater)
         //this value must be returned

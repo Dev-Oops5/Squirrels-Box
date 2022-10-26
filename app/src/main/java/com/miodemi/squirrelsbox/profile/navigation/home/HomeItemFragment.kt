@@ -19,6 +19,7 @@ class HomeItemFragment : Fragment() {
     internal lateinit var binding: FragmentHomeItemBinding
 
     private val viewModel : HomeItemViewModel by activityViewModels()
+    private val viewModelFAB : AddDialogViewFab by activityViewModels()
 
     lateinit var _addview : AddDialogViewFab
 
@@ -27,8 +28,7 @@ class HomeItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _addview=AddDialogViewFab.ITEM
-
+        viewModelFAB.setData("item")
         //init data binding in a fragment
         binding = FragmentHomeItemBinding.inflate(layoutInflater)
         //this value must be returned
