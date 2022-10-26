@@ -1,12 +1,17 @@
 package com.miodemi.squirrelsbox
 
+
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -18,11 +23,13 @@ import com.miodemi.squirrelsbox.inventory.components.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.section.AddSectionDialogFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeBoxFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeItemFragment
+import com.miodemi.squirrelsbox.profile.navigation.home.HomeSearchFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeSectionFragment
 import com.miodemi.squirrelsbox.profile.navigation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.navigation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -35,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
     private val homeBoxFragment = HomeBoxFragment()
     private val homeSectionFragment = HomeSectionFragment()
     private val homeItemFragment = HomeItemFragment()
+    private val homeSearchFragment = HomeSearchFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
@@ -49,6 +57,8 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val viewModelFAB: AddDialogViewFab by viewModels()
+
+    private var our_request_code : Int = 123
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +114,40 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        //searchbar
+
+//        editComment.setOnTouchListener(OnTouchListener { v, event ->
+//            val DRAWABLE_LEFT = 0
+//            val DRAWABLE_TOP = 1
+//            val DRAWABLE_RIGHT = 2
+//            val DRAWABLE_BOTTOM = 3
+//            if (event.action == MotionEvent.ACTION_UP) {
+//                if (event.rawX >= editComment.getRight() - editComment.getCompoundDrawables()
+//                        .get(DRAWABLE_RIGHT).getBounds().width()
+//                ) {
+//                    // your action here
+//                    return@OnTouchListener true
+//                }
+//            }
+//            false
+//        })
+
+//        searchET.setOnTouchListener (OnTouchListener{ v, event ->
+//            val DRAWABLE_RIGHT = 2
+//
+//            if (event.action == MotionEvent.ACTION_DOWN) {
+//                if (event.x >= searchET.right - searchET.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
+//                ) {
+//                    // your action here
+////                    Toast.makeText(applicationContext, "Settings clicked..", Toast.LENGTH_SHORT).show()
+//                    takePhoto(this.view);
+//                    return@OnTouchListener true
+//                }
+//            }
+//            v?.onTouchEvent(event) ?: true
+//        })
+//
 
         // initializing fab
         menuFAB = menuFab
@@ -227,6 +271,27 @@ class HomeActivity : AppCompatActivity() {
             super.onBackPressed()
         } else {
             fragmentManager.popBackStack()
+        }
+    }
+
+    fun takePhoto(view: View) {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        if (intent.resolveActivity(packageManager) != null){
+            startActivityForResult(intent,our_request_code)
+        }
+
+    }
+
+    fun searchView(view: View) {
+        replaceFragment(homeSearchFragment)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==our_request_code && resultCode == RESULT_OK){
+
         }
     }
 }
