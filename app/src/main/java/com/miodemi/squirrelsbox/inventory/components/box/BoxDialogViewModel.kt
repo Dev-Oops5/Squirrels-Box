@@ -3,7 +3,6 @@ package com.miodemi.squirrelsbox.inventory.components.box
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
 
 class BoxDialogViewModel : ViewModel() {
 

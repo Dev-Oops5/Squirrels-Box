@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.miodemi.squirrelsbox.databinding.FragmentHomeItemBinding
-import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
+import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeItemAdapter
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeItemViewModel
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionAdapter
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionViewModel
 
 class HomeItemFragment : Fragment() {
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
-import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
+import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
 

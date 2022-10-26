@@ -6,12 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.databinding.FragmentHomeSectionBinding
-import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
-import com.miodemi.squirrelsbox.inventory.components.section.SectionDialogViewModel
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel
+import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionAdapter
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionViewModel
 
