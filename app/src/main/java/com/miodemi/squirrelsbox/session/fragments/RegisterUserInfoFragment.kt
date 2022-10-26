@@ -1,8 +1,7 @@
 package com.miodemi.squirrelsbox.session.fragments
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,11 +26,11 @@ class RegisterUserInfoFragment : Fragment() {
         ViewModelProvider(this)[RegisterViewModel::class.java]
     }
 
-    internal lateinit var username:String
-    internal lateinit var email:String
-    internal lateinit var birthday:String
-    internal lateinit var password:String
-    internal lateinit var rePassword:String
+    private lateinit var username:String
+    private lateinit var email:String
+    private lateinit var birthday:String
+    private lateinit var password:String
+    private lateinit var rePassword:String
     private lateinit var auth: FirebaseAuth
 
     //connected fragments
@@ -48,81 +47,67 @@ class RegisterUserInfoFragment : Fragment() {
 
         // Initialize Firebase Auth
         auth = Firebase.auth
-
         binding.registerContinueBtn.setOnClickListener { v: View ->
 
             if (validateForm()) {
-                viewModel.registerNewUser(username, email, birthday, password)
-                createUserFirebase(email, password)
+                viewModel.registerNewUser(username, email, birthday)
+                viewModel.register(email, password, this.activity)
 
                 val activity = v.context as AppCompatActivity
                 //declare instance you want to replace
                 activity.supportFragmentManager.beginTransaction()
                     .replace(R.id.registerFLy, userMobileFragment).addToBackStack(null)
                     .commit()
-
-            } else {
-                Toast.makeText(this.activity, "Complete empty spaces", Toast.LENGTH_SHORT).show()
             }
-
         }
 
         // Inflate the layout for this fragment
         return view
     }
 
-    //Create user in Firebase
-    private fun createUserFirebase(email:String, password:String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    Toast.makeText(this.activity, "Authentication successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Authentication failed.",Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
     private fun validateForm(): Boolean {
         var valid = true
 
         username = binding.usernameEt.text.toString()
-        if (TextUtils.isEmpty(username)) {
+        if (username.isNullOrEmpty()) {
             binding.usernameEt.error = "Required."
             valid = false
+            Toast.makeText(this.activity, "Username must not be empty", Toast.LENGTH_SHORT).show()
         } else {
             binding.usernameEt.error = null
         }
 
         email = binding.emailEt.text.toString()
-        if (TextUtils.isEmpty(email)) {
+        if (email.isNullOrEmpty()) {
             binding.emailEt.error = "Required."
             valid = false
+            Toast.makeText(this.activity, "Email must not be empty", Toast.LENGTH_SHORT).show()
         } else {
-            binding.emailEt.error = null
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                binding.emailEt.error = "Required."
+                valid = false
+                Toast.makeText(this.activity, "Email must be a valid email", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.emailEt.error = null
+            }
         }
 
         birthday = binding.birthdayEt.text.toString()
-        if (TextUtils.isEmpty(birthday)) {
-            binding.birthdayEt.error = "Required."
-            valid = false
-        } else {
-            binding.birthdayEt.error = null
-        }
 
         password = binding.passwordEt.text.toString()
-        if (TextUtils.isEmpty(password)) {
+        if (password.isNullOrEmpty()) {
             binding.passwordEt.error = "Required."
             valid = false
+            Toast.makeText(this.activity, "Password must not be empty", Toast.LENGTH_SHORT).show()
         } else {
             binding.passwordEt.error = null
         }
 
         rePassword = binding.rePasswordEt.text.toString()
-        if (TextUtils.isEmpty(rePassword)) {
+        if (rePassword.isNullOrEmpty()) {
             binding.rePasswordEt.error = "Required."
             valid = false
+            Toast.makeText(this.activity, "Confirm Password must not be empty", Toast.LENGTH_SHORT).show()
         } else {
             binding.rePasswordEt.error = null
         }
