@@ -1,12 +1,9 @@
 package com.miodemi.squirrelsbox.session.navigation
 
-import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
 import com.miodemi.squirrelsbox.session.data.UserData
 import java.util.*
@@ -15,7 +12,17 @@ import java.util.*
 class UserRepository {
 
     private val database = FirebaseDatabase.getInstance().getReference("users")
-    private lateinit var auth: FirebaseAuth
+    private var auth = FirebaseAuth.getInstance()
+    private val firebaseUserMutableLiveData: MutableLiveData<FirebaseUser>? = null
+    private val userLoggedMutableLiveData: MutableLiveData<Boolean>? = null
+
+    fun getFirebaseUserMutableLiveData(): MutableLiveData<FirebaseUser>? {
+        return firebaseUserMutableLiveData
+    }
+
+    fun getUserLoggedMutableLiveData(): MutableLiveData<Boolean>? {
+        return userLoggedMutableLiveData
+    }
 
 
     fun addNewUser(user:UserData) {
@@ -26,7 +33,6 @@ class UserRepository {
     }
 
     fun registerUser(email: String, password:String, context: FragmentActivity?) {
-        auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -45,6 +51,23 @@ class UserRepository {
                     }
                 }
             }
+    }
+
+    fun login(email: String, password: String, context: FragmentActivity?) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    firebaseUserMutableLiveData?.postValue(auth.currentUser)
+                    Toast.makeText(context, "Login successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    fun signOut() {
+        auth.signOut()
+        userLoggedMutableLiveData?.postValue(true)
     }
 
 }

@@ -26,6 +26,7 @@ class RegisterUserInfoFragment : Fragment() {
         ViewModelProvider(this)[RegisterViewModel::class.java]
     }
 
+    //TextBox
     private lateinit var username:String
     private lateinit var email:String
     private lateinit var birthday:String
