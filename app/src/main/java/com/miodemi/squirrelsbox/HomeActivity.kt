@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
+import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.components.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.section.AddSectionDialogFragment
@@ -146,19 +147,16 @@ class HomeActivity : AppCompatActivity() {
         addBoxFAB.setOnClickListener{
             // initializing fab dialogs
 
-            when (viewModel.id.value) {
-                null -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-                1 -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-                2 -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
-                3 -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
-            }
+  //          when {
+   //             homeBoxFragment-> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
+ //               homeSectionFragment.allowEnterTransitionOverlap -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
+//                sectionFragment.isVisible -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
 
-//            if (homeBoxFragment.isVisible)
-//                AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog")
-//            else if (!homeSectionFragment.isVisible)
-//                AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog")
-//            else
-//                AddItemDialogFragment().show(supportFragmentManager, "addItemDialog")
+            when {
+                homeBoxFragment.isVisible && homeBoxFragment._addview==AddDialogViewFab.BOX -> AddBoxDialogFragment().show(supportFragmentManager, "addBoxDialog"
+                homeSectionFragment.isVisible && homeSectionFragment._addview==AddDialogViewFab.SECTION -> AddSectionDialogFragment().show(supportFragmentManager, "addSectionDialog"
+                homeItemFragment.isVisible && homeItemFragment._addview==AddDialogViewFab.ITEM -> AddItemDialogFragment().show(supportFragmentManager, "addItemDialog"
+            }
 
 
             closeMenuFAB()

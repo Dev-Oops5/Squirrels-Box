@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
+import com.miodemi.squirrelsbox.inventory.components.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
 
@@ -19,10 +20,13 @@ class HomeBoxFragment : Fragment() {
         ViewModelProvider(this)[HomeBoxViewModel::class.java]
     }
 
+    lateinit var _addview : AddDialogViewFab
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _addview = AddDialogViewFab.BOX
         //init data binding in a fragment
         binding = FragmentHomeBoxBinding.inflate(layoutInflater)
         //this value must be returned
