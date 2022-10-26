@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.miodemi.squirrelsbox.HomeViewModel
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.inventory.data.BoxData
 import com.miodemi.squirrelsbox.databinding.ItemBoxBinding
@@ -54,11 +55,15 @@ class HomeBoxAdapter(
                 val homeSectionViewModel : HomeSectionViewModel by activity.viewModels()
                 val sectionDialogViewModel : SectionDialogViewModel by activity.viewModels()
 
-                homeSectionViewModel.setId(boxId)
+                homeSectionViewModel.setBoxId(boxId)
                 homeSectionViewModel.setName(boxName)
 
                 sectionDialogViewModel.setBoxId(boxId)
                 sectionDialogViewModel.setBoxName(boxName)
+
+                //Change
+                val homeViewModel : HomeViewModel by activity.viewModels()
+                homeViewModel.setId(2)
 
                 Toast.makeText(itemView.context, "You clicked on item # ${position + 1}", Toast.LENGTH_SHORT).show()
 

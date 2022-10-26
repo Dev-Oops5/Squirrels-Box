@@ -58,7 +58,7 @@
 
         <!--Item name-->
         <EditText
-            android:id="@+id/boxNameEt"
+            android:id="@+id/itemNameEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/itemNameTv"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/boxNameEt">
+            android:layout_below="@id/itemNameEt">
 
             <!--Color-->
             <TextView

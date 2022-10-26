@@ -19,7 +19,7 @@ class HomeSectionViewModel : ViewModel() {
     private val _sectionDataLiveData = MutableLiveData<List<SectionData>>()
     val sectionDataLiveData: LiveData<List<SectionData>> = _sectionDataLiveData
 
-    fun setId(currentId: String) {
+    fun setBoxId(currentId: String) {
         _id.value = currentId
     }
 

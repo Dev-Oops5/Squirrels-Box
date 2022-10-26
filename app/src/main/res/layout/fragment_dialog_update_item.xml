@@ -46,7 +46,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/deleteBoxIc"
+                android:id="@+id/deleteItemIc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -66,7 +66,7 @@
 
         <!--Item name-->
         <EditText
-            android:id="@+id/boxNameEt"
+            android:id="@+id/itemNameEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/itemNameTv"
@@ -76,7 +76,7 @@
             android:id="@+id/specsTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/boxNameEt"
+            android:layout_below="@id/itemNameEt"
             android:text="Starred Specs"
             android:textColor="@color/primary_orange_dark"
             android:textSize="20sp"
@@ -134,14 +134,14 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/updateBoxBtn"
+                android:id="@+id/updateItemBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="Update" />
 
             <Button
-                android:id="@+id/cancelBoxBtn"
+                android:id="@+id/cancelItemBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
