@@ -17,7 +17,6 @@ class UserRepository {
     private val database = FirebaseDatabase.getInstance().getReference("users")
     private lateinit var auth: FirebaseAuth
 
-
     fun addNewUser(user:UserData) {
         //val id = database.push().key!!
         val id = UUID.randomUUID().toString();

@@ -1,11 +1,13 @@
 package com.miodemi.squirrelsbox.session.fragments
 
+import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentRegisterUserInfoBinding
 import com.miodemi.squirrelsbox.profile.fragments.RegisterMobileFragment
+import com.miodemi.squirrelsbox.session.navigation.OpenHelper
 import com.miodemi.squirrelsbox.session.navigation.RegisterViewModel
 
 class RegisterUserInfoFragment : Fragment() {
@@ -22,7 +25,7 @@ class RegisterUserInfoFragment : Fragment() {
     //binding
     internal lateinit var binding: FragmentRegisterUserInfoBinding
 
-    private val viewModel: RegisterViewModel by lazy {
+        private val viewModel: RegisterViewModel by lazy {
         ViewModelProvider(this)[RegisterViewModel::class.java]
     }
 
@@ -32,6 +35,8 @@ class RegisterUserInfoFragment : Fragment() {
     private lateinit var password:String
     private lateinit var rePassword:String
     private lateinit var auth: FirebaseAuth
+
+    lateinit var dbHelper: OpenHelper
 
     //connected fragments
     private val userMobileFragment = RegisterMobileFragment()
@@ -52,6 +57,13 @@ class RegisterUserInfoFragment : Fragment() {
             if (validateForm()) {
                 viewModel.registerNewUser(username, email, birthday)
                 viewModel.register(email, password, this.activity)
+
+                dbHelper = OpenHelper(this.requireActivity())
+
+                dbHelper.nuevoUser(
+                    binding.usernameEt.text.toString(),
+                    binding.passwordEt.text.toString()
+                )
 
                 val activity = v.context as AppCompatActivity
                 //declare instance you want to replace

@@ -7,6 +7,7 @@ import com.miodemi.squirrelsbox.session.data.UserData
 class RegisterViewModel: ViewModel() {
     private val repository = UserRepository()
 
+
     fun register(email:String, password:String, context: FragmentActivity?) {
         repository.registerUser(email, password, context)
     }
