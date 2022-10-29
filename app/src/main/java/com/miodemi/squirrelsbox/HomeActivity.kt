@@ -3,6 +3,7 @@ package com.miodemi.squirrelsbox
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MotionEvent
@@ -22,6 +23,7 @@ import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.components.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.components.section.AddSectionDialogFragment
+import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSearchViewModel
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeBoxFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeItemFragment
 import com.miodemi.squirrelsbox.profile.navigation.home.HomeSearchFragment
@@ -58,6 +60,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val viewModelFAB: AddDialogViewFab by viewModels()
+    private val viewModelHomeSearch: HomeSearchViewModel by viewModels()
 
     private var our_request_code : Int = 123
 
@@ -117,38 +120,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         //searchbar
-
-//        editComment.setOnTouchListener(OnTouchListener { v, event ->
-//            val DRAWABLE_LEFT = 0
-//            val DRAWABLE_TOP = 1
-//            val DRAWABLE_RIGHT = 2
-//            val DRAWABLE_BOTTOM = 3
-//            if (event.action == MotionEvent.ACTION_UP) {
-//                if (event.rawX >= editComment.getRight() - editComment.getCompoundDrawables()
-//                        .get(DRAWABLE_RIGHT).getBounds().width()
-//                ) {
-//                    // your action here
-//                    return@OnTouchListener true
-//                }
-//            }
-//            false
-//        })
-
-//        searchET.setOnTouchListener (OnTouchListener{ v, event ->
-//            val DRAWABLE_RIGHT = 2
-//
-//            if (event.action == MotionEvent.ACTION_DOWN) {
-//                if (event.x >= searchET.right - searchET.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
-//                ) {
-//                    // your action here
-////                    Toast.makeText(applicationContext, "Settings clicked..", Toast.LENGTH_SHORT).show()
-//                    takePhoto(this.view);
-//                    return@OnTouchListener true
-//                }
-//            }
-//            v?.onTouchEvent(event) ?: true
-//        })
-//
+        searchBarBtn.setOnClickListener {
+            titleLy.isGone = true
+            replaceFragment(homeSearchFragment)
+        }
 
         // initializing fab
         menuFAB = menuFab
@@ -284,15 +259,13 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun searchView(view: View) {
-        replaceFragment(homeSearchFragment)
-
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==our_request_code && resultCode == RESULT_OK){
-
+            titleLy.isGone = true
+            replaceFragment(homeSearchFragment)
+            val bitmap = data?.extras?.get("data") as Bitmap
+            viewModelHomeSearch.setData(bitmap)
         }
     }
 }
