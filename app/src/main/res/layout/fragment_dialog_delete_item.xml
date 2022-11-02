@@ -32,7 +32,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/sectionTv"
+                android:id="@+id/itemTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -65,7 +65,7 @@
             <!--Create Box Button-->
 
             <Button
-                android:id="@+id/updateBoxBtn"
+                android:id="@+id/deleteItemBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"

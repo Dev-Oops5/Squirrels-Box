@@ -6,11 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.miodemi.squirrelsbox.databinding.FragmentHomeSectionBinding
-import com.miodemi.squirrelsbox.inventory.components.section.SectionDialogViewModel
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel
+import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionAdapter
 import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionViewModel
 
@@ -20,15 +17,19 @@ class HomeSectionFragment : Fragment() {
     internal lateinit var binding: FragmentHomeSectionBinding
 
     private val viewModel1 : HomeSectionViewModel by activityViewModels()
+    private val viewModelFAB : AddDialogViewFab by activityViewModels()
 
 //    private val viewModel1: HomeSectionViewModel by lazy {
 //        ViewModelProvider(this)[HomeSectionViewModel::class.java]
 //    }
+    lateinit var _addview : AddDialogViewFab
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModelFAB.setData("section")
         //init data binding in a fragment
         binding = FragmentHomeSectionBinding.inflate(layoutInflater)
         //this value must be returned
