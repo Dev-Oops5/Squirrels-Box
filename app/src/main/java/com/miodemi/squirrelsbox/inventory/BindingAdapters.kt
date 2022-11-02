@@ -2,12 +2,12 @@ package com.miodemi.squirrelsbox.inventory
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.miodemi.squirrelsbox.inventory.data.BoxData
-import com.miodemi.squirrelsbox.inventory.data.ItemData
-import com.miodemi.squirrelsbox.inventory.data.SectionData
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxAdapter
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeItemAdapter
-import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionAdapter
+import com.miodemi.squirrelsbox.inventory.domain.BoxData
+import com.miodemi.squirrelsbox.inventory.domain.ItemData
+import com.miodemi.squirrelsbox.inventory.domain.SectionData
+import com.miodemi.squirrelsbox.inventory.presentation.box.HomeBoxAdapter
+import com.miodemi.squirrelsbox.inventory.presentation.item.HomeItemAdapter
+import com.miodemi.squirrelsbox.inventory.presentation.section.HomeSectionAdapter
 
 // region RecyclerView
 @BindingAdapter("setHomeBoxItems")

@@ -3,16 +3,13 @@ package com.miodemi.squirrelsbox
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.miodemi.squirrelsbox.databinding.ActivityMainBinding
-import com.miodemi.squirrelsbox.profile.data.State
-import com.miodemi.squirrelsbox.session.navigation.RegisterViewModel
+import com.miodemi.squirrelsbox.session.domain.State
+import com.miodemi.squirrelsbox.session.application.RegisterViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,18 +55,10 @@ class MainActivity : AppCompatActivity() {
                             is State.Failed -> {
                                 Toast.makeText(this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
                             }
+                            else -> {"FixThis"}
                         }
                     }
                 }
-
-                /*viewModel.login(username, password)
-
-                auth = Firebase.auth
-                if (auth.currentUser?.email == username) {
-                        val intent = Intent(this, HomeActivity::class.java)
-                    // start your next activity
-                    startActivity(intent)
-                }*/
             }
 
         }

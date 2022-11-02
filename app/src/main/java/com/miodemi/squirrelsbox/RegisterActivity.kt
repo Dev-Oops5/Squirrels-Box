@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.miodemi.squirrelsbox.databinding.ActivityRegisterBinding
-import com.miodemi.squirrelsbox.session.fragments.RegisterUserInfoFragment
+import com.miodemi.squirrelsbox.session.presentation.RegisterUserInfoFragment
 
 class RegisterActivity : AppCompatActivity() {
 
