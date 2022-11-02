@@ -3,8 +3,15 @@ package com.miodemi.squirrelsbox
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.miodemi.squirrelsbox.databinding.ActivityMainBinding
+import com.miodemi.squirrelsbox.profile.data.State
 import com.miodemi.squirrelsbox.session.navigation.RegisterViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var username:String
     private lateinit var password:String
 
+    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +37,41 @@ class MainActivity : AppCompatActivity() {
 
         binding.logInBTN.setOnClickListener {
 
-            username = binding.usernameET.text.toString()
-            password = binding.passwordET.text.toString()
+            if (validateForm()) {
+                username = binding.usernameET.text.toString()
+                password = binding.passwordET.text.toString()
 
-            viewModel.login(username, password, this)
+                // Watching for signUp result
+                lifecycleScope.launchWhenStarted {
+                    viewModel.login(username, password).collect {
+                        when (it) {
+                            //is State.Loading -> TODO()
 
-            val intent = Intent(this, HomeActivity::class.java)
-            // start your next activity
-            startActivity(intent)
+                            is State.Success -> {
+                                Toast.makeText(this@MainActivity, it.data.toString(), Toast.LENGTH_SHORT).show()
+
+                                val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                                // start your next activity
+                                startActivity(intent)
+                            }
+
+                            is State.Failed -> {
+                                Toast.makeText(this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+
+                /*viewModel.login(username, password)
+
+                auth = Firebase.auth
+                if (auth.currentUser?.email == username) {
+                        val intent = Intent(this, HomeActivity::class.java)
+                    // start your next activity
+                    startActivity(intent)
+                }*/
+            }
+
         }
 
         binding.linkNotAccTV.setOnClickListener {
@@ -43,5 +79,29 @@ class MainActivity : AppCompatActivity() {
             // start your next activity
             startActivity(intent)
         }
+    }
+
+    private fun validateForm(): Boolean {
+        var valid = true
+
+        username = binding.usernameET.text.toString()
+        if (username.isNullOrEmpty()) {
+            binding.usernameET.error = "Required."
+            valid = false
+            Toast.makeText(this, "Username must not be empty", Toast.LENGTH_SHORT).show()
+        } else {
+            binding.usernameET.error = null
+        }
+
+        password = binding.passwordET.text.toString()
+        if (password.isNullOrEmpty()) {
+            binding.passwordET.error = "Required."
+            valid = false
+            Toast.makeText(this, "Password must not be empty", Toast.LENGTH_SHORT).show()
+        } else {
+            binding.passwordET.error = null
+        }
+
+        return valid
     }
 }

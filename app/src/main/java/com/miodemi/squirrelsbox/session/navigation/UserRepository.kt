@@ -1,12 +1,16 @@
 package com.miodemi.squirrelsbox.session.navigation
 
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import com.miodemi.squirrelsbox.profile.data.State
 import com.miodemi.squirrelsbox.session.data.UserData
 import java.util.*
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 
 
 class UserRepository {
@@ -24,46 +28,56 @@ class UserRepository {
         return userLoggedMutableLiveData
     }
 
+    fun signUp(username:String, email: String, password: String, birthday:String): Flow<State<Any>> = flow<State<Any>> {
+        emit(State.loading())
+        val auth = Firebase.auth
+        val data = auth.createUserWithEmailAndPassword(email, password).await()
 
-    fun addNewUser(user:UserData) {
+        data.user?.let {
+            val userData = UserData(null, username, email, birthday)
+            addNewUser(userData)
+
+            emit(State.success("User registered successfully"))
+        }
+    }.catch { e ->
+        val error: String =
+        when (e) {
+            is FirebaseAuthWeakPasswordException -> "Authentication failed, Password should be at least 6 characters"
+            is FirebaseAuthInvalidCredentialsException -> "Authentication failed, Invalid email entered"
+            is FirebaseAuthUserCollisionException -> "Authentication failed, Email already registered"
+
+            else -> e.message.toString()
+        }
+
+        emit(State.failed(error))
+        //emit(State.failed(it.message!!))
+    }.flowOn(Dispatchers.IO)
+
+    private fun addNewUser(user:UserData) {
         //val id = database.push().key!!
         val id = UUID.randomUUID().toString();
         user.id = id
         database.child(id).setValue(user)
     }
 
-    fun registerUser(email: String, password:String, context: FragmentActivity?) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Toast.makeText(context, "User registered successfully", Toast.LENGTH_SHORT).show()
-                } else{
-                    try {
-                        throw it.exception ?: java.lang.Exception("Invalid authentication")
-                    } catch (e: FirebaseAuthWeakPasswordException) {
-                        Toast.makeText(context, "Authentication failed, Password should be at least 6 characters", Toast.LENGTH_SHORT).show()
-                    } catch (e: FirebaseAuthInvalidCredentialsException) {
-                        Toast.makeText(context, "Authentication failed, Invalid email entered", Toast.LENGTH_SHORT).show()
-                    } catch (e: FirebaseAuthUserCollisionException) {
-                        Toast.makeText(context, "Authentication failed, Email already registered", Toast.LENGTH_SHORT).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-    }
 
-    fun login(email: String, password: String, context: FragmentActivity?) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    firebaseUserMutableLiveData?.postValue(auth.currentUser)
-                    Toast.makeText(context, "Login successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
+    fun login(email: String, password: String): Flow<State<Any>> = flow<State<Any>> {
+        emit(State.loading())
+        auth.signInWithEmailAndPassword(email, password).await()
+        emit(State.success("Login successfully"))
+    }.catch {
+        emit(State.failed(it.message!!))
+    }.flowOn(Dispatchers.IO)
+
+
+    fun forgotPassword(email: String): Flow<State<Any>> = flow<State<Any>> {
+        emit(State.loading())
+        auth.sendPasswordResetEmail(email).await()
+        emit(State.success("Password reset email sent."))
+    }.catch {
+        emit(State.failed(it.message!!))
+    }.flowOn(Dispatchers.IO)
+
 
     fun signOut() {
         auth.signOut()

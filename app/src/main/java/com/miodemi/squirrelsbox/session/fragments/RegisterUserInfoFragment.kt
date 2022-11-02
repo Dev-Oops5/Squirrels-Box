@@ -8,12 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.common.api.internal.LifecycleFragment
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentRegisterUserInfoBinding
+import com.miodemi.squirrelsbox.profile.data.State
 import com.miodemi.squirrelsbox.profile.fragments.RegisterMobileFragment
 import com.miodemi.squirrelsbox.session.navigation.RegisterViewModel
 
@@ -47,18 +54,35 @@ class RegisterUserInfoFragment : Fragment() {
         val view : View = binding.root
 
         // Initialize Firebase Auth
-        auth = Firebase.auth
+        auth = FirebaseAuth.getInstance()
         binding.registerContinueBtn.setOnClickListener { v: View ->
 
-            if (validateForm()) {
-                viewModel.registerNewUser(username, email, birthday)
-                viewModel.register(email, password, this.activity)
 
-                val activity = v.context as AppCompatActivity
-                //declare instance you want to replace
-                activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.registerFLy, userMobileFragment).addToBackStack(null)
-                    .commit()
+            if (validateForm()) {
+
+                // Watching for signUp result
+                lifecycleScope.launchWhenStarted {
+                    viewModel.signUp(username, email, password, birthday).collect {
+                        when (it) {
+                            //is State.Loading -> TODO()
+
+                            is State.Success -> {
+                                Toast.makeText(this@RegisterUserInfoFragment.activity, it.data.toString(), Toast.LENGTH_SHORT).show()
+
+                                val activity = v.context as AppCompatActivity
+                                //declare instance you want to replace
+                                activity.supportFragmentManager.beginTransaction()
+                                    .replace(R.id.registerFLy, userMobileFragment).addToBackStack(null)
+                                    .commit()
+                            }
+
+                            is State.Failed -> {
+                                Toast.makeText(this@RegisterUserInfoFragment.activity, it.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
