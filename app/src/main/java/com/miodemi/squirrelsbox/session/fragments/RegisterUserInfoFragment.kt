@@ -57,7 +57,6 @@ class RegisterUserInfoFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         binding.registerContinueBtn.setOnClickListener { v: View ->
 
-
             if (validateForm()) {
 
                 // Watching for signUp result
@@ -79,6 +78,7 @@ class RegisterUserInfoFragment : Fragment() {
                             is State.Failed -> {
                                 Toast.makeText(this@RegisterUserInfoFragment.activity, it.message, Toast.LENGTH_SHORT).show()
                             }
+                            else -> "FixThis x2"
                         }
                     }
                 }
