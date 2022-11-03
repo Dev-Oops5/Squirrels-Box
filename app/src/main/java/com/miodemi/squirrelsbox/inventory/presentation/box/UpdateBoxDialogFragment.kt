@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.miodemi.squirrelsbox.databinding.FragmentDialogUpdateBoxBinding
 import com.miodemi.squirrelsbox.inventory.application.box.BoxDialogViewModel
 
@@ -44,6 +46,13 @@ class UpdateBoxDialogFragment : DialogFragment() {
 
         binding.cancelBoxBtn.setOnClickListener {
             dialog?.dismiss()
+        }
+
+        binding.shareBoxTv.setOnClickListener{
+            lifecycleScope.launchWhenStarted {
+                this@UpdateBoxDialogFragment.context?.let { it1 -> viewModel.downloadBox(it1) }
+                Toast.makeText(this@UpdateBoxDialogFragment.activity, viewModel.result.value, Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Inflate the layout for this fragment

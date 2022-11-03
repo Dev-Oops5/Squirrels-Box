@@ -1,9 +1,14 @@
 package com.miodemi.squirrelsbox.inventory.application.box
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.miodemi.squirrelsbox.inventory.domain.BoxData
 import com.miodemi.squirrelsbox.inventory.infrastructure.BoxDialogRepository
+import com.miodemi.squirrelsbox.inventory.infrastructure.BoxOpenHelper
+import com.miodemi.squirrelsbox.session.domain.State
+import kotlinx.coroutines.flow.collect
 
 class BoxDialogViewModel : ViewModel() {
 
@@ -13,6 +18,10 @@ class BoxDialogViewModel : ViewModel() {
 //        data.value = newData
 //    }
     private val boxRepository = BoxDialogRepository()
+    lateinit var boxDbHelper: BoxOpenHelper
+
+    private val _result = MutableLiveData<String>()
+    val result: LiveData<String> = _result
 
     private val _id = MutableLiveData<String>()
     val id: LiveData<String> = _id
@@ -22,6 +31,10 @@ class BoxDialogViewModel : ViewModel() {
 
     private val _date = MutableLiveData<String>()
     val date: LiveData<String> = _date
+
+    fun setResult(currentResult: String) {
+        _result.value = currentResult
+    }
 
     fun setId(currentId: String) {
         _id.value = currentId
@@ -47,4 +60,27 @@ class BoxDialogViewModel : ViewModel() {
     fun deleteData(){
         _id.value?.let { boxRepository.deleteData(it) }
     }
+
+    suspend fun downloadBox(context: Context) {
+
+        _id.value?.let {
+
+            boxDbHelper = BoxOpenHelper(context)
+
+            boxRepository.getBoxById(it).collect() { state ->
+                when (state) {
+                    is State.Loading -> {
+                        setResult("Downloading")
+                    }
+                    is State.Success -> {
+                        boxDbHelper.newBox(state.data as BoxData)
+                    }
+                    is State.Failed -> {
+                        setResult(state.message)
+                    }
+                }
+            }
+        }
+    }
+
 }
