@@ -55,7 +55,11 @@ class MainActivity : AppCompatActivity() {
                             is State.Failed -> {
                                 Toast.makeText(this@MainActivity, it.message, Toast.LENGTH_SHORT).show()
                             }
+<<<<<<< HEAD
                             else -> {"FixThis"}
+=======
+                            else -> "FixThis"
+>>>>>>> develop
                         }
                     }
                 }
