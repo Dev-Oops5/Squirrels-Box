@@ -34,7 +34,7 @@ class ItemDialogRepository {
         val currentDate = sdf.format(Date())
 
         val itemData = ItemData(id, name, currentDate, color, description, amount, picture, favourite, boxId, sectionId)
-        database.child(id).setValue(itemData)
+        database.child(name).setValue(itemData)
     }
 
     fun updateFastData(boxId: String, sectionId: String , itemId: String, name: String, color: String,

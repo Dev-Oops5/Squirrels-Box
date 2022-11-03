@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
@@ -27,6 +29,9 @@ import kotlinx.android.synthetic.main.fragment_home_search.*
 import java.io.ByteArrayOutputStream
 
 class HomeSearchFragment : Fragment() {
+
+    //Database
+    private lateinit var database  : DatabaseReference
 
     //binding
     internal lateinit var binding: FragmentHomeSearchBinding
@@ -57,6 +62,17 @@ class HomeSearchFragment : Fragment() {
             labelImage(bitmap2)
         }
 
+        //Search Button
+        binding.searchbtn.setOnClickListener {
+            val name : String = binding.etsearch.text.toString()
+            if(name.isNotEmpty()){
+                readData(name)
+            }else{
+                Toast.makeText(requireContext(), "Please enter a valid ID", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
         imageLabeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
 //        val imageLabelerOptions = ImageLabelerOptions.Builder()
@@ -75,6 +91,25 @@ class HomeSearchFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return  view
+    }
+
+    private fun readData(name: String) {
+        database = FirebaseDatabase.getInstance().getReference("boxes")
+        database.child(name).get().addOnSuccessListener {
+            if(it.exists()){
+                val boxName = it.child("name").value
+                val boxId = it.child("id").value
+                Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
+                binding.etsearch.text.clear()
+                binding.tvBoxName.text = boxName.toString()
+                binding.tvBoxId.text = boxId.toString()
+            }else{
+                Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnCanceledListener {
+            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun labelImage(bitmap: Bitmap){

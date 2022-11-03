@@ -28,12 +28,12 @@ class BoxDialogRepository {
         val currentDate = sdf.format(Date())
 
         val boxData = BoxData(id, name, currentDate, boxType, privateLink, download, favourite)
-        database.child(id).setValue(boxData)
+        database.child(name).setValue(boxData)
     }
 
     fun updateData(boxId: String, boxName: String) {
 
-        database = FirebaseDatabase.getInstance().getReference("boxes")
+        database = FirebaseDatabase.getInstance().getReference("boxes").child(boxId)
         val box = mapOf<String,String>(
             "name" to boxName
         )
