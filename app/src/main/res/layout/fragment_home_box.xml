@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.navigation.home.HomeBoxFragment"
+        tools:context=".profile.presentation.home.HomeBoxFragment"
         android:padding="20dp">
 
         <LinearLayout
@@ -78,6 +78,6 @@
     <data>
         <variable
             name="viewModel"
-            type="com.miodemi.squirrelsbox.inventory.navigation.home.HomeBoxViewModel" />
+            type="com.miodemi.squirrelsbox.inventory.application.box.HomeBoxViewModel" />
     </data>
 </layout>

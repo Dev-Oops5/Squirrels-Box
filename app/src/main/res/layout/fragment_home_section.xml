@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.navigation.home.HomeSectionFragment"
+        tools:context=".profile.presentation.home.HomeSectionFragment"
         android:padding="20dp">
 
         <LinearLayout
@@ -49,7 +49,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.miodemi.squirrelsbox.inventory.navigation.home.HomeSectionViewModel" />
+            type="com.miodemi.squirrelsbox.inventory.application.section.HomeSectionViewModel" />
     </data>
 
 </layout>
