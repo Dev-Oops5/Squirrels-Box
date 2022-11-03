@@ -71,11 +71,7 @@ class RegisterUserInfoFragment : Fragment() {
                             is State.Failed -> {
                                 Toast.makeText(this@RegisterUserInfoFragment.activity, it.message, Toast.LENGTH_SHORT).show()
                             }
-<<<<<<< HEAD:app/src/main/java/com/miodemi/squirrelsbox/session/presentation/RegisterUserInfoFragment.kt
                             else -> {"FixThis"}
-=======
-                            else -> "FixThis x2"
->>>>>>> develop:app/src/main/java/com/miodemi/squirrelsbox/session/fragments/RegisterUserInfoFragment.kt
                         }
                     }
                 }
