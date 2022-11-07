@@ -7,6 +7,13 @@ import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.miodemi.squirrelsbox.inventory.domain.ItemData
+import com.miodemi.squirrelsbox.session.domain.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 class ItemDialogRepository {
@@ -91,5 +98,22 @@ class ItemDialogRepository {
                 Log.i("RemoveSection", "Not done yet :(")
             }
     }
+
+    fun getItemsByBoxIdAndSectionId(boxId: String, sectionId: String): Flow<State<Any>> = flow<State<Any>> {
+        emit(State.loading())
+
+        val items = FirebaseDatabase.getInstance().getReference("boxes").child(boxId)
+            .child("sections").child(sectionId).child("items").get().await()
+
+        items?.let {
+            val data: MutableList<ItemData?> = ArrayList()
+            for (ds in items.children) {
+                data.add(ds.getValue(ItemData::class.java))
+            }
+            emit(State.success(data))
+        }
+    }.catch {
+        emit(State.failed(it.message!!))
+    }.flowOn(Dispatchers.IO)
 
 }

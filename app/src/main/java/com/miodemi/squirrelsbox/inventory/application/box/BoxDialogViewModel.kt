@@ -5,8 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
+import com.miodemi.squirrelsbox.inventory.domain.ItemData
+import com.miodemi.squirrelsbox.inventory.domain.SectionData
 import com.miodemi.squirrelsbox.inventory.infrastructure.BoxDialogRepository
 import com.miodemi.squirrelsbox.inventory.infrastructure.BoxOpenHelper
+import com.miodemi.squirrelsbox.inventory.infrastructure.ItemDialogRepository
+import com.miodemi.squirrelsbox.inventory.infrastructure.SectionDialogRepository
 import com.miodemi.squirrelsbox.session.domain.State
 import kotlinx.coroutines.flow.collect
 
@@ -18,6 +22,8 @@ class BoxDialogViewModel : ViewModel() {
 //        data.value = newData
 //    }
     private val boxRepository = BoxDialogRepository()
+    private val sectionRepository = SectionDialogRepository()
+    private val itemRepository = ItemDialogRepository()
     lateinit var boxDbHelper: BoxOpenHelper
 
     private val _result = MutableLiveData<String>()
@@ -73,7 +79,46 @@ class BoxDialogViewModel : ViewModel() {
                         setResult("Downloading")
                     }
                     is State.Success -> {
-                        boxDbHelper.newBox(state.data as BoxData)
+                        boxDbHelper.addBox(state.data as BoxData)
+
+                        //Download sections
+                        sectionRepository.getSectionsByBoxId(it).collect() { sectionState ->
+                            when (sectionState) {
+                                is State.Loading -> {
+                                    setResult("Downloading")
+                                }
+                                is State.Success -> {
+
+                                    for (section in sectionState.data as List<SectionData>) {
+                                        boxDbHelper.addSection(section)
+
+
+                                        //Download items
+                                        itemRepository.getItemsByBoxIdAndSectionId(section.boxId!!, section.id!!).collect() { itemState ->
+                                            when (itemState) {
+
+                                                is State.Loading -> {
+                                                    setResult("Downloading")
+                                                }
+                                                is State.Success -> {
+                                                    for (item in itemState.data as List<*>) {
+                                                        boxDbHelper.addItem(item as ItemData)
+                                                    }
+                                                }
+                                                is State.Failed -> {
+                                                    //setResult(itemState.message)
+                                                    setResult("item")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                is State.Failed -> {
+                                    setResult(sectionState.message)
+                                    //setResult("section")
+                                }
+                            }
+                        }
                     }
                     is State.Failed -> {
                         setResult(state.message)

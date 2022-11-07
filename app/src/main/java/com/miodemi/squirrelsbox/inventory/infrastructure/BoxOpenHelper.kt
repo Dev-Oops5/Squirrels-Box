@@ -5,14 +5,26 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
+import com.miodemi.squirrelsbox.inventory.domain.ItemData
+import com.miodemi.squirrelsbox.inventory.domain.SectionData
 
 class BoxOpenHelper(context: Context): SQLiteOpenHelper(
     context, "boxes.db", null, 1
 ) {
     override fun onCreate(p0: SQLiteDatabase?) {
-        val query = "create table boxes(_ID integer primary key autoincrement," +
-                "name text, dateCreated text, boxType boolean, privateLink text, download boolean, favourite boolean)"
-        p0!!.execSQL(query)
+        val boxQuery = "CREATE TABLE boxes(Id TEXT," +
+                "name TEXT, dateCreated TEXT, boxType BOOLEAN, privateLink TEXT, download BOOLEAN, favourite BOOLEAN)"
+
+        val sectionQuery = "CREATE TABLE sections(Id TEXT," +
+                "name TEXT, dateCreated TEXT, color TEXT, favourite BOOLEAN, box INTEGER, FOREIGN KEY (box) REFERENCES boxes(Id))"
+
+        val itemQuery = "CREATE TABLE items(Id TEXT," +
+                "name TEXT, dateCreated TEXT, color TEXT, description TEXT, amount INTEGER, picture TEXT, favourite BOOLEAN," +
+                "box INTEGER, section INTEGER, FOREIGN KEY (box) REFERENCES boxes(Id), FOREIGN KEY (section) REFERENCES sections(Id))"
+
+        p0!!.execSQL(boxQuery)
+        p0!!.execSQL(sectionQuery)
+        p0!!.execSQL(itemQuery)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -21,8 +33,9 @@ class BoxOpenHelper(context: Context): SQLiteOpenHelper(
         onCreate(p0)
     }
 
-    fun newBox(b:BoxData){
+    fun addBox(b:BoxData){
         val data = ContentValues()
+        data.put("id", b.id)
         data.put("name", b.name)
         data.put("dateCreated", b.dateCreated)
         data.put("boxType", b.boxType)
@@ -30,5 +43,31 @@ class BoxOpenHelper(context: Context): SQLiteOpenHelper(
         data.put("download", b.download)
         data.put("favourite", b.favourite)
         val db = this.writableDatabase.insert("boxes", null, data)
+    }
+
+    fun addSection(s:SectionData){
+        val data = ContentValues()
+        data.put("id", s.id)
+        data.put("name", s.name)
+        data.put("dateCreated", s.dateCreated)
+        data.put("color", s.color)
+        data.put("favourite", s.favourite)
+        data.put("box", s.boxId)
+        val db = this.writableDatabase.insert("sections", null, data)
+    }
+
+    fun addItem(i:ItemData){
+        val data = ContentValues()
+        data.put("id", i.id)
+        data.put("name", i.name)
+        data.put("dateCreated", i.dateCreated)
+        data.put("color", i.color)
+        data.put("color", i.description)
+        data.put("color", i.amount)
+        data.put("color", i.picture)
+        data.put("favourite", i.favourite)
+        data.put("box", i.boxId)
+        data.put("box", i.sectionId)
+        val db = this.writableDatabase.insert("items", null, data)
     }
 }

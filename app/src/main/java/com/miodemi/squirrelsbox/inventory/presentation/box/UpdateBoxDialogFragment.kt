@@ -51,7 +51,7 @@ class UpdateBoxDialogFragment : DialogFragment() {
         binding.shareBoxTv.setOnClickListener{
             lifecycleScope.launchWhenStarted {
                 this@UpdateBoxDialogFragment.context?.let { it1 -> viewModel.downloadBox(it1) }
-                Toast.makeText(this@UpdateBoxDialogFragment.activity, viewModel.result.value, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@UpdateBoxDialogFragment.activity, viewModel.result.value, Toast.LENGTH_LONG).show()
             }
         }
 
