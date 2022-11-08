@@ -18,19 +18,19 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
-import com.miodemi.squirrelsbox.databinding.FragmentHomeSearchBinding
-import java.io.ByteArrayOutputStream
+import com.miodemi.squirrelsbox.databinding.FragmentSearchBinding
+import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
 import com.miodemi.squirrelsbox.inventory.application.item.ItemDialogViewModel
 import com.miodemi.squirrelsbox.inventory.application.section.SectionDialogViewModel
-import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
+import java.io.ByteArrayOutputStream
 
-class HomeSearchFragment : Fragment() {
+class SearchFragment : Fragment() {
 
     //Database
     private lateinit var database  : DatabaseReference
 
     //binding
-    internal lateinit var binding: FragmentHomeSearchBinding
+    lateinit var binding: FragmentSearchBinding
 
     private val viewModel : HomeSearchViewModel by activityViewModels()
     private val viewModel1 : SectionDialogViewModel by activityViewModels()
@@ -45,7 +45,7 @@ class HomeSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //init data binding in a fragment
-        binding = FragmentHomeSearchBinding.inflate(layoutInflater)
+        binding = FragmentSearchBinding.inflate(layoutInflater)
         //this value must be returned
         val view : View = binding.root
 
@@ -59,8 +59,6 @@ class HomeSearchFragment : Fragment() {
 
             labelImage(bitmap2)
         }
-
-
 
         //Search Button
         binding.searchitm.setOnClickListener {

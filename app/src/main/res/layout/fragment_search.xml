@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".inventory.presentation.HomeSearchFragment"
+    tools:context=".inventory.presentation.SearchFragment"
     android:background="@color/primary_white"
     android:orientation="vertical">
 

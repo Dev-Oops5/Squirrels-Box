@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
 import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
+import com.miodemi.squirrelsbox.inventory.presentation.SearchFragment
 import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.item.AddItemDialogFragment
@@ -42,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
     private val homeBoxFragment = HomeBoxFragment()
     private val homeSectionFragment = HomeSectionFragment()
     private val homeItemFragment = HomeItemFragment()
-    private val homeSearchFragment = HomeSearchFragment()
+    private val homeSearchFragment = SearchFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
