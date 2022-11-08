@@ -27,7 +27,7 @@ class SectionDialogRepository {
         val currentDate = sdf.format(Date())
 
         val sectionData = SectionData(id, name, currentDate, color, favourite,boxId)
-        database.child(id).setValue(sectionData)
+        database.child(name).setValue(sectionData)
     }
 
     fun updateData(boxId: String, sectionId: String, sectionName: String, color : String) {
