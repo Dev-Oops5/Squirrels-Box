@@ -24,7 +24,6 @@ import com.miodemi.squirrelsbox.inventory.presentation.item.AddItemDialogFragmen
 import com.miodemi.squirrelsbox.inventory.presentation.section.AddSectionDialogFragment
 import com.miodemi.squirrelsbox.profile.presentation.home.HomeBoxFragment
 import com.miodemi.squirrelsbox.profile.presentation.home.HomeItemFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeSearchFragment
 import com.miodemi.squirrelsbox.profile.presentation.home.HomeSectionFragment
 import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment
