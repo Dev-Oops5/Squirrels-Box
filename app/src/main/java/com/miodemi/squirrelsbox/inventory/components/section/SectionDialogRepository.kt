@@ -16,7 +16,7 @@ class SectionDialogRepository {
 
     fun storeData(boxId: String, name: String, color: String, favourite: Boolean) {
 
-        database = FirebaseDatabase.getInstance().getReference("boxes").child(boxId).child("sections")
+        database = FirebaseDatabase.getInstance().getReference("sections")
 
         val id = UUID.randomUUID().toString();
 

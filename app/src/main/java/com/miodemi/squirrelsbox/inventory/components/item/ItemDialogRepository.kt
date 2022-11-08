@@ -20,9 +20,7 @@ class ItemDialogRepository {
                   description: String, amount: Int, picture: String,
                   favourite: Boolean) {
 
-        database = FirebaseDatabase.getInstance().getReference("boxes")
-            .child(boxId).child("sections")
-            .child(sectionId).child("items")
+        database = FirebaseDatabase.getInstance().getReference("items")
 
         val id = UUID.randomUUID().toString();
 

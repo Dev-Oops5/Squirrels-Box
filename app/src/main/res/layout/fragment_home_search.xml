@@ -21,9 +21,22 @@
     <Button
         android:layout_width="360dp"
         android:layout_height="60dp"
-        android:id="@+id/searchbtn"
+        android:id="@+id/searchbx"
         android:layout_gravity="center_horizontal"
         android:text = "SEARCH BOX"/>
+    <Button
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:id="@+id/searchbsx"
+        android:layout_gravity="center_horizontal"
+        android:text = "SEARCH SECTION"/>
+    <Button
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:id="@+id/searchitm"
+        android:layout_gravity="center_horizontal"
+        android:text = "SEARCH ITEM"/>
+
 
     <ImageView
         android:id="@+id/image"
@@ -73,6 +86,30 @@
 
         <TextView
             android:id="@+id/tvBoxId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/black"
+            android:layout_marginStart="5dp"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""

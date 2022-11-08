@@ -16,6 +16,10 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+
+import com.miodemi.squirrelsbox.inventory.data.BoxData
+import com.miodemi.squirrelsbox.inventory.data.ItemData
+import com.miodemi.squirrelsbox.inventory.data.SectionData
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
@@ -27,6 +31,9 @@ import com.miodemi.squirrelsbox.inventory.navigation.home.HomeSearchViewModel
 import com.miodemi.squirrelsbox.profile.navigation.AddDialogViewFab
 import kotlinx.android.synthetic.main.fragment_home_search.*
 import java.io.ByteArrayOutputStream
+import android.util.Log
+import com.miodemi.squirrelsbox.inventory.components.item.ItemDialogViewModel
+import com.miodemi.squirrelsbox.inventory.components.section.SectionDialogViewModel
 
 class HomeSearchFragment : Fragment() {
 
@@ -37,6 +44,8 @@ class HomeSearchFragment : Fragment() {
     internal lateinit var binding: FragmentHomeSearchBinding
 
     private val viewModel : HomeSearchViewModel by activityViewModels()
+    private val viewModel1 : SectionDialogViewModel by activityViewModels()
+    private val viewModel2 : ItemDialogViewModel by activityViewModels()
 
     lateinit var imageDetector : Unit
 
@@ -62,11 +71,42 @@ class HomeSearchFragment : Fragment() {
             labelImage(bitmap2)
         }
 
+
+
         //Search Button
-        binding.searchbtn.setOnClickListener {
+        binding.searchitm.setOnClickListener {
             val name : String = binding.etsearch.text.toString()
             if(name.isNotEmpty()){
-                readData(name)
+                val lasegura = viewModel1.boxName.value.toString()
+                val lasegura2 = viewModel2.sectionName.value.toString()
+                searchItem(name, lasegura, lasegura2)
+
+
+            }else{
+                Toast.makeText(requireContext(), "Please enter a valid ID", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        binding.searchbx.setOnClickListener {
+            val name : String = binding.etsearch.text.toString()
+            if(name.isNotEmpty()){
+
+                searchBox(name)
+
+
+            }else{
+                Toast.makeText(requireContext(), "Please enter a valid ID", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        binding.searchbsx.setOnClickListener {
+            val name : String = binding.etsearch.text.toString()
+            if(name.isNotEmpty()){
+                val lasegura = viewModel1.boxName.value.toString()
+
+                searchSection(name, lasegura)
+
+
             }else{
                 Toast.makeText(requireContext(), "Please enter a valid ID", Toast.LENGTH_SHORT).show()
             }
@@ -93,16 +133,25 @@ class HomeSearchFragment : Fragment() {
         return  view
     }
 
-    private fun readData(name: String) {
-        database = FirebaseDatabase.getInstance().getReference("boxes")
+    //Search implementation
+    private fun searchItem(name: String, boxName: String, sectionName: String) {
+        database = FirebaseDatabase.getInstance().getReference("boxes").child(boxName).child("sections").child(sectionName).child("items")
+       //var listita = ArrayList<String>();
+       //var section = ""
         database.child(name).get().addOnSuccessListener {
             if(it.exists()){
+               // val section = it.child("sections").value
+               // it.child("sections")
+
+                Log.d("TAG", "$it")
                 val boxName = it.child("name").value
                 val boxId = it.child("id").value
+                val itemName = it.child("sections").child("name").value
                 Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
                 binding.etsearch.text.clear()
                 binding.tvBoxName.text = boxName.toString()
                 binding.tvBoxId.text = boxId.toString()
+                binding.tvItemName.text= itemName.toString()
             }else{
                 Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
             }
@@ -111,6 +160,59 @@ class HomeSearchFragment : Fragment() {
         }
 
     }
+    private fun searchSection(name: String, boxName: String) {
+        database = FirebaseDatabase.getInstance().getReference("boxes").child(boxName).child("sections")
+        //var listita = ArrayList<String>();
+        //var section = ""
+        database.child(name).get().addOnSuccessListener {
+            if(it.exists()){
+                // val section = it.child("sections").value
+                // it.child("sections")
+
+                Log.d("TAG", "$it")
+                val boxName = it.child("name").value
+                val boxId = it.child("id").value
+                val itemName = it.child("sections").child("name").value
+                Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
+                binding.etsearch.text.clear()
+                binding.tvBoxName.text = boxName.toString()
+                binding.tvBoxId.text = boxId.toString()
+                binding.tvItemName.text= itemName.toString()
+            }else{
+                Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnCanceledListener {
+            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+    private fun searchBox(name: String) {
+        database = FirebaseDatabase.getInstance().getReference("boxes")
+        //var listita = ArrayList<String>();
+        //var section = ""
+        database.child(name).get().addOnSuccessListener {
+            if(it.exists()){
+                // val section = it.child("sections").value
+                // it.child("sections")
+
+                Log.d("TAG", "$it")
+                val boxName = it.child("name").value
+                val boxId = it.child("id").value
+                val itemName = it.child("sections").child("name").value
+                Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
+                binding.etsearch.text.clear()
+                binding.tvBoxName.text = boxName.toString()
+                binding.tvBoxId.text = boxId.toString()
+                binding.tvItemName.text= itemName.toString()
+            }else{
+                Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnCanceledListener {
+            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+    
 
     private fun labelImage(bitmap: Bitmap){
         val inputImage = InputImage.fromBitmap(bitmap, 0)
