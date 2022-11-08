@@ -72,6 +72,8 @@ dependencies {
     // Add the dependency for the Firebase Authentication library
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    implementation 'com.google.firebase:firebase-storage-ktx'
+
     //Fragment-model view
     implementation 'androidx.fragment:fragment-ktx:1.5.3'
 
