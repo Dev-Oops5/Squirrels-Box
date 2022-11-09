@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +17,10 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
-import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.section.AddSectionDialogFragment
+import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.profile.presentation.home.HomeBoxFragment
 import com.miodemi.squirrelsbox.profile.presentation.home.HomeItemFragment
 import com.miodemi.squirrelsbox.profile.presentation.home.HomeSearchFragment
@@ -27,6 +29,13 @@ import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
+import org.apache.poi.hssf.usermodel.HSSFCellStyle
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.ss.usermodel.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class HomeActivity : AppCompatActivity() {
@@ -57,6 +66,11 @@ class HomeActivity : AppCompatActivity() {
     private val viewModelFAB: AddDialogViewFab by viewModels()
 
     private var our_request_code : Int = 123
+
+    //Export variables
+    lateinit var btnExportExcel : Button
+    lateinit var tvData : TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -206,6 +220,14 @@ class HomeActivity : AppCompatActivity() {
 
             closeMenuFAB()
         }
+
+        //Initializing export variables
+        btnExportExcel = findViewById(R.id.btnExport)
+        tvData = findViewById(R.id.tvData)
+
+        btnExportExcel.setOnClickListener{
+            export();
+        }
     }
 
     private fun openMenuFAB() {
@@ -283,6 +305,80 @@ class HomeActivity : AppCompatActivity() {
 
     fun searchView(view: View) {
         replaceFragment(homeSearchFragment)
+
+    }
+
+    private fun export(){
+
+        val workbook: Workbook = HSSFWorkbook()
+        var cell: Cell? = null
+        val cellStyle = workbook.createCellStyle()
+        cellStyle.fillForegroundColor = HSSFColor.AQUA.index
+        cellStyle.fillPattern = HSSFCellStyle.SOLID_FOREGROUND
+        cellStyle.alignment = CellStyle.ALIGN_CENTER
+
+
+        var sheet: Sheet? = null
+        sheet = workbook.createSheet("Items List")
+
+        var row: Row? = null
+        row = sheet.createRow(0)
+        cell = row.createCell(0)
+        cell.setCellValue("Title")
+        cell.cellStyle = cellStyle
+
+        sheet.createRow(1)
+        cell = row.createCell(1)
+        cell.setCellValue("Image Title")
+        cell.cellStyle = cellStyle
+
+        row = sheet.createRow(1)
+        cell = row.createCell(0)
+        cell.setCellValue("parlante4")
+        cell = row.createCell(1)
+        cell.setCellValue("polo-sudadera")
+
+        row = sheet.createRow(2)
+        cell = row.createCell(0)
+        cell.setCellValue("parlante7")
+        cell = row.createCell(1)
+        cell.setCellValue("polo-sudadera")
+
+        row = sheet.createRow(3)
+        cell = row.createCell(0)
+        cell.setCellValue("parlante")
+        cell = row.createCell(1)
+        cell.setCellValue("polo-sudadera")
+
+        row = sheet.createRow(4)
+        cell = row.createCell(0)
+        cell.setCellValue("parlante 8")
+        cell = row.createCell(1)
+        cell.setCellValue("polo-sudadera")
+
+        row = sheet.createRow(5)
+        cell = row.createCell(0)
+        cell.setCellValue("parlante3")
+        cell = row.createCell(1)
+        cell.setCellValue("polo-sudadera")
+
+        row = sheet.createRow(6)
+        cell = row.createCell(0)
+        cell.setCellValue("uno")
+        cell = row.createCell(1)
+        cell.setCellValue("polo-sudadera")
+
+        val file = File(getExternalFilesDir(null), "items_relation.xlsx")
+        var outputStream: FileOutputStream? = null
+
+        try {
+            outputStream = FileOutputStream(file)
+            workbook.write(outputStream)
+            Toast.makeText(this, "Downloading Sheet", Toast.LENGTH_SHORT).show()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
