@@ -1,5 +1,6 @@
 package com.miodemi.squirrelsbox.inventory.application.item
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -61,9 +62,13 @@ class ItemDialogViewModel : ViewModel() {
         _picture.value = currentPicture
     }
 
+    fun getImage(itemImage: String): Bitmap? {
+        return itemRepository.getImage(itemImage)
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
-    fun storePicture(picture: Uri){
-        _picture.value?.let { itemRepository.storePicture(it) }
+    fun storePicture(fileName : String){
+        _picture.value?.let { itemRepository.storePicture(it, fileName) }
     }
 
     fun storeData(

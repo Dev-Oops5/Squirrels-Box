@@ -30,7 +30,7 @@ class AddItemDialogFragment : DialogFragment() {
     private var color = ""
     private var description = ""
     private var amount = 0
-    private val picture = ""
+    private var picture = ""
     private var favourite = false
 
     override fun onCreateView(
@@ -53,7 +53,7 @@ class AddItemDialogFragment : DialogFragment() {
             color = binding.colorEt.text.toString()
             description = binding.descriptionEt.text.toString()
             amount = binding.amountEt.text.toString().toInt()
-
+            picture = binding.pictureTv.text.toString()
 
             viewModel.storeData(name,color,description,amount,picture,favourite)
 
@@ -85,7 +85,8 @@ class AddItemDialogFragment : DialogFragment() {
             ImageUri = data?.data!!
             binding.pictureIV.setImageURI(ImageUri)
             viewModel.setPicture(ImageUri)
-            viewModel.storePicture(ImageUri)
+            viewModel.storePicture(binding.itemNameEt.text.toString())
+            binding.pictureTv.text = binding.itemNameEt.text.toString()
         }
     }
 

@@ -117,7 +117,7 @@
 
             <!--Picture-->
             <TextView
-                android:id="@+id/pictureTv"
+                android:id="@+id/pictureTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Picture"
@@ -129,11 +129,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/pictureEt"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/pictureTv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Take a picture   " />
+                    android:text="Take a picture..."
+                    />
 
                 <ImageView
                     android:id="@+id/pictureIV"

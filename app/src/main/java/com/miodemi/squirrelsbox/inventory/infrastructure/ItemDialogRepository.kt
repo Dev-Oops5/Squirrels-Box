@@ -1,5 +1,7 @@
 package com.miodemi.squirrelsbox.inventory.infrastructure
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Picture
 import android.icu.text.SimpleDateFormat
 import android.media.Image
@@ -12,6 +14,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.miodemi.squirrelsbox.inventory.domain.ItemData
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.*
 import kotlin.coroutines.coroutineContext
 
@@ -38,15 +42,13 @@ class ItemDialogRepository {
         val currentDate = sdf.format(Date())
 
         val itemData = ItemData(id, name, currentDate, color, description, amount, picture, favourite, boxId, sectionId)
-        database.child(id).setValue(itemData)
+        database.child(name).setValue(itemData)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun storePicture(picture : Uri){
-        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
-        val now = Date()
-        val fileName = formatter.format(now)
-        val storageReference = FirebaseStorage.getInstance().getReference("/images/$fileName")
+    fun storePicture(picture : Uri, fileName : String){
+
+        val storageReference = FirebaseStorage.getInstance().getReference("/images/$fileName.jpg")
 
         storageReference.putFile(picture)
             .addOnSuccessListener {  }
@@ -110,4 +112,14 @@ class ItemDialogRepository {
             }
     }
 
+    fun getImage(itemImage: String): Bitmap? {
+        val storageRef = FirebaseStorage.getInstance().reference.child("images/$itemImage.jpg")
+
+        val localfile = File.createTempFile("tempImage","jpg")
+        storageRef.getFile(localfile)
+
+        val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+        Log.i("Yes", "Image $itemImage retrieved")
+        return bitmap
+    }
 }
