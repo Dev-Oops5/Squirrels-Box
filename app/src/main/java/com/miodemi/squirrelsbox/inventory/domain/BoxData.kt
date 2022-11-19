@@ -7,5 +7,6 @@ data class BoxData(
     val boxType:Boolean? = null,
     val privateLink: String? = null,
     val download:Boolean? = null,
-    val favourite:Boolean? = null)
+    val favourite:Boolean? = null,
+    val author: String? = null)
 

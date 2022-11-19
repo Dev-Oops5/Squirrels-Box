@@ -113,7 +113,7 @@ class ItemDialogRepository {
     }
 
     fun getImage(itemImage: String): Bitmap? {
-        val storageRef = FirebaseStorage.getInstance().reference.child("images/$itemImage.jpg")
+        val storageRef = FirebaseStorage.getInstance().reference.child("images/$itemImage")
 
         val localfile = File.createTempFile("tempImage","jpg")
         storageRef.getFile(localfile)
