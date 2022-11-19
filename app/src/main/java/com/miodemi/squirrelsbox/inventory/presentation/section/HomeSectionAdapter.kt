@@ -39,6 +39,7 @@ class HomeSectionAdapter(
             val sectionId = homeSectionItem.id.toString()
             val boxId = homeSectionItem.boxId.toString()
             val sectionName = homeSectionItem.name.toString()
+
             val sectionDateCreated = homeSectionItem.dateCreated.toString()
 
             binding.editBtn.setOnClickListener { v : View ->
