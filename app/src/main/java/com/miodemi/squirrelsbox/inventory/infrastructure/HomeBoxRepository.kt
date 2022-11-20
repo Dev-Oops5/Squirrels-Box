@@ -6,7 +6,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
 
@@ -27,8 +26,9 @@ class HomeBoxRepository {
                     newsFeedItems = snapshot.children.map { dataSnapshot ->
                         dataSnapshot.getValue(BoxData::class.java)!!.copy(id = dataSnapshot.key!!)
                     }
-                    newsFeedItems.filter { it.author == auth }
-                    liveData.postValue(newsFeedItems)
+
+                    val newList = newsFeedItems.filter { it.author == auth }
+                    liveData.postValue(newList)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -37,5 +37,25 @@ class HomeBoxRepository {
             })
     }
 
+    fun fetchNewsFeedSearch(liveData: MutableLiveData<List<BoxData>>, boxName: String) {
 
+        val auth = FirebaseAuth.getInstance().currentUser?.email.toString()
+
+        newsFeedReference
+            .orderByChild("id")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var newsFeedItems: List<BoxData> = emptyList()
+                    newsFeedItems = snapshot.children.map { dataSnapshot ->
+                        dataSnapshot.getValue(BoxData::class.java)!!.copy(id = dataSnapshot.key!!)
+                    }
+                    val newList = newsFeedItems.filter { it.name == boxName }
+                    liveData.postValue(newList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Nothing to do
+                }
+            })
+    }
 }
