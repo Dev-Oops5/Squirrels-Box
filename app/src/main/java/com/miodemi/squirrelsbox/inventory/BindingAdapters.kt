@@ -24,3 +24,8 @@ fun setHomeSectionItems(recyclerView: RecyclerView, list: List<SectionData>?) {
 fun setHomeItemItems(recyclerView: RecyclerView, list: List<ItemData>?) {
     (recyclerView.adapter as HomeItemAdapter).setHomeItemItems(list)
 }
+
+@BindingAdapter("setSearchBoxItems")
+fun setSearchBoxItems(recyclerView: RecyclerView, list: List<BoxData>?) {
+    (recyclerView.adapter as HomeBoxAdapter).setHomeBoxItems(list)
+}

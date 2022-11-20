@@ -1,6 +1,7 @@
 package com.miodemi.squirrelsbox.inventory.infrastructure
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -30,5 +31,6 @@ class HomeBoxRepository {
                 }
             })
     }
+
 
 }

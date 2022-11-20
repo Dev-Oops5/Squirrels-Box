@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".inventory.presentation.SearchFragment">
+<LinearLayout
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".inventory.presentation.SearchFragment"
-    android:background="@color/primary_white"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <EditText
@@ -69,55 +72,21 @@
             android:textColor="@color/black"
             android:layout_marginStart="5dp"
             android:textSize="20sp" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/allBoxesRv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:setHomeBoxItems="@{viewModel.boxDataLiveData}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID:"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvBoxId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Item:"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvItemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
 
 </LinearLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.miodemi.squirrelsbox.inventory.application.box.HomeBoxViewModel" />
+    </data>
+    
+</layout>

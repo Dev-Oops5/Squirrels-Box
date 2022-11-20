@@ -122,101 +122,13 @@
         android:textColor="@color/primary_orange_dark"
         android:textSize="18sp" />
 
-    <LinearLayout
-        android:id="@+id/verificationCodeLy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView2"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/code1Et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/vc_rectangle_od_3"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textColor="@color/primary_white"
-            android:textColorHint="@color/primary_white"
-            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
-
-        <EditText
-            android:id="@+id/code2Et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/vc_rectangle_od_3"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textColor="@color/primary_white"
-            android:textColorHint="@color/primary_white"
-            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
-
-        <EditText
-            android:id="@+id/code3Et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/vc_rectangle_od_3"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textColor="@color/primary_white"
-            android:textColorHint="@color/primary_white"
-            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
-
-        <EditText
-            android:id="@+id/code4Et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/vc_rectangle_od_3"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textColor="@color/primary_white"
-            android:textColorHint="@color/primary_white"
-            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
-
-        <EditText
-            android:id="@+id/code5Et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/vc_rectangle_od_3"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textColor="@color/primary_white"
-            android:textColorHint="@color/primary_white"
-            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
-
-        <EditText
-            android:id="@+id/code6Et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/vc_rectangle_od_3"
-            android:cursorVisible="true"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textAlignment="center"
-            android:textColor="@color/primary_white"
-            android:textColorHint="@color/primary_white"
-            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/verificationCod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/verificationCodeLy"
+        android:layout_below="@id/textView2"
         android:layout_centerVertical="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
@@ -248,7 +160,17 @@
             android:backgroundTint="@color/primary_orange"
             android:text="Verification"
             android:textSize="18sp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/returnHomebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="Login"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

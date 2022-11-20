@@ -12,8 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.*
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
@@ -22,9 +23,16 @@ import com.miodemi.squirrelsbox.databinding.FragmentSearchBinding
 import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
 import com.miodemi.squirrelsbox.inventory.application.item.ItemDialogViewModel
 import com.miodemi.squirrelsbox.inventory.application.section.SectionDialogViewModel
+import com.miodemi.squirrelsbox.inventory.domain.BoxData
+import com.miodemi.squirrelsbox.inventory.infrastructure.HomeBoxRepository
+import com.miodemi.squirrelsbox.inventory.presentation.box.HomeBoxAdapter
 import java.io.ByteArrayOutputStream
 
 class SearchFragment : Fragment() {
+
+    private val repository = HomeBoxRepository()
+    private val _boxDataLiveData = MutableLiveData<List<BoxData>>()
+    val boxDataLiveData: LiveData<List<BoxData>> = _boxDataLiveData
 
     //Database
     private lateinit var database  : DatabaseReference
@@ -44,10 +52,18 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         //init data binding in a fragment
         binding = FragmentSearchBinding.inflate(layoutInflater)
         //this value must be returned
         val view : View = binding.root
+
+        //Adapter for show boxes
+        val itemBoxAdapter = HomeBoxAdapter()
+        binding.allBoxesRv.adapter = itemBoxAdapter
+
+
 
         viewModel.data.observe(viewLifecycleOwner) {
             imageDetector = binding.image.setImageBitmap(it)
@@ -102,23 +118,11 @@ class SearchFragment : Fragment() {
 
         imageLabeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
-//        val imageLabelerOptions = ImageLabelerOptions.Builder()
-//            .setConfidenceThreshold(0.95f)
-//            .build()
-//        imageLabeler = ImageLabeling.getClient(imageLabelerOptions)
 
-//        val bitmap1 = BitmapFactory.decodeResource(resources, imageDetector.toString().toInt())
-
-
-
-//        val bitmapDrawable = binding.image.drawable as BitmapDrawable
-//        val bitmap3 =   bitmapDrawable.bitmap
-
-
-
-        // Inflate the layout for this fragment
         return  view
     }
+
+
 
     //Search implementation
     private fun searchItem(name: String, boxName: String, sectionName: String) {
@@ -137,8 +141,7 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
                 binding.etsearch.text.clear()
                 binding.tvBoxName.text = boxName.toString()
-                binding.tvBoxId.text = boxId.toString()
-                binding.tvItemName.text= itemName.toString()
+
             }else{
                 Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
             }
@@ -163,8 +166,6 @@ class SearchFragment : Fragment() {
                 Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
                 binding.etsearch.text.clear()
                 binding.tvBoxName.text = boxName.toString()
-                binding.tvBoxId.text = boxId.toString()
-                binding.tvItemName.text= itemName.toString()
             }else{
                 Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
             }
@@ -175,22 +176,23 @@ class SearchFragment : Fragment() {
     }
     private fun searchBox(name: String) {
         database = FirebaseDatabase.getInstance().getReference("boxes")
-        //var listita = ArrayList<String>();
-        //var section = ""
+
         database.child(name).get().addOnSuccessListener {
             if(it.exists()){
-                // val section = it.child("sections").value
-                // it.child("sections")
 
-                Log.d("TAG", "$it")
+
+
+                it.getValue(BoxData::class.java)!!.copy(name = it.key!!).let { box ->
+                    _boxDataLiveData.value = listOf(box)
+                }
+
+                binding.allBoxesRv.adapter = HomeBoxAdapter()
+
+
                 val boxName = it.child("name").value
-                val boxId = it.child("id").value
-                val itemName = it.child("sections").child("name").value
                 Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
                 binding.etsearch.text.clear()
                 binding.tvBoxName.text = boxName.toString()
-                binding.tvBoxId.text = boxId.toString()
-                binding.tvItemName.text= itemName.toString()
             }else{
                 Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
             }
@@ -226,3 +228,20 @@ class SearchFragment : Fragment() {
     }
 
 }
+
+
+//        val imageLabelerOptions = ImageLabelerOptions.Builder()
+//            .setConfidenceThreshold(0.95f)
+//            .build()
+//        imageLabeler = ImageLabeling.getClient(imageLabelerOptions)
+
+//        val bitmap1 = BitmapFactory.decodeResource(resources, imageDetector.toString().toInt())
+
+
+
+//        val bitmapDrawable = binding.image.drawable as BitmapDrawable
+//        val bitmap3 =   bitmapDrawable.bitmap
+
+
+
+// Inflate the layout for this fragment
