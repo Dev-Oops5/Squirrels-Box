@@ -19,6 +19,7 @@ import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.section.AddSectionDialogFragment
+import com.miodemi.squirrelsbox.profile.presentation.download.DownloadedBoxFragment
 import com.miodemi.squirrelsbox.profile.presentation.home.*
 import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment

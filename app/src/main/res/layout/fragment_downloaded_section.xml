@@ -6,11 +6,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".profile.presentation.download.DownloadedBoxFragment"
+        tools:context=".profile.presentation.download.DownloadedSectionFragment"
         android:padding="20dp">
 
         <LinearLayout
-            android:id="@+id/allBoxesDowLy"
+            android:id="@+id/allBoxesLy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -18,10 +18,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titleTv1"
+                android:id="@+id/titleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Downloaded boxes"
+                android:text="Box name"
                 android:textColor="@color/primary_orange_dark"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -32,16 +32,14 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:layout_below="@id/titleTv1"
-                android:background="@color/primary_orange_dark"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:background="@color/primary_orange_dark" />
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/allBoxesRv"
+                android:id="@+id/allSectionsRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setDownloadedBoxItems="@{viewModel.boxDataDwLiveData}"
+                app:setDownloadedSectionItems="@{viewModel.sectionDataLiveData}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </LinearLayout>
 
@@ -50,6 +48,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.miodemi.squirrelsbox.inventory.application.box.DownloadedBoxViewModel" />
+            type="com.miodemi.squirrelsbox.inventory.application.section.DownloadedSectionViewModel" />
     </data>
+
 </layout>

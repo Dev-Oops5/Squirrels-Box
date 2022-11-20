@@ -1,4 +1,4 @@
-package com.miodemi.squirrelsbox.profile.presentation.home
+package com.miodemi.squirrelsbox.profile.presentation.download
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.FragmentDownloadedBoxBinding
 import com.miodemi.squirrelsbox.inventory.application.box.DownloadedBoxViewModel
+import com.miodemi.squirrelsbox.inventory.presentation.box.DownloadedBoxAdapter
 import com.miodemi.squirrelsbox.inventory.presentation.box.HomeBoxAdapter
 import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 
@@ -40,7 +40,7 @@ class DownloadedBoxFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val itemBoxAdapter = HomeBoxAdapter()
+        val itemBoxAdapter = DownloadedBoxAdapter()
         binding.allBoxesRv.adapter = itemBoxAdapter
 
         viewModel.fetchNewsFeed(requireContext())

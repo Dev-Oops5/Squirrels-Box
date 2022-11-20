@@ -17,11 +17,11 @@ class BoxOpenHelper(context: Context): SQLiteOpenHelper(
                 "name TEXT, dateCreated TEXT, boxType BOOLEAN, privateLink TEXT, download BOOLEAN, favourite BOOLEAN, author TEXT)"
 
         val sectionQuery = "CREATE TABLE sections(Id TEXT," +
-                "name TEXT, dateCreated TEXT, color TEXT, favourite BOOLEAN, box INTEGER, FOREIGN KEY (box) REFERENCES boxes(Id))"
+                "name TEXT, dateCreated TEXT, color TEXT, favourite BOOLEAN, box TEXT, FOREIGN KEY (box) REFERENCES boxes(Id))"
 
         val itemQuery = "CREATE TABLE items(Id TEXT," +
                 "name TEXT, dateCreated TEXT, color TEXT, description TEXT, amount INTEGER, picture TEXT, favourite BOOLEAN," +
-                "box INTEGER, section INTEGER, FOREIGN KEY (box) REFERENCES boxes(Id), FOREIGN KEY (section) REFERENCES sections(Id))"
+                "box TEXT, section TEXT, FOREIGN KEY (box) REFERENCES boxes(Id), FOREIGN KEY (section) REFERENCES sections(Id))"
 
         p0!!.execSQL(boxQuery)
         p0!!.execSQL(sectionQuery)
@@ -69,7 +69,7 @@ class BoxOpenHelper(context: Context): SQLiteOpenHelper(
         data.put("color", i.picture)
         data.put("favourite", i.favourite)
         data.put("box", i.boxId)
-        data.put("box", i.sectionId)
+        data.put("section", i.sectionId)
         val db = this.writableDatabase.insert("items", null, data)
     }
 
@@ -90,5 +90,44 @@ class BoxOpenHelper(context: Context): SQLiteOpenHelper(
             } while (result.moveToNext())
         }
         liveData.postValue(boxList)
+    }
+
+    fun fetchNewsFeedSection(liveData: MutableLiveData<List<SectionData>>, boxId: String) {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM sections WHERE box = ?"
+        val result = db.rawQuery(query, arrayOf(boxId))
+
+        val sectionList = mutableListOf<SectionData>()
+
+        if(result.moveToFirst()){
+            do {
+                sectionList.add(
+                    SectionData(
+                        result.getString(0), result.getString(1), result.getString(2), result.getString(3),
+                        result.getInt(4) == 1, result.getString(5))
+                )
+            } while (result.moveToNext())
+        }
+        liveData.postValue(sectionList)
+    }
+
+    fun fetchNewsFeedItem(liveData: MutableLiveData<List<ItemData>>, boxId: String, sectionId: String) {
+        val db = this.readableDatabase
+        val query = "SELECT * FROM items WHERE box = ? AND section = ?"
+        val result = db.rawQuery(query, arrayOf(boxId, sectionId))
+
+        val itemList = mutableListOf<ItemData>()
+
+        if(result.moveToFirst()){
+            do {
+                itemList.add(
+                    ItemData(
+                        result.getString(0), result.getString(1), result.getString(2), result.getString(3),
+                        result.getString(4), result.getInt(5), result.getString(6), result.getInt(7) == 1,
+                        result.getString(8), result.getString(9))
+                )
+            } while (result.moveToNext())
+        }
+        liveData.postValue(itemList)
     }
 }
