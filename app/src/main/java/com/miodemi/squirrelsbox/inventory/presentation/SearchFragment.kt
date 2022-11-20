@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.*
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
@@ -21,6 +22,7 @@ import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.miodemi.squirrelsbox.databinding.FragmentSearchBinding
 import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
+import com.miodemi.squirrelsbox.inventory.application.box.HomeBoxViewModel
 import com.miodemi.squirrelsbox.inventory.application.item.ItemDialogViewModel
 import com.miodemi.squirrelsbox.inventory.application.section.SectionDialogViewModel
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
@@ -34,6 +36,7 @@ class SearchFragment : Fragment() {
     private val _boxDataLiveData = MutableLiveData<List<BoxData>>()
     val boxDataLiveData: LiveData<List<BoxData>> = _boxDataLiveData
 
+
     //Database
     private lateinit var database  : DatabaseReference
 
@@ -43,7 +46,9 @@ class SearchFragment : Fragment() {
     private val viewModel : HomeSearchViewModel by activityViewModels()
     private val viewModel1 : SectionDialogViewModel by activityViewModels()
     private val viewModel2 : ItemDialogViewModel by activityViewModels()
-
+    private val viewModel3: HomeBoxViewModel by lazy {
+        ViewModelProvider(this)[HomeBoxViewModel::class.java]
+    }
     lateinit var imageDetector : Unit
 
     private lateinit var imageLabeler : ImageLabeler
@@ -180,19 +185,11 @@ class SearchFragment : Fragment() {
         database.child(name).get().addOnSuccessListener {
             if(it.exists()){
 
+                binding.lifecycleOwner = this
+                binding.viewModel = viewModel3
 
-
-                it.getValue(BoxData::class.java)!!.copy(name = it.key!!).let { box ->
-                    _boxDataLiveData.value = listOf(box)
-                }
-
-                binding.allBoxesRv.adapter = HomeBoxAdapter()
-
-
-                val boxName = it.child("name").value
-                Toast.makeText(requireContext(), "Box Found", Toast.LENGTH_SHORT).show()
-                binding.etsearch.text.clear()
-                binding.tvBoxName.text = boxName.toString()
+                viewModel3.fetchNewsFeedSearch(name)
+                Log.d("TAG", "$it")
             }else{
                 Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
             }
