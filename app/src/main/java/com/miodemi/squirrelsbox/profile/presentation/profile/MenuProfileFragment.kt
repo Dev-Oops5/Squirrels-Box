@@ -8,20 +8,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.DatabaseReference
 import com.miodemi.squirrelsbox.databinding.FragmentMenuProfileBinding
+import com.miodemi.squirrelsbox.profile.application.ProfileViewModel
+import java.text.Bidi
 
 class MenuProfileFragment : Fragment() {
 
     //binding
     internal lateinit var binding: FragmentMenuProfileBinding
+    //private val profileData = mutableListOf<profileData>()
+
+    private val viewmodel : ProfileViewModel by activityViewModels()
+//    private val pR = profileRepository()
+
     private var actBox = 5
     private var maxBox = 10
 
     lateinit var auth: FirebaseAuth
 
+    private lateinit var username:String
+    private lateinit var email:String
+    private lateinit var birthday:String
+
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -38,6 +51,19 @@ class MenuProfileFragment : Fragment() {
         binding.actBoxesPb.max = maxBox
         binding.actBoxesPb.progress = actBox
 
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+
+        if(user!=null) {
+            viewmodel.setEmail(user.email.toString())
+            binding.usernameEt.setText(user.email)
+        }
+            //binding.usernameEt.setText(user.email)
+
+        //binding.usernameEt.setText(
+        //binding.usernameEt.setText(viewmodel.username.value)
+        //binding.usernameEt.text = get
+
         // Inflate the layout for this fragment
         return view
     }
@@ -45,11 +71,15 @@ class MenuProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser
+        binding.updateInfoBtn.setOnClickListener{
+            username = binding.usernameEt.text.toString()
+            birthday = binding.birthdayEt.text.toString()
 
-        if(user != null){
-            binding.usernameEt.setText(user.email)
+            viewmodel.updateUsername(username)
+            viewmodel.updateBirthday(birthday)
+
+            binding.usernameEt.text.clear()
+            binding.birthdayEt.text.clear()
         }
 
         binding.profilePicIv.setOnClickListener {
@@ -66,16 +96,10 @@ class MenuProfileFragment : Fragment() {
         }
     }
 
-
     private fun openGalery(){
-
         val intent = Intent()
-
         intent.action = Intent.ACTION_GET_CONTENT
-
         intent.type = "image/*"
-
         startForActivityGallery.launch(intent)
     }
-
 }
