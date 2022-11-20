@@ -41,7 +41,6 @@ class HomeActivity : AppCompatActivity() {
     private val homeBoxFragment = HomeBoxFragment()
     private val homeSectionFragment = HomeSectionFragment()
     private val homeItemFragment = HomeItemFragment()
-    private val homeSearchFragment = HomeSearchFragment()
     private val downloadedBoxFragment = DownloadedBoxFragment()
     private val homeSearchFragment = SearchFragment()
 
