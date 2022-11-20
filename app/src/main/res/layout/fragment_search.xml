@@ -78,7 +78,7 @@
         android:id="@+id/allBoxesRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:setHomeBoxItems="@{viewModel.boxDataLiveData}"
+        app:setSearchBoxItems="@{viewModel.boxDataLiveData}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 

@@ -49,7 +49,7 @@ class HomeBoxRepository {
                     newsFeedItems = snapshot.children.map { dataSnapshot ->
                         dataSnapshot.getValue(BoxData::class.java)!!.copy(id = dataSnapshot.key!!)
                     }
-                    val newList = newsFeedItems.filter { it.name == boxName }
+                    val newList = newsFeedItems.filter { it.author == auth && it.name == boxName }
                     liveData.postValue(newList)
                 }
 
