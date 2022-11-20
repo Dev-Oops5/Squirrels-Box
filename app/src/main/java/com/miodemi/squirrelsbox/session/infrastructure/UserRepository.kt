@@ -57,7 +57,12 @@ class UserRepository {
         //val id = database.push().key!!
         val id = UUID.randomUUID().toString();
         user.id = id
-        database.child(id).setValue(user)
+
+        val auth = FirebaseAuth.getInstance()
+        val userEmail = auth.currentUser?.email.toString()
+        val newEmail = userEmail.replace("."," ")
+
+        database.child(newEmail).setValue(user)
     }
 
 
