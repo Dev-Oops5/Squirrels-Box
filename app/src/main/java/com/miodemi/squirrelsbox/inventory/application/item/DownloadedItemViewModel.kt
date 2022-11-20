@@ -37,7 +37,7 @@ class DownloadedItemViewModel : ViewModel() {
         val repository = BoxOpenHelper(context)
 
         _boxIdD.value?.let {
-            _sectionIdD.value?.let { it1 ->
+            _name.value?.let { it1 ->
                 repository.fetchNewsFeedItem(_itemDataLiveData, it, it1) }
         }
     }
