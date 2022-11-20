@@ -1,5 +1,9 @@
 package com.miodemi.squirrelsbox.inventory.application.item
 
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +11,7 @@ import com.miodemi.squirrelsbox.inventory.infrastructure.ItemDialogRepository
 
 class ItemDialogViewModel : ViewModel() {
 
-    private val sectionRepository = ItemDialogRepository()
+    private val itemRepository = ItemDialogRepository()
 
     private val _id = MutableLiveData<String>()
     val id: LiveData<String> = _id
@@ -51,19 +55,35 @@ class ItemDialogViewModel : ViewModel() {
         _sectionName.value = currentName
     }
 
+    private val _picture = MutableLiveData<Uri>()
+    val picture: LiveData<Uri> = _picture
+
+    fun setPicture(currentPicture: Uri) {
+        _picture.value = currentPicture
+    }
+
+    fun getImage(itemImage: String): Bitmap? {
+        return itemRepository.getImage(itemImage)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun storePicture(fileName : String){
+        _picture.value?.let { itemRepository.storePicture(it, fileName) }
+    }
+
     fun storeData(
         name: String, color: String, description: String, amount: Int, picture: String,
         favourite: Boolean){
         _sectionId.value?.let {
             _boxId.value?.let { it1 ->
-                sectionRepository.storeData(it1, it, name, color, description, amount, picture, favourite) } }
+                itemRepository.storeData(it1, it, name, color, description, amount, picture, favourite) } }
     }
 
     fun updateFastData(name: String, color: String, amount: Int){
         _id.value?.let {
             _sectionId.value?.let { it2 ->
                 _boxId.value?.let { it1 ->
-                    sectionRepository.updateFastData(it1, it2, it, name, color, amount) } }
+                    itemRepository.updateFastData(it1, it2, it, name, color, amount) } }
         }
     }
 
@@ -71,7 +91,7 @@ class ItemDialogViewModel : ViewModel() {
         _id.value?.let {
             _sectionId.value?.let { it2 ->
                 _boxId.value?.let { it1 ->
-                    sectionRepository.deleteData(it1, it2, it) } }
+                    itemRepository.deleteData(it1, it2, it) } }
         }
     }
 
