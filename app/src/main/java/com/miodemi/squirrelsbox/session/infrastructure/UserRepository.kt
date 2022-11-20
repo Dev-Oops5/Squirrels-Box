@@ -60,7 +60,6 @@ class UserRepository {
         database.child(id).setValue(user)
     }
 
-
     fun login(email: String, password: String): Flow<State<Any>> = flow<State<Any>> {
         emit(State.loading())
         auth.signInWithEmailAndPassword(email, password).await()

@@ -82,47 +82,51 @@ class BoxDialogViewModel : ViewModel() {
                         boxDbHelper.addBox(state.data as BoxData)
 
                         //Download sections
-                        sectionRepository.getSectionsByBoxId(it).collect() { sectionState ->
-                            when (sectionState) {
-                                is State.Loading -> {
-                                    setResult("Downloading")
-                                }
-                                is State.Success -> {
-
-                                    for (section in sectionState.data as List<SectionData>) {
-                                        boxDbHelper.addSection(section)
-
-
-                                        //Download items
-                                        itemRepository.getItemsByBoxIdAndSectionId(section.boxId!!, section.id!!).collect() { itemState ->
-                                            when (itemState) {
-
-                                                is State.Loading -> {
-                                                    setResult("Downloading")
-                                                }
-                                                is State.Success -> {
-                                                    for (item in itemState.data as List<*>) {
-                                                        boxDbHelper.addItem(item as ItemData)
-                                                    }
-                                                }
-                                                is State.Failed -> {
-                                                    //setResult(itemState.message)
-                                                    setResult("item")
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                is State.Failed -> {
-                                    setResult(sectionState.message)
-                                    //setResult("section")
-                                }
-                            }
-                        }
+                        downloadSection(it)
                     }
                     is State.Failed -> {
                         setResult(state.message)
                     }
+                }
+            }
+        }
+    }
+
+    private suspend fun downloadSection(boxId: String) {
+        sectionRepository.getSectionsByBoxId(boxId).collect() { sectionState ->
+            when (sectionState) {
+                is State.Loading -> {
+                    setResult("Downloading")
+                }
+                is State.Success -> {
+
+                    for (section in sectionState.data as List<SectionData>) {
+                        boxDbHelper.addSection(section)
+
+                        //Download items
+                        downloadItem(section.boxId!!, section.name!!)
+                    }
+                }
+                is State.Failed -> {
+                    setResult(sectionState.message)
+                }
+            }
+        }
+    }
+
+    private suspend fun downloadItem(boxId: String, sectionId: String) {
+        itemRepository.getItemsByBoxIdAndSectionId(boxId, sectionId).collect() { itemState ->
+            when (itemState) {
+                is State.Loading -> {
+                    setResult("Downloading")
+                }
+                is State.Success -> {
+                    for (item in itemState.data as List<ItemData>) {
+                        boxDbHelper.addItem(item)
+                    }
+                }
+                is State.Failed -> {
+                    setResult(itemState.message)
                 }
             }
         }
