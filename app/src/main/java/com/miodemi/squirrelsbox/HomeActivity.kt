@@ -19,10 +19,7 @@ import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.section.AddSectionDialogFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeBoxFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeItemFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeSearchFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeSectionFragment
+import com.miodemi.squirrelsbox.profile.presentation.home.*
 import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -41,6 +38,7 @@ class HomeActivity : AppCompatActivity() {
     private val homeSectionFragment = HomeSectionFragment()
     private val homeItemFragment = HomeItemFragment()
     private val homeSearchFragment = HomeSearchFragment()
+    private val downloadedBoxFragment = DownloadedBoxFragment()
 
     //UI Fragments
     private val profileFragment = MenuProfileFragment()
@@ -99,7 +97,9 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_downloads -> {
                     Toast.makeText(applicationContext, "Downloads clicked..", Toast.LENGTH_SHORT).show()
-                    // - - Here insert fragment - -
+                    drawerLY.close()
+                    replaceFragment(downloadedBoxFragment)
+                    titleLy.isGone = true
                     false
                 }
                 R.id.nav_settings -> {
