@@ -50,6 +50,7 @@ class ItemDialogRepository {
 
         val itemData = ItemData(id, name, currentDate, color, description, amount, picture, favourite, boxId, sectionId)
         database.child(name).setValue(itemData)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -60,6 +61,7 @@ class ItemDialogRepository {
         storageReference.putFile(picture)
             .addOnSuccessListener {  }
             .addOnFailureListener {  }
+
     }
 
     fun updateFastData(boxId: String, sectionId: String , itemId: String, name: String, color: String,

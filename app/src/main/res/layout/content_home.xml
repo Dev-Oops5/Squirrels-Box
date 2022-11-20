@@ -27,33 +27,19 @@
             android:layout_gravity="center"
             style="@style/Widget.Material3.Button.IconButton"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchTil"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/searchBarBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:boxStrokeWidthFocused="0dp"
-            app:boxStrokeWidth="0dp"
-            android:textColorHint="#7C7C7C"
-            app:hintEnabled="false"
-            android:orientation="horizontal"
-            >
-
-            <EditText
-                android:id="@+id/searchET"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autofillHints="Username"
-                android:background="@drawable/vc_rectangle_label_search"
-                android:hint="Search your box..."
-                android:textColorHint="@color/gray"
-                android:inputType="text"
-                android:textColor="#7C7C7C"
-                android:drawableEnd="@drawable/ic_baseline_search_24"
-                android:drawableTint="@color/gray"
-                android:padding="15dp"
-                android:clickable="true"
-                android:focusable="true"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:hint="Search your box..."
+            android:background="@drawable/vc_rectangle_label_search"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="#7C7C7C"
+            android:drawableEnd="@drawable/ic_baseline_search_24"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            />
 
         <ImageButton
             android:id="@+id/camera_ic"
