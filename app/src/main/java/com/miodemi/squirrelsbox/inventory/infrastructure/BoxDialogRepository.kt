@@ -38,6 +38,7 @@ class BoxDialogRepository {
         val currentDate = sdf.format(Date())
 
         val boxData = BoxData(id, name, currentDate, boxType, privateLink, download, favourite, userEmail)
+
         database.child(name).setValue(boxData)
     }
 

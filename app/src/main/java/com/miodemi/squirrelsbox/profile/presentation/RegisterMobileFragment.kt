@@ -1,5 +1,6 @@
 package com.miodemi.squirrelsbox.profile.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.miodemi.squirrelsbox.MainActivity
 import kotlinx.android.synthetic.main.fragment_register_mobile.*
 import java.util.concurrent.TimeUnit
 
@@ -43,6 +45,11 @@ class RegisterMobileFragment : Fragment() {
 
         binding.verifBtn.setOnClickListener{
             verifyPhoneNumberWithCode(storedVerificationId,verifCode!!.text.toString())
+        }
+
+        binding.returnHomebtn.setOnClickListener{
+            val intent = Intent(this.requireActivity(), MainActivity::class.java)
+            startActivity(intent)
         }
 
         auth=Firebase.auth

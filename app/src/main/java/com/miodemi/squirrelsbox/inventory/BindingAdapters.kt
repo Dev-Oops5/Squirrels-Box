@@ -42,3 +42,8 @@ fun setDownloadedSectionItems(recyclerView: RecyclerView, list: List<SectionData
 fun setDownloadedItemItems(recyclerView: RecyclerView, list: List<ItemData>?) {
     (recyclerView.adapter as DownloadedItemAdapter).setDownloadedItemItems(list)
 }
+
+@BindingAdapter("setSearchBoxItems")
+fun setSearchBoxItems(recyclerView: RecyclerView, list: List<BoxData>?) {
+    (recyclerView.adapter as HomeBoxAdapter).setHomeBoxItems(list)
+}

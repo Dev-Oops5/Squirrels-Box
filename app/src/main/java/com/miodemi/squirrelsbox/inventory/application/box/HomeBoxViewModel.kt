@@ -16,9 +16,9 @@ class HomeBoxViewModel : ViewModel() {
     fun fetchNewsFeed() {
         repository.fetchNewsFeed(_boxDataLiveData)
     }
-//    fun updateFavoriteStatus(id: String, isFavorite: Boolean) {
-//        repository._boxDataLiveData(id, isFavorite)
-//    }
 
+    fun fetchNewsFeedSearch(boxName: String) {
+        repository.fetchNewsFeedSearch(_boxDataLiveData, boxName)
+    }
 
 }

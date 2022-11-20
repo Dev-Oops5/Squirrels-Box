@@ -30,5 +30,8 @@ class HomeSectionViewModel : ViewModel() {
     fun fetchNewsFeed() {
         _id.value?.let {repository.fetchNewsFeed(_sectionDataLiveData, it)}
     }
+    fun fetchNewsFeedSearch(sectionName: String) {
+        _id.value?.let {repository.fetchNewsFeedSearch(_sectionDataLiveData, it, sectionName)}
+    }
 
 }
