@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,13 @@ import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
+import org.apache.poi.hssf.usermodel.HSSFCellStyle
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.ss.usermodel.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class HomeActivity : AppCompatActivity() {
@@ -60,6 +69,11 @@ class HomeActivity : AppCompatActivity() {
     private val viewModelHomeSearch: HomeSearchViewModel by viewModels()
 
     private var our_request_code : Int = 123
+
+    //Export variables
+    lateinit var btnExportExcel : Button
+    lateinit var tvData : TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,6 +197,14 @@ class HomeActivity : AppCompatActivity() {
 
             closeMenuFAB()
         }
+
+        //Initializing export variables
+        // btnExportExcel = findViewById(R.id.btnExport)
+        // tvData = findViewById(R.id.tvData)
+
+       //  btnExportExcel.setOnClickListener{
+        //    export();
+        //}
     }
 
     private fun openMenuFAB() {
@@ -258,6 +280,13 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+t-add-data-export/import
+    fun searchView(view: View) {
+        replaceFragment(homeSearchFragment)
+
+    }
+
+    
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==our_request_code && resultCode == RESULT_OK){
