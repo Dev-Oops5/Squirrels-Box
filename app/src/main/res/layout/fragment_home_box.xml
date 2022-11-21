@@ -54,6 +54,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
+
             <View
                 android:id="@+id/lineDw1"
                 android:layout_width="match_parent"

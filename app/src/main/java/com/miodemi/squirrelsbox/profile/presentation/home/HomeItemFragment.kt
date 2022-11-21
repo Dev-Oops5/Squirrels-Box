@@ -31,8 +31,7 @@ class HomeItemFragment : Fragment() {
 
     lateinit var _addview : AddDialogViewFab
 
-    //Export variables
-    private lateinit var btnExportExcel : Button
+
     //lateinit var tvData : TextView
 
     override fun onCreateView(
@@ -57,107 +56,9 @@ class HomeItemFragment : Fragment() {
             binding.titleTv.text = it
         }
 
-        //Initializing export variables
-        btnExportExcel = binding.btnExport
-        //tvData = findViewById(R.id.tvData)
 
-        btnExportExcel.setOnClickListener{
-            guardar();
-        // Inflate the layout for this fragment
-        }
         return view
     }
 
-    private fun guardar() {
-        //viewModelHomeItem.fetchNewsFeedName()
-        val wb: Workbook = HSSFWorkbook()
-        var cell: Cell? = null
-        val cellStyle = wb.createCellStyle()
-        cellStyle.fillForegroundColor = HSSFColor.AQUA.index
-        cellStyle.fillPattern = HSSFCellStyle.SOLID_FOREGROUND
-        cellStyle.alignment= CellStyle.ALIGN_CENTER
 
-        var sheet: Sheet? = null
-
-        sheet = wb.createSheet("items list ")
-        var row: Row? = null
-        row = sheet.createRow(0)
-
-        cell = row.createCell(0)
-        cell.setCellValue("Item Name")
-        cell.cellStyle = cellStyle
-
-        cell = row.createCell(1)
-        cell.setCellValue("Section Color")
-        cell.cellStyle = cellStyle
-
-        cell = row.createCell(2)
-        cell.setCellValue("Description")
-        cell.cellStyle = cellStyle
-
-        cell = row.createCell(3)
-        cell.setCellValue("Amount")
-        cell.cellStyle = cellStyle
-
-
-
-        row = sheet.createRow(1)
-        cell = row.createCell(0)
-        cell.setCellValue("T-shirt")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Gray")
-
-        cell = row.createCell(2)
-        cell.setCellValue("T-shirt with good style")
-
-        cell = row.createCell(3)
-        cell.setCellValue("2")
-
-
-        row = sheet.createRow(2)
-        cell = row.createCell(0)
-        cell.setCellValue("Coat")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Red")
-
-        cell = row.createCell(2)
-        cell.setCellValue("wing Coat")
-
-        cell = row.createCell(3)
-        cell.setCellValue("4")
-
-
-        row = sheet.createRow(3)
-        cell = row.createCell(0)
-        cell.setCellValue("Jacket")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Blue")
-
-        cell = row.createCell(2)
-        cell.setCellValue("Jacket for rain")
-
-        cell = row.createCell(3)
-        cell.setCellValue("1")
-
-        val file = File(context?.getExternalFilesDir(null), "items.xls")
-        var outputStream: FileOutputStream? = null
-
-        try {
-            outputStream = FileOutputStream(file)
-            wb.write(outputStream)
-            Toast.makeText(context?.applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Toast.makeText(context?.applicationContext, "currency problem", Toast.LENGTH_LONG).show()
-            try {
-                outputStream!!.close()
-            } catch (ex: IOException) {
-                ex.printStackTrace()
-            }
-        }
-
-    }
 }

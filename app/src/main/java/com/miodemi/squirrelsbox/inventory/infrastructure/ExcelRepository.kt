@@ -1,76 +1,33 @@
-package com.miodemi.squirrelsbox.profile.presentation.home
+package com.miodemi.squirrelsbox.inventory.infrastructure
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import com.miodemi.squirrelsbox.databinding.FragmentHomeBoxBinding
-import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
-import com.miodemi.squirrelsbox.inventory.application.box.HomeBoxViewModel
+import android.content.ContentValues
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.getValue
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
-import com.miodemi.squirrelsbox.inventory.domain.ItemData
-import com.miodemi.squirrelsbox.inventory.presentation.box.HomeBoxAdapter
+import com.miodemi.squirrelsbox.session.domain.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import org.apache.poi.hssf.usermodel.HSSFCellStyle
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
-class HomeBoxFragment : Fragment() {
+class ExcelRepository {
+    fun addBox(b: BoxData){
+        val data = ContentValues()
+        data.put("id", b.id)
+        data.put("name", b.name)
+        data.put("dateCreated", b.dateCreated)
+        data.put("boxType", b.boxType)
+        data.put("privateLink", b.privateLink)
+        data.put("download", b.download)
+        data.put("favourite", b.favourite)
+        data.put("author", b.author)
 
-    //binding
-    internal lateinit var binding: FragmentHomeBoxBinding
-
-    private val viewModelFAB : AddDialogViewFab by activityViewModels()
-
-    private val viewModel: HomeBoxViewModel by lazy {
-        ViewModelProvider(this)[HomeBoxViewModel::class.java]
-    }
-
-    //lateinit var _addview : AddDialogViewFab
-
-    //Export variables
-    //private lateinit var btnExportExcel : Button
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        viewModelFAB.setData("box")
-        //init data binding in a fragment
-        binding = FragmentHomeBoxBinding.inflate(layoutInflater)
-        //this value must be returned
-        val view : View = binding.root
-
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-
-        val itemBoxAdapter = HomeBoxAdapter()
-        binding.allBoxesRv.adapter = itemBoxAdapter
-
-        viewModel.fetchNewsFeed()
-
-        //Initializing export variables
-        /*btnExportExcel = binding.btnExport
-        //tvData = findViewById(R.id.tvData)
-
-        btnExportExcel.setOnClickListener{
-            guardar();
-            // Inflate the layout for this fragment
-        }*/
-        // Inflate the layout for this fragment
-        return view
-    }
-
-    private fun guardar() {
-        //viewModelHomeItem.fetchNewsFeedName()
         val wb: Workbook = HSSFWorkbook()
         var cell: Cell? = null
         val cellStyle = wb.createCellStyle()
@@ -79,9 +36,8 @@ class HomeBoxFragment : Fragment() {
         cellStyle.alignment= CellStyle.ALIGN_CENTER
 
         var sheet: Sheet? = null
-
-
         sheet = wb.createSheet("items list")
+
         var row: Row? = null
         row = sheet.createRow(0)
 
@@ -130,6 +86,7 @@ class HomeBoxFragment : Fragment() {
         cell = row.createCell(2)
         cell.setCellValue("null")
 
+
         val file = File(context?.getExternalFilesDir(null), "items.xls")
         var outputStream: FileOutputStream? = null
 
@@ -147,6 +104,21 @@ class HomeBoxFragment : Fragment() {
             }
         }
 
+
+
     }
+
+    fun getBoxById(boxId: String): Flow<State<Any>> = flow<State<Any>> {
+        emit(State.loading())
+
+        val box = FirebaseDatabase.getInstance().getReference("boxes").child(boxId).get().await()
+
+        box?.let {
+            val data = box.getValue<BoxData>()
+            emit(State.success(data!!))
+        }
+    }.catch {
+        emit(State.failed(it.message!!))
+    }.flowOn(Dispatchers.IO)
 
 }
