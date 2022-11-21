@@ -222,12 +222,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
         //Initializing export variables
-        btnExportExcel = findViewById(R.id.btnExport)
-        tvData = findViewById(R.id.tvData)
+        // btnExportExcel = findViewById(R.id.btnExport)
+        // tvData = findViewById(R.id.tvData)
 
-        btnExportExcel.setOnClickListener{
-            export();
-        }
+       //  btnExportExcel.setOnClickListener{
+        //    export();
+        //}
     }
 
     private fun openMenuFAB() {
@@ -308,79 +308,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun export(){
-
-        val workbook: Workbook = HSSFWorkbook()
-        var cell: Cell? = null
-        val cellStyle = workbook.createCellStyle()
-        cellStyle.fillForegroundColor = HSSFColor.AQUA.index
-        cellStyle.fillPattern = HSSFCellStyle.SOLID_FOREGROUND
-        cellStyle.alignment = CellStyle.ALIGN_CENTER
-
-
-        var sheet: Sheet? = null
-        sheet = workbook.createSheet("Items List")
-
-        var row: Row? = null
-        row = sheet.createRow(0)
-        cell = row.createCell(0)
-        cell.setCellValue("Title")
-        cell.cellStyle = cellStyle
-
-        sheet.createRow(1)
-        cell = row.createCell(1)
-        cell.setCellValue("Image Title")
-        cell.cellStyle = cellStyle
-
-        row = sheet.createRow(1)
-        cell = row.createCell(0)
-        cell.setCellValue("parlante4")
-        cell = row.createCell(1)
-        cell.setCellValue("polo-sudadera")
-
-        row = sheet.createRow(2)
-        cell = row.createCell(0)
-        cell.setCellValue("parlante7")
-        cell = row.createCell(1)
-        cell.setCellValue("polo-sudadera")
-
-        row = sheet.createRow(3)
-        cell = row.createCell(0)
-        cell.setCellValue("parlante")
-        cell = row.createCell(1)
-        cell.setCellValue("polo-sudadera")
-
-        row = sheet.createRow(4)
-        cell = row.createCell(0)
-        cell.setCellValue("parlante 8")
-        cell = row.createCell(1)
-        cell.setCellValue("polo-sudadera")
-
-        row = sheet.createRow(5)
-        cell = row.createCell(0)
-        cell.setCellValue("parlante3")
-        cell = row.createCell(1)
-        cell.setCellValue("polo-sudadera")
-
-        row = sheet.createRow(6)
-        cell = row.createCell(0)
-        cell.setCellValue("uno")
-        cell = row.createCell(1)
-        cell.setCellValue("polo-sudadera")
-
-        val file = File(getExternalFilesDir(null), "items_relation.xlsx")
-        var outputStream: FileOutputStream? = null
-
-        try {
-            outputStream = FileOutputStream(file)
-            workbook.write(outputStream)
-            Toast.makeText(this, "Downloading Sheet", Toast.LENGTH_SHORT).show()
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show()
-        }
-
-    }
+    
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
