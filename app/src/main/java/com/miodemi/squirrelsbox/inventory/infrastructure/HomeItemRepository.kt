@@ -31,6 +31,26 @@ class HomeItemRepository {
                 }
             })
     }
+
+    fun fetchNewsFeedName(liveData: MutableLiveData<List<ItemData>>, boxId: String, sectionId: String) {
+        newsFeedReference
+            .child(boxId).child("sections").child(sectionId).child("items")
+            .orderByChild("id")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val newsFeedItems: List<ItemData> = snapshot.children.map { dataSnapshot ->
+                        dataSnapshot.getValue(ItemData::class.java)!!.copy(id = dataSnapshot.key!!)
+                    }
+                    val newList = newsFeedItems.map { it.name }
+                    liveData.postValue(newsFeedItems)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Nothing to do
+                }
+            })
+    }
+
     fun fetchNewsFeedSearch(liveData: MutableLiveData<List<ItemData>>, boxId: String, sectionId: String, itemName: String) {
         newsFeedReference
             .child(boxId).child("sections").child(sectionId).child("items")
