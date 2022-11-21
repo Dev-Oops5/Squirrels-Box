@@ -130,7 +130,7 @@ class ExcelRepository {
 
     }
 
-    fun importBox(b: BoxData, context: Context){
+    fun importBox(context: Context){
         val file = File(context.getExternalFilesDir(null), "boxes.xls")
         var inputStream: FileInputStream? = null
         var datos = ""

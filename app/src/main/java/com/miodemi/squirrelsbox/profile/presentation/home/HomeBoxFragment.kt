@@ -14,6 +14,7 @@ import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.application.box.HomeBoxViewModel
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
 import com.miodemi.squirrelsbox.inventory.domain.ItemData
+import com.miodemi.squirrelsbox.inventory.infrastructure.ExcelRepository
 import com.miodemi.squirrelsbox.inventory.presentation.box.HomeBoxAdapter
 import org.apache.poi.hssf.usermodel.HSSFCellStyle
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -37,7 +38,8 @@ class HomeBoxFragment : Fragment() {
     //lateinit var _addview : AddDialogViewFab
 
     //Export variables
-    //private lateinit var btnExportExcel : Button
+    private lateinit var btnImportExcel : Button
+    val import= ExcelRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,95 +60,19 @@ class HomeBoxFragment : Fragment() {
         viewModel.fetchNewsFeed()
 
         //Initializing export variables
-        /*btnExportExcel = binding.btnExport
+        btnImportExcel = binding.btnImport
         //tvData = findViewById(R.id.tvData)
 
-        btnExportExcel.setOnClickListener{
-            guardar();
+        btnImportExcel.setOnClickListener{
+            import();
             // Inflate the layout for this fragment
-        }*/
+        }
         // Inflate the layout for this fragment
         return view
     }
 
-    private fun guardar() {
-        //viewModelHomeItem.fetchNewsFeedName()
-        val wb: Workbook = HSSFWorkbook()
-        var cell: Cell? = null
-        val cellStyle = wb.createCellStyle()
-        cellStyle.fillForegroundColor = HSSFColor.AQUA.index
-        cellStyle.fillPattern = HSSFCellStyle.SOLID_FOREGROUND
-        cellStyle.alignment= CellStyle.ALIGN_CENTER
-
-        var sheet: Sheet? = null
-
-
-        sheet = wb.createSheet("items list")
-        var row: Row? = null
-        row = sheet.createRow(0)
-
-        cell = row.createCell(0)
-        cell.setCellValue("Box Name")
-        cell.cellStyle = cellStyle
-
-        cell = row.createCell(1)
-        cell.setCellValue("Visibility")
-        cell.cellStyle = cellStyle
-
-        cell = row.createCell(2)
-        cell.setCellValue("Shared members")
-        cell.cellStyle = cellStyle
-
-
-        row = sheet.createRow(1)
-        cell = row.createCell(0)
-        cell.setCellValue("a")
-
-        cell = row.createCell(1)
-        cell.setCellValue("´Private")
-
-        cell = row.createCell(2)
-        cell.setCellValue("null")
-
-
-        row = sheet.createRow(2)
-        cell = row.createCell(0)
-        cell.setCellValue("e")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Private")
-
-        cell = row.createCell(2)
-        cell.setCellValue("null")
-
-
-        row = sheet.createRow(3)
-        cell = row.createCell(0)
-        cell.setCellValue("boxForm")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Private")
-
-        cell = row.createCell(2)
-        cell.setCellValue("null")
-
-        val file = File(context?.getExternalFilesDir(null), "items.xls")
-        var outputStream: FileOutputStream? = null
-
-        try {
-            outputStream = FileOutputStream(file)
-            wb.write(outputStream)
-            Toast.makeText(context?.applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Toast.makeText(context?.applicationContext, "currency problem", Toast.LENGTH_LONG).show()
-            try {
-                outputStream!!.close()
-            } catch (ex: IOException) {
-                ex.printStackTrace()
-            }
-        }
-
+    private fun import() {
+        context?.let { import.importBox(it) }
     }
 
 }
