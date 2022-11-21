@@ -410,7 +410,6 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-
     fun searchView(view: View) {
         replaceFragment(homeSearchFragment)
 
