@@ -52,7 +52,6 @@ class BoxDialogViewModel : ViewModel() {
         _date.value = createdDate
     }
 
-
     fun storeData(name: String, boxType: Boolean, privateLink: String, download: Boolean, favourite: Boolean){
         boxRepository.storeData(name, boxType, privateLink, download, favourite)
     }

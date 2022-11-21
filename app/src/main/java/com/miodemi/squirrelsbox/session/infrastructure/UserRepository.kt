@@ -1,10 +1,12 @@
 package com.miodemi.squirrelsbox.session.infrastructure
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.miodemi.squirrelsbox.profile.domain.profileData
 import com.miodemi.squirrelsbox.session.domain.State
 import com.miodemi.squirrelsbox.session.domain.UserData
 import java.util.*
@@ -35,7 +37,9 @@ class UserRepository {
 
         data.user?.let {
             val userData = UserData(null, username, email, birthday)
+            val profileData = profileData(birthday,email,null,username)
             addNewUser(userData)
+            addNewProfile(profileData)
 
             emit(State.success("User registered successfully"))
         }
@@ -57,7 +61,21 @@ class UserRepository {
         //val id = database.push().key!!
         val id = UUID.randomUUID().toString();
         user.id = id
-        database.child(id).setValue(user)
+        //database.child(id).setValue(user)
+
+        val auth = FirebaseAuth.getInstance()
+        val userEmail = auth.currentUser?.email.toString()
+        val newEmail = userEmail.replace("."," ")
+
+        database.child(newEmail).setValue(user)
+    }
+
+    private fun addNewProfile(user2:profileData){
+        val auth = FirebaseAuth.getInstance()
+        val userEmail = auth.currentUser?.email.toString()
+        val newEmail = userEmail.replace("."," ")
+
+        database.child(newEmail).setValue(user2)
     }
 
     fun login(email: String, password: String): Flow<State<Any>> = flow<State<Any>> {
