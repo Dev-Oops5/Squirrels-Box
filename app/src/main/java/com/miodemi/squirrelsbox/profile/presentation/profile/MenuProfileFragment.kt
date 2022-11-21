@@ -2,7 +2,9 @@ package com.miodemi.squirrelsbox.profile.presentation.profile
 
 import android.app.Activity
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.miodemi.squirrelsbox.databinding.FragmentMenuProfileBinding
 import com.miodemi.squirrelsbox.profile.application.ProfileViewModel
 import java.text.Bidi
@@ -30,7 +34,7 @@ class MenuProfileFragment : Fragment() {
     lateinit var auth: FirebaseAuth
 
     private lateinit var username:String
-    private lateinit var email:String
+    //private lateinit var email:String
     private lateinit var birthday:String
 
     override fun onCreateView(
@@ -51,13 +55,21 @@ class MenuProfileFragment : Fragment() {
         binding.actBoxesPb.max = maxBox
         binding.actBoxesPb.progress = actBox
 
-        auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser
+            //viewmodel.getUsername()
+            //val US = viewmodel.username.toString()
+            //binding.usernameTitleTv.setText(US)
+            //val emailName = user.email.toString()
+            //viewmodel.setEmail(emailName)
+            //viewmodel.setUser("",emailName,"","")
+            //viewmodel.setUser(userName2,"","")
+            //username = viewmodel.getUsername(user.email.toString()).toString()
+            //var asd = getUSername()
+            //var asd = viewmodel.getUsername()
 
-        if(user!=null) {
-            viewmodel.setEmail(user.email.toString())
-            binding.usernameEt.setText(user.email)
-        }
+                //binding.usernameEt.setText(asd.toString())
+
+            //binding.usernameTitleTv.setText(viewmodel.username.toString())
+
             //binding.usernameEt.setText(user.email)
 
         //binding.usernameEt.setText(
@@ -75,12 +87,14 @@ class MenuProfileFragment : Fragment() {
             username = binding.usernameEt.text.toString()
             birthday = binding.birthdayEt.text.toString()
 
-            viewmodel.updateUsername(username)
-            viewmodel.updateBirthday(birthday)
+            //viewmodel.updateUsername(username)
+            //viewmodel.updateBirthday(birthday)
 
-            binding.usernameEt.text.clear()
-            binding.birthdayEt.text.clear()
-        }
+            viewmodel.updateinfo(birthday,username)
+
+            //val userN = viewmodel.email.toString()
+            //binding.usernameTitleTv.setText(userN)
+       }
 
         binding.profilePicIv.setOnClickListener {
             openGalery()
@@ -102,4 +116,20 @@ class MenuProfileFragment : Fragment() {
         intent.type = "image/*"
         startForActivityGallery.launch(intent)
     }
+
+    /*
+    private fun getUSername(){
+        val rootRef = FirebaseDatabase.getInstance().reference
+        val uid = FirebaseAuth.getInstance().currentUser?.email.toString()
+        val uidRef = rootRef.child("users").child(uid)
+
+        uidRef.get().addOnCompleteListener{
+            if(it.isSuccessful){
+                val snap = it.result
+                val username = snap.child("username").getValue(String::class.java)
+                Log.d("", "username: $username")
+            }
+        }
+    }*/
+
 }

@@ -1,5 +1,6 @@
 package com.miodemi.squirrelsbox.profile.application
 
+import androidx.annotation.Nullable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,31 +22,35 @@ class ProfileViewModel: ViewModel() {
     private val _birthday = MutableLiveData<String>()
     val birthday: LiveData<String> = _birthday
 
-    fun setEmail(email: String) {
-        _email.value = email
+    fun setUsername(userName: String) {
+        _username.value = userName
     }
-    fun setId(id: String) {
-        _id.value = id
+
+    fun setBirthday(birthDay: String) {
+        _birthday.value = birthDay
     }
 
 /*
-    fun setId(id: String) {
-        _id.value = id
-    }
+    fun setEmail(email: String) {
+        _email.value = email
+}*/
 
-    fun setBirthday(birthday: String) {
-        _birthday.value = birthday
-    }
-
-    fun setUsername(username: String) {
-        _username.value = username
-    }
-*/
+/*
     fun updateUsername(userName: String){
-        _id.value?.let { profileRepository.updateUsername(it, userName) }
+        _email.value?.let { profileRepository.updateUsername(it, userName) }
     }
 
     fun updateBirthday(birthday: String){
-        _id.value?.let { profileRepository.updateBirthday(it, birthday) }
+        _email.value?.let { profileRepository.updateBirthday(it, birthday) }
     }
+*/
+
+    fun updateinfo(birthday: String,username: String){
+        profileRepository.updateinfo(birthday,username)
+    }
+
+    fun getUsername(){
+//        profileRepository.getUsername()
+    }
+
 }
