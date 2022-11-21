@@ -5,11 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.miodemi.squirrelsbox.databinding.FragmentHomeItemBinding
 import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.item.HomeItemAdapter
 import com.miodemi.squirrelsbox.inventory.application.item.HomeItemViewModel
+import org.apache.poi.hssf.usermodel.HSSFCellStyle
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.ss.usermodel.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class HomeItemFragment : Fragment() {
 
@@ -21,6 +31,8 @@ class HomeItemFragment : Fragment() {
 
     lateinit var _addview : AddDialogViewFab
 
+
+    //lateinit var tvData : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +56,9 @@ class HomeItemFragment : Fragment() {
             binding.titleTv.text = it
         }
 
-        // Inflate the layout for this fragment
+
         return view
     }
+
 
 }

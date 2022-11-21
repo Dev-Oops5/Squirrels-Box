@@ -1,17 +1,16 @@
 package com.miodemi.squirrelsbox.inventory.application.section
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.miodemi.squirrelsbox.inventory.domain.SectionData
-import com.miodemi.squirrelsbox.inventory.infrastructure.HomeSectionRepository
+import com.miodemi.squirrelsbox.inventory.infrastructure.BoxOpenHelper
 
-class HomeSectionViewModel : ViewModel() {
+class DownloadedSectionViewModel  : ViewModel() {
 
-    private val repository = HomeSectionRepository()
-
-    private val _id = MutableLiveData<String>()
-    val id: LiveData<String> = _id
+    private val _idD = MutableLiveData<String>()
+    val idD: LiveData<String> = _idD
 
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
@@ -20,18 +19,15 @@ class HomeSectionViewModel : ViewModel() {
     val sectionDataLiveData: LiveData<List<SectionData>> = _sectionDataLiveData
 
     fun setBoxId(currentId: String) {
-        _id.value = currentId
+        _idD.value = currentId
     }
 
     fun setName(currentName: String) {
         _name.value = currentName
     }
 
-    fun fetchNewsFeed() {
-        _id.value?.let {repository.fetchNewsFeed(_sectionDataLiveData, it)}
+    fun fetchNewsFeed(context: Context) {
+        val repository = BoxOpenHelper(context)
+        _name.value?.let {repository.fetchNewsFeedSection(_sectionDataLiveData, it)}
     }
-    fun fetchNewsFeedSearch(sectionName: String) {
-        _id.value?.let {repository.fetchNewsFeedSearch(_sectionDataLiveData, it, sectionName)}
-    }
-
 }

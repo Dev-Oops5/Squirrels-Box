@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,18 +19,29 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
 import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
+import com.miodemi.squirrelsbox.inventory.application.item.HomeItemViewModel
 import com.miodemi.squirrelsbox.inventory.presentation.SearchFragment
 import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.box.AddBoxDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.item.AddItemDialogFragment
 import com.miodemi.squirrelsbox.inventory.presentation.section.AddSectionDialogFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeBoxFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeItemFragment
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeSectionFragment
+import com.miodemi.squirrelsbox.profile.presentation.download.DownloadedBoxFragment
+import com.miodemi.squirrelsbox.profile.presentation.home.*
 import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
+import org.apache.poi.hssf.usermodel.HSSFCell
+import org.apache.poi.hssf.usermodel.HSSFCellStyle
+import org.apache.poi.hssf.usermodel.HSSFRow
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.poifs.filesystem.POIFSFileSystem
+import org.apache.poi.ss.usermodel.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class HomeActivity : AppCompatActivity() {
@@ -42,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
     private val homeBoxFragment = HomeBoxFragment()
     private val homeSectionFragment = HomeSectionFragment()
     private val homeItemFragment = HomeItemFragment()
+    private val downloadedBoxFragment = DownloadedBoxFragment()
     private val homeSearchFragment = SearchFragment()
 
     //UI Fragments
@@ -58,8 +72,12 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by viewModels()
     private val viewModelFAB: AddDialogViewFab by viewModels()
     private val viewModelHomeSearch: HomeSearchViewModel by viewModels()
+    //private val viewModelHomeItem: HomeItemViewModel by viewModels()
 
     private var our_request_code : Int = 123
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +120,9 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_downloads -> {
                     Toast.makeText(applicationContext, "Downloads clicked..", Toast.LENGTH_SHORT).show()
-                    // - - Here insert fragment - -
+                    drawerLY.close()
+                    replaceFragment(downloadedBoxFragment)
+                    titleLy.isGone = true
                     false
                 }
                 R.id.nav_settings -> {
@@ -181,7 +201,141 @@ class HomeActivity : AppCompatActivity() {
 
             closeMenuFAB()
         }
+
+        /*//Initializing export variables
+        btnExportExcel = findViewById(R.id.btnExport)
+        tvData = findViewById(R.id.tvData)
+
+        btnExportExcel.setOnClickListener{
+           guardar();
+        }*/
     }
+
+    fun guardar() {
+
+        //viewModelHomeItem.fetchNewsFeedName()
+
+        val wb: Workbook = HSSFWorkbook()
+        var cell: Cell? = null
+        val cellStyle = wb.createCellStyle()
+        cellStyle.fillForegroundColor = HSSFColor.AQUA.index
+        cellStyle.fillPattern = HSSFCellStyle.SOLID_FOREGROUND
+        cellStyle.alignment=CellStyle.ALIGN_CENTER
+
+        var sheet: Sheet? = null
+
+        sheet = wb.createSheet("items list ")
+        var row: Row? = null
+        row = sheet.createRow(0)
+
+        cell = row.createCell(0)
+        cell.setCellValue("Item Name")
+        cell.cellStyle = cellStyle
+
+        cell = row.createCell(1)
+        cell.setCellValue("Section Color")
+        cell.cellStyle = cellStyle
+
+        cell = row.createCell(2)
+        cell.setCellValue("Phone Number")
+        cell.cellStyle = cellStyle
+
+        cell = row.createCell(3)
+        cell.setCellValue("Amount")
+        cell.cellStyle = cellStyle
+
+
+
+        /*
+        row = sheet.createRow(1)
+        cell = row.createCell(0)
+        cell.setCellValue("Ahidhar")
+
+        cell = row.createCell(1)
+        cell.setCellValue("Ahish")
+
+        cell = row.createCell(2)
+        cell.setCellValue("1111")
+
+        cell = row.createCell(3)
+        cell.setCellValue("ahidhar@xyz.com")
+
+
+        row = sheet.createRow(2)
+        cell = row.createCell(0)
+        cell.setCellValue("Ahidhar")
+
+        cell = row.createCell(1)
+        cell.setCellValue("Ahish")
+
+        cell = row.createCell(2)
+        cell.setCellValue("2222")
+
+        cell = row.createCell(3)
+        cell.setCellValue("ahidhar@xyz.com")
+
+
+        row = sheet.createRow(3)
+        cell = row.createCell(0)
+        cell.setCellValue("Ahidhar")
+
+        cell = row.createCell(1)
+        cell.setCellValue("Ahish")
+
+        cell = row.createCell(2)
+        cell.setCellValue("3333")
+
+        cell = row.createCell(3)
+        cell.setCellValue("ahidhar@xyz.com")
+        */
+
+
+        val file = File(getExternalFilesDir(null), "items.xls")
+        var outputStream: FileOutputStream? = null
+
+        try {
+            outputStream = FileOutputStream(file)
+            wb.write(outputStream)
+            Toast.makeText(applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(applicationContext, "currency problem", Toast.LENGTH_LONG).show()
+            try {
+                outputStream!!.close()
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+            }
+        }
+    }
+
+    /*fun leer() {
+        val file = File(getExternalFilesDir(null), "relacion.xls")
+        var inputStream: FileInputStream? = null
+        var datos = ""
+        try {
+            inputStream = FileInputStream(file)
+            val fileSystem = POIFSFileSystem(inputStream)
+            val workbook = HSSFWorkbook(fileSystem)
+            val sheet = workbook.getSheetAt(0)
+            val rowIterator = sheet.rowIterator()
+            while (rowIterator.hasNext()) {
+                val row = rowIterator.next() as HSSFRow
+                val cellIterator = row.cellIterator()
+                while (cellIterator.hasNext()) {
+                    val cell = cellIterator.next() as HSSFCell
+                    datos = "$datos - $cell"
+                }
+                datos = """
+                $datos
+                
+                """.trimIndent()
+            }
+            tvData.text = datos
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }*/
+
 
     private fun openMenuFAB() {
         // if its false we are displaying home fab
@@ -256,6 +410,12 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    fun searchView(view: View) {
+        replaceFragment(homeSearchFragment)
+
+    }
+
+    
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==our_request_code && resultCode == RESULT_OK){

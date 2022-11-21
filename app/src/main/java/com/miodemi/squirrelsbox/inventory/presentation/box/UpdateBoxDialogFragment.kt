@@ -54,6 +54,12 @@ class UpdateBoxDialogFragment : DialogFragment() {
                 Toast.makeText(this@UpdateBoxDialogFragment.activity, viewModel.result.value, Toast.LENGTH_LONG).show()
             }
         }
+        binding.exportBoxTv.setOnClickListener{
+            lifecycleScope.launchWhenStarted {
+                this@UpdateBoxDialogFragment.context?.let { it1 -> viewModel.exportBox(it1) }
+                Toast.makeText(this@UpdateBoxDialogFragment.activity, viewModel.result.value, Toast.LENGTH_LONG).show()
+            }
+        }
 
         // Inflate the layout for this fragment
         return view

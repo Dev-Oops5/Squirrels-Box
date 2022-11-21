@@ -23,11 +23,15 @@ import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import com.miodemi.squirrelsbox.databinding.FragmentSearchBinding
 import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
 import com.miodemi.squirrelsbox.inventory.application.box.HomeBoxViewModel
+import com.miodemi.squirrelsbox.inventory.application.item.HomeItemViewModel
 import com.miodemi.squirrelsbox.inventory.application.item.ItemDialogViewModel
+import com.miodemi.squirrelsbox.inventory.application.section.HomeSectionViewModel
 import com.miodemi.squirrelsbox.inventory.application.section.SectionDialogViewModel
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
 import com.miodemi.squirrelsbox.inventory.infrastructure.HomeBoxRepository
 import com.miodemi.squirrelsbox.inventory.presentation.box.HomeBoxAdapter
+import com.miodemi.squirrelsbox.inventory.presentation.item.HomeItemAdapter
+import com.miodemi.squirrelsbox.inventory.presentation.section.HomeSectionAdapter
 import java.io.ByteArrayOutputStream
 
 class SearchFragment : Fragment() {
@@ -49,6 +53,13 @@ class SearchFragment : Fragment() {
     private val viewModel3: HomeBoxViewModel by lazy {
         ViewModelProvider(this)[HomeBoxViewModel::class.java]
     }
+    private val viewModel4: HomeSectionViewModel by lazy {
+        ViewModelProvider(this)[HomeSectionViewModel::class.java]
+    }
+    private val viewModel5: HomeItemViewModel by lazy {
+        ViewModelProvider(this)[HomeItemViewModel::class.java]
+    }
+
     lateinit var imageDetector : Unit
 
     private lateinit var imageLabeler : ImageLabeler
@@ -66,9 +77,15 @@ class SearchFragment : Fragment() {
 
         //Adapter for show boxes
         val itemBoxAdapter = HomeBoxAdapter()
+        val itemSectionAdapter = HomeSectionAdapter()
+        val itemItemAdapter = HomeItemAdapter()
         binding.allBoxesRv.adapter = itemBoxAdapter
 
-
+        //val itemSectionAdapter = HomeSectionAdapter()
+        //binding.allBoxesRv.adapter = itemSectionAdapter
+//
+        //val itemItemAdapter = HomeItemAdapter()
+        //binding.allBoxesRv.adapter = itemItemAdapter
 
         viewModel.data.observe(viewLifecycleOwner) {
             imageDetector = binding.image.setImageBitmap(it)
@@ -131,6 +148,7 @@ class SearchFragment : Fragment() {
 
     //Search implementation
     private fun searchItem(name: String, boxName: String, sectionName: String) {
+
         database = FirebaseDatabase.getInstance().getReference("boxes").child(boxName).child("sections").child(sectionName).child("items")
         //var listita = ArrayList<String>();
         //var section = ""
@@ -138,6 +156,9 @@ class SearchFragment : Fragment() {
             if(it.exists()){
                 // val section = it.child("sections").value
                 // it.child("sections")
+                binding.lifecycleOwner = this
+
+                viewModel5.fetchNewsFeedSearch(name)
 
                 Log.d("TAG", "$it")
                 val boxName = it.child("name").value
@@ -156,13 +177,17 @@ class SearchFragment : Fragment() {
 
     }
     private fun searchSection(name: String, boxName: String) {
+
+
         database = FirebaseDatabase.getInstance().getReference("boxes").child(boxName).child("sections")
-        //var listita = ArrayList<String>();
-        //var section = ""
+
         database.child(name).get().addOnSuccessListener {
             if(it.exists()){
-                // val section = it.child("sections").value
-                // it.child("sections")
+
+
+                binding.lifecycleOwner = this
+
+                viewModel4.fetchNewsFeedSearch(name)
 
                 Log.d("TAG", "$it")
                 val boxName = it.child("name").value
@@ -180,6 +205,8 @@ class SearchFragment : Fragment() {
 
     }
     private fun searchBox(name: String) {
+
+
         database = FirebaseDatabase.getInstance().getReference("boxes")
 
         database.child(name).get().addOnSuccessListener {
@@ -190,6 +217,7 @@ class SearchFragment : Fragment() {
 
                 viewModel3.fetchNewsFeedSearch(name)
                 Log.d("TAG", "$it")
+                binding.etsearch.text.clear()
             }else{
                 Toast.makeText(requireContext(), "Box Not Found", Toast.LENGTH_SHORT).show()
             }
@@ -223,6 +251,8 @@ class SearchFragment : Fragment() {
         val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
         return Uri.parse(path.toString())
     }
+
+
 
 }
 

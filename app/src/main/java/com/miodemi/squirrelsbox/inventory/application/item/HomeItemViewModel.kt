@@ -40,5 +40,17 @@ class HomeItemViewModel : ViewModel() {
                 repository.fetchNewsFeed(_itemDataLiveData, it, it1) }
         }
     }
+    fun fetchNewsFeedSearch(itemName: String) {
+        _boxId.value?.let {
+            _sectionId.value?.let { it1 ->
+                repository.fetchNewsFeedSearch(_itemDataLiveData, it, it1, itemName) }
+        }
+    }
 
+    fun fetchNewsFeedName() {
+        _boxId.value?.let {
+            _sectionId.value?.let { it1 ->
+                repository.fetchNewsFeedName(_itemDataLiveData, it, it1) }
+        }
+    }
 }
