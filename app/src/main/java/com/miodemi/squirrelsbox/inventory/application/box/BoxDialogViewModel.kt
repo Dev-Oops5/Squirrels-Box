@@ -101,7 +101,7 @@ class BoxDialogViewModel : ViewModel() {
                         setResult("Exporting")
                     }
                     is State.Success -> {
-                        excelRepository.addBox(state.data as BoxData, context)
+                        excelRepository.exportBox(state.data as BoxData, context)
 
                         //Download sections
                        // downloadSection(it)

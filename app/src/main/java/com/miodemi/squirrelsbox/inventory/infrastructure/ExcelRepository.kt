@@ -15,16 +15,20 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import org.apache.poi.hssf.usermodel.HSSFCell
 import org.apache.poi.hssf.usermodel.HSSFCellStyle
+import org.apache.poi.hssf.usermodel.HSSFRow
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.hssf.util.HSSFColor
+import org.apache.poi.poifs.filesystem.POIFSFileSystem
 import org.apache.poi.ss.usermodel.*
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
 class ExcelRepository {
-    fun addBox(b: BoxData, context: Context){
+    fun exportBox(b: BoxData, context: Context){
 
         val wb: Workbook = HSSFWorkbook()
         var cell: Cell? = null
@@ -98,7 +102,9 @@ class ExcelRepository {
         cell = row.createCell(7)
         cell.setCellValue(b.author)
 
-        
+
+
+
         val file = File(context.getExternalFilesDir(null), "boxes.xls")
         var outputStream: FileOutputStream? = null
 
@@ -120,6 +126,32 @@ class ExcelRepository {
 
     }
 
+    fun importBox(b: BoxData, context: Context){
+        val file = File(context.getExternalFilesDir(null), "boxes.xls")
+        var inputStream: FileInputStream? = null
+        var datos = ""
+        try {
+            inputStream = FileInputStream(file)
+            val fileSystem = POIFSFileSystem(inputStream)
+            val workbook = HSSFWorkbook(fileSystem)
+
+            val sheet = workbook.getSheetAt(0)
+
+            println(sheet.getRow(1).getCell(0))
+            println(sheet.getRow(1).getCell(1))
+            println(sheet.getRow(1).getCell(2))
+            println(sheet.getRow(1).getCell(3))
+            println(sheet.getRow(1).getCell(4))
+            println(sheet.getRow(1).getCell(5))
+            println(sheet.getRow(1).getCell(6))
+            println(sheet.getRow(1).getCell(7))
+            
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     fun getBoxById(boxId: String): Flow<State<Any>> = flow<State<Any>> {
         emit(State.loading())
 
@@ -132,5 +164,7 @@ class ExcelRepository {
     }.catch {
         emit(State.failed(it.message!!))
     }.flowOn(Dispatchers.IO)
+
+
 
 }
