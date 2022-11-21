@@ -30,10 +30,6 @@ import com.miodemi.squirrelsbox.profile.presentation.profile.MenuProfileFragment
 import com.miodemi.squirrelsbox.profile.presentation.settings.MenuSettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
-import org.apache.poi.hssf.usermodel.HSSFCellStyle
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.hssf.util.HSSFColor
-import org.apache.poi.ss.usermodel.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -280,7 +276,6 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-t-add-data-export/import
     fun searchView(view: View) {
         replaceFragment(homeSearchFragment)
 
