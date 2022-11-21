@@ -71,9 +71,34 @@ class ExcelRepository {
         cell.setCellValue("Author")
         cell.cellStyle = cellStyle
 
-        cell = row.createCell(2)
+
+        row = sheet.createRow(1)
+
+        cell = row.createCell(0)
+        cell.setCellValue(b.id)
+
+        cell = row.createCell(1)
         cell.setCellValue(b.name)
 
+        cell = row.createCell(2)
+        cell.setCellValue(b.dateCreated)
+
+        cell = row.createCell(3)
+        cell.setCellValue(b.boxType!!)
+
+        cell = row.createCell(4)
+        cell.setCellValue(b.privateLink)
+
+        cell = row.createCell(5)
+        cell.setCellValue(b.download!!)
+
+        cell = row.createCell(6)
+        cell.setCellValue(b.favourite!!)
+
+        cell = row.createCell(7)
+        cell.setCellValue(b.author)
+
+        
         val file = File(context.getExternalFilesDir(null), "items.xls")
         var outputStream: FileOutputStream? = null
 
