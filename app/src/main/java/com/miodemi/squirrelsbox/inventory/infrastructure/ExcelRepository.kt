@@ -25,15 +25,6 @@ import java.io.IOException
 
 class ExcelRepository {
     fun addBox(b: BoxData, context: Context){
-        val data = ContentValues()
-        data.put("id", b.id)
-        data.put("name", b.name)
-        data.put("dateCreated", b.dateCreated)
-        data.put("boxType", b.boxType)
-        data.put("privateLink", b.privateLink)
-        data.put("download", b.download)
-        data.put("favourite", b.favourite)
-        data.put("author", b.author)
 
         val wb: Workbook = HSSFWorkbook()
         var cell: Cell? = null
@@ -49,50 +40,39 @@ class ExcelRepository {
         row = sheet.createRow(0)
 
         cell = row.createCell(0)
-        cell.setCellValue("Box Name")
+        cell.setCellValue("Id")
         cell.cellStyle = cellStyle
 
         cell = row.createCell(1)
-        cell.setCellValue("Visibility")
+        cell.setCellValue("Name")
         cell.cellStyle = cellStyle
 
         cell = row.createCell(2)
-        cell.setCellValue("Shared members")
+        cell.setCellValue("Date Created")
         cell.cellStyle = cellStyle
 
+        cell = row.createCell(3)
+        cell.setCellValue("Box Type")
+        cell.cellStyle = cellStyle
 
-        row = sheet.createRow(1)
-        cell = row.createCell(0)
-        cell.setCellValue("a")
+        cell = row.createCell(4)
+        cell.setCellValue("Private Link")
+        cell.cellStyle = cellStyle
 
-        cell = row.createCell(1)
-        cell.setCellValue("´Private")
+        cell = row.createCell(5)
+        cell.setCellValue("Download")
+        cell.cellStyle = cellStyle
 
-        cell = row.createCell(2)
-        cell.setCellValue("null")
+        cell = row.createCell(6)
+        cell.setCellValue("Favourite")
+        cell.cellStyle = cellStyle
 
-
-        row = sheet.createRow(2)
-        cell = row.createCell(0)
-        cell.setCellValue("e")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Private")
-
-        cell = row.createCell(2)
-        cell.setCellValue("null")
-
-
-        row = sheet.createRow(3)
-        cell = row.createCell(0)
-        cell.setCellValue("boxForm")
-
-        cell = row.createCell(1)
-        cell.setCellValue("Private")
+        cell = row.createCell(7)
+        cell.setCellValue("Author")
+        cell.cellStyle = cellStyle
 
         cell = row.createCell(2)
-        cell.setCellValue("null")
-
+        cell.setCellValue(b.name)
 
         val file = File(context.getExternalFilesDir(null), "items.xls")
         var outputStream: FileOutputStream? = null
