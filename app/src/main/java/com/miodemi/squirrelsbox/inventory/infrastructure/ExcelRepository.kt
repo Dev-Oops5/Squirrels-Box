@@ -28,6 +28,10 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class ExcelRepository {
+
+    private val boxRepository = BoxDialogRepository()
+
+
     fun exportBox(b: BoxData, context: Context){
 
         val wb: Workbook = HSSFWorkbook()
@@ -137,15 +141,13 @@ class ExcelRepository {
 
             val sheet = workbook.getSheetAt(0)
 
-            println(sheet.getRow(1).getCell(0))
-            println(sheet.getRow(1).getCell(1))
-            println(sheet.getRow(1).getCell(2))
-            println(sheet.getRow(1).getCell(3))
-            println(sheet.getRow(1).getCell(4))
-            println(sheet.getRow(1).getCell(5))
-            println(sheet.getRow(1).getCell(6))
-            println(sheet.getRow(1).getCell(7))
-            
+            val name = sheet.getRow(1).getCell(1).toString()
+            val boxType = sheet.getRow(1).getCell(3).toString().toBoolean()
+            val privateLink = sheet.getRow(1).getCell(4).toString()
+            val download = sheet.getRow(1).getCell(5).toString().toBoolean()
+            val favourite = sheet.getRow(1).getCell(6).toString().toBoolean()
+
+            boxRepository.storeData(name,boxType,privateLink,download,favourite)
 
         } catch (e: Exception) {
             e.printStackTrace()
