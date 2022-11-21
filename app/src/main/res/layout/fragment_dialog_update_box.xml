@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".inventory.presentation.box.UpdateBoxDialogFragment"
+    android:background="@drawable/vc_round_shape_pw"
+    android:minWidth="260dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:id="@+id/titleLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Box 1"
+                android:textColor="@color/primary_orange_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/deleteBoxIc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_delete_forever_24" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/boxNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Box name"
+            android:textColor="@color/black"
+            android:layout_below="@id/titleLy"
+            android:textSize="16sp" />
+
+        <!--Box name-->
+        <EditText
+            android:id="@+id/boxNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/boxNameTv"
+            android:hint="Ex. Amazing Box" />
+
+        <LinearLayout
+            android:id="@+id/boxTypeLY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/boxNameEt"
+            android:gravity="center_horizontal"
+            android:background="#E7E7E7"
+            android:layout_marginBottom="10dp">
+
+            <RadioGroup
+                android:id="@+id/statusRg"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <RadioButton
+                    android:id="@+id/activeRb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Private"
+                    android:checked="true"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/inactiveRb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Public"
+                    android:textSize="16sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/sharedTypeLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/boxTypeLY">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share your box"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+            <!--            Create DropdownBox-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="edit" />
+        </RelativeLayout>
+
+        <!--Share with-->
+        <EditText
+            android:id="@+id/shareWithEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sharedTypeLy"
+            android:hint="E-mail or Username" />
+
+        <LinearLayout
+            android:id="@+id/copyLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/shareWithEt"
+            >
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_downloads_24"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"/>
+
+            <TextView
+                android:id="@+id/shareBoxTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Download" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/exportBoxTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Export" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_downloads_24"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerLayoutForBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/copyLy"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <!--Create Box Button-->
+
+            <Button
+                android:id="@+id/updateBoxBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Update" />
+
+            <Button
+                android:id="@+id/cancelBoxBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Cancel" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

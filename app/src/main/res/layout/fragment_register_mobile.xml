@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.presentation.RegisterMobileFragment"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/titleTv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:text="Verify your phone"
+        android:textColor="@color/primary_orange_dark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTv1"
+        android:text="Provide us your phone number to identify you as a valid user"
+        android:textColor="@color/primary_orange_dark"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/mobilePhoneLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/countryCodeTil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:textColorHint="@color/primary_white"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/primary_white">
+
+            <EditText
+                android:id="@+id/countryCodeEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Username"
+                android:background="@drawable/vc_rectangle_od_2"
+                android:hint="CC"
+                android:inputType="number"
+                android:textColor="@color/primary_white"
+                android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneNumberTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/primary_white"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintTextColor="@color/primary_white">
+
+            <EditText
+                android:id="@+id/phoneNumberEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Username"
+                android:background="@drawable/vc_rectangle_od"
+                android:hint="Phone number"
+                android:inputType="phone"
+                android:textColor="@color/primary_white"
+                android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sendCodeLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobilePhoneLy"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <!--Create Box Button-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/smsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="@string/send_sms"
+            android:textSize="18sp"
+            android:layout_marginEnd="20dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/callBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="Call me"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sendCodeLy"
+        android:layout_marginTop="50dp"
+        android:text="This verification code will help us to identify your phone number. Plase enter your 6 digits code"
+        android:textColor="@color/primary_orange_dark"
+        android:textSize="18sp" />
+
+
+
+    <LinearLayout
+        android:id="@+id/verificationCod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/verifCode1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/primary_white"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:hintTextColor="@color/primary_white">
+
+        <EditText
+            android:id="@+id/verifCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="Phone number"
+            android:inputType="number"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/verifBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="Verification"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/returnHomebtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_orange"
+            android:text="Login"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</RelativeLayout>

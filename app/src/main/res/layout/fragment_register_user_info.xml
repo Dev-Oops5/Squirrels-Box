@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".session.presentation.RegisterUserInfoFragment"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/titleTv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:text="User Registration"
+        android:textColor="@color/primary_orange_dark"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/usernameTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTv1"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        android:textColorHint="@color/primary_white"
+        app:hintTextColor="@color/primary_white"
+        >
+
+        <EditText
+            android:id="@+id/usernameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="Username"
+            android:inputType="text"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameTil"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        android:textColorHint="@color/primary_white"
+        android:layout_marginTop="20dp"
+        app:hintTextColor="@color/primary_white"
+        >
+
+        <EditText
+            android:id="@+id/emailEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="E-mail"
+            android:inputType="text"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/birthdayTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailTil"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        android:textColorHint="@color/primary_white"
+        android:layout_marginTop="20dp"
+        app:hintTextColor="@color/primary_white"
+        >
+
+        <EditText
+            android:id="@+id/birthdayEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="Birthday (Optional)"
+            android:inputType="text"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/birthdayTil"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        android:textColorHint="@color/primary_white"
+        android:layout_marginTop="20dp"
+        app:hintTextColor="@color/primary_white"
+        >
+
+        <EditText
+            android:id="@+id/passwordEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/rePasswordTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordTil"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        android:textColorHint="@color/primary_white"
+        android:layout_marginTop="20dp"
+        app:hintTextColor="@color/primary_white"
+        >
+
+        <EditText
+            android:id="@+id/rePasswordEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="Username"
+            android:background="@drawable/vc_rectangle_od"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textColor="@color/primary_white"
+            android:textCursorDrawable="@drawable/vc_color_cursor_pw"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/termsAndCondLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rePasswordTil"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <CheckBox
+            android:id="@+id/termsAndCondCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept terms and conditions" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registerContinueBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/termsAndCondLy"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/primary_orange"
+        android:text="Continue" />
+
+</RelativeLayout>

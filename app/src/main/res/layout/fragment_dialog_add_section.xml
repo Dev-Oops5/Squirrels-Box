@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".inventory.presentation.section.AddSectionDialogFragment"
+    android:background="@drawable/vc_round_shape_pw"
+    android:minWidth="260dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <RelativeLayout
+            android:id="@+id/titleLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/boxNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Box 1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/boxNameTv"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:text="Add your section"
+                android:textColor="@color/primary_orange_dark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/sectionNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Section name"
+            android:textColor="@color/black"
+            android:layout_below="@id/titleLy"
+            android:textSize="16sp" />
+
+        <!--Section name-->
+        <EditText
+            android:id="@+id/sectionNameEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sectionNameTv"
+            android:layout_marginBottom="10dp"
+            android:hint="Ex. Amazing section" />
+
+        <LinearLayout
+            android:id="@+id/colorLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/sectionNameEt">
+
+            <TextView
+                android:id="@+id/selectionColorTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sectionNameEt"
+                android:text="Section color"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <!--Color-->
+            <EditText
+                android:id="@+id/colorEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Blue"
+                android:drawableEnd="@drawable/ic_custom_color_palette_24"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linerLayoutForBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/colorLy"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <!--Create Box Button-->
+
+            <Button
+                android:id="@+id/addSectionBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="Add section" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

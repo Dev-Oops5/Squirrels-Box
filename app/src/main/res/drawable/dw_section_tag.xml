@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="48dp"
+    android:width="25dp"
+    android:viewportHeight="100"
+    android:viewportWidth="100">
+
+    <path
+        android:pathData="M0 0V50.1188H100V0"
+        android:fillColor="@android:color/white"
+        />
+
+    <path
+        android:name="dark_triangle"
+        android:fillColor="@android:color/white"
+        android:pathData="M 0,50 L 50,50 0,100 z" />
+    <group android:scaleX="-1" android:pivotX="50.0">
+        <path
+            android:name="opposite triangle"
+            android:fillColor="@android:color/white"
+            android:pathData="M 0,50 L 50,50 0,100 z" />
+    </group>
+
+</vector>
