@@ -72,13 +72,11 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by viewModels()
     private val viewModelFAB: AddDialogViewFab by viewModels()
     private val viewModelHomeSearch: HomeSearchViewModel by viewModels()
-    private val viewModelHomeItem: HomeItemViewModel by viewModels()
+    //private val viewModelHomeItem: HomeItemViewModel by viewModels()
 
     private var our_request_code : Int = 123
 
-    //Export variables
-    lateinit var btnExportExcel : Button
-    lateinit var tvData : TextView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -204,16 +202,16 @@ class HomeActivity : AppCompatActivity() {
             closeMenuFAB()
         }
 
-        //Initializing export variables
+        /*//Initializing export variables
         btnExportExcel = findViewById(R.id.btnExport)
         tvData = findViewById(R.id.tvData)
 
         btnExportExcel.setOnClickListener{
            guardar();
-        }
+        }*/
     }
 
-    fun guardar() {
+    /*fun guardar() {
 
         //viewModelHomeItem.fetchNewsFeedName()
 
@@ -248,6 +246,7 @@ class HomeActivity : AppCompatActivity() {
 
 
 
+        /*
         row = sheet.createRow(1)
         cell = row.createCell(0)
         cell.setCellValue("Ahidhar")
@@ -288,7 +287,7 @@ class HomeActivity : AppCompatActivity() {
 
         cell = row.createCell(3)
         cell.setCellValue("ahidhar@xyz.com")
-
+        */
 
 
         val file = File(getExternalFilesDir(null), "items.xls")
@@ -307,9 +306,9 @@ class HomeActivity : AppCompatActivity() {
                 ex.printStackTrace()
             }
         }
-    }
+    }*/
 
-    fun leer() {
+    /*fun leer() {
         val file = File(getExternalFilesDir(null), "relacion.xls")
         var inputStream: FileInputStream? = null
         var datos = ""
@@ -335,7 +334,7 @@ class HomeActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
+    }*/
 
 
     private fun openMenuFAB() {
