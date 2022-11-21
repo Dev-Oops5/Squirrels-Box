@@ -142,16 +142,16 @@ class HomeItemFragment : Fragment() {
         cell = row.createCell(3)
         cell.setCellValue("1")
 
-        val file = File(getExternalFilesDir(null), "items.xls")
+        val file = File(context?.getExternalFilesDir(null), "items.xls")
         var outputStream: FileOutputStream? = null
 
         try {
             outputStream = FileOutputStream(file)
             wb.write(outputStream)
-            Toast.makeText(applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
+            Toast.makeText(context?.applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
         } catch (e: IOException) {
             e.printStackTrace()
-            Toast.makeText(applicationContext, "currency problem", Toast.LENGTH_LONG).show()
+            Toast.makeText(context?.applicationContext, "currency problem", Toast.LENGTH_LONG).show()
             try {
                 outputStream!!.close()
             } catch (ex: IOException) {

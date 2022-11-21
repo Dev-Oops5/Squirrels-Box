@@ -211,7 +211,7 @@ class HomeActivity : AppCompatActivity() {
         }*/
     }
 
-    /*fun guardar() {
+    fun guardar() {
 
         //viewModelHomeItem.fetchNewsFeedName()
 
@@ -306,7 +306,7 @@ class HomeActivity : AppCompatActivity() {
                 ex.printStackTrace()
             }
         }
-    }*/
+    }
 
     /*fun leer() {
         val file = File(getExternalFilesDir(null), "relacion.xls")
