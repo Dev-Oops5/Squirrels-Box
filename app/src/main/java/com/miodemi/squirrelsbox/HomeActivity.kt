@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miodemi.squirrelsbox.databinding.ActivityHomeBinding
 import com.miodemi.squirrelsbox.inventory.application.HomeSearchViewModel
+import com.miodemi.squirrelsbox.inventory.application.item.HomeItemViewModel
 import com.miodemi.squirrelsbox.inventory.presentation.SearchFragment
 import com.miodemi.squirrelsbox.profile.presentation.AddDialogViewFab
 import com.miodemi.squirrelsbox.inventory.presentation.box.AddBoxDialogFragment
@@ -71,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by viewModels()
     private val viewModelFAB: AddDialogViewFab by viewModels()
     private val viewModelHomeSearch: HomeSearchViewModel by viewModels()
+    private val viewModelHomeItem: HomeItemViewModel by viewModels()
 
     private var our_request_code : Int = 123
 
@@ -212,6 +214,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun guardar() {
+
+        //viewModelHomeItem.fetchNewsFeedName()
+
         val wb: Workbook = HSSFWorkbook()
         var cell: Cell? = null
         val cellStyle = wb.createCellStyle()
