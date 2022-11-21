@@ -1,36 +1,20 @@
 package com.miodemi.squirrelsbox.inventory.presentation.item
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Binder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.storage.FirebaseStorage
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.ItemObjectBinding
 import com.miodemi.squirrelsbox.inventory.application.item.ItemDialogViewModel
 import com.miodemi.squirrelsbox.inventory.domain.ItemData
-import kotlinx.android.synthetic.main.fragment_dialog_add_item.*
-import kotlinx.coroutines.NonDisposableHandle.parent
-import kotlinx.coroutines.withContext
-import java.io.ByteArrayOutputStream
-import java.io.File
 
-class HomeItemAdapter(
+class DownloadedItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private val homeItemItems = mutableListOf<ItemData>()
-    private lateinit var database: DatabaseReference
+    private val downloadedItemItems = mutableListOf<ItemData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemItemViewHolder(parent)
@@ -43,7 +27,7 @@ class HomeItemAdapter(
         private val binding = ItemObjectBinding.bind(itemView)
 
         fun onBind(
-            homeItemItem : ItemData
+            downloadedItemItem : ItemData
         ){
             // Image get
 //            val newView : View = itemView
@@ -54,10 +38,10 @@ class HomeItemAdapter(
 //            val itemImage = fragmentViewFragment1.getImage(fileName)
 //
 //            binding.profileImage.setImageBitmap(itemImage)
-            val fileName = homeItemItem.picture.toString()
-            val storageRef = FirebaseStorage.getInstance().reference.child("images/$fileName.jpg")
+            val fileName = downloadedItemItem.picture.toString()
+            //val storageRef = FirebaseStorage.getInstance().reference.child("images/$fileName.jpg")
 
-            val localfile = File.createTempFile("tempImage","jpg")
+            /*val localfile = File.createTempFile("tempImage","jpg")
             storageRef.getFile(localfile)
                 .addOnSuccessListener {
                     val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
@@ -67,13 +51,13 @@ class HomeItemAdapter(
                 }
                 .addOnFailureListener {  }
 
-            binding.itemNameTv.text = homeItemItem.name.toString()
+            binding.itemNameTv.text = homeItemItem.name.toString()*/
 
-            val itemId = homeItemItem.id.toString()
-            val sectionId = homeItemItem.sectionId.toString()
-            val boxId = homeItemItem.boxId.toString()
-            val sectionName = homeItemItem.name.toString()
-            val sectionDateCreated = homeItemItem.dateCreated.toString()
+            val itemId = downloadedItemItem.id.toString()
+            val sectionId = downloadedItemItem.sectionId.toString()
+            val boxId = downloadedItemItem.boxId.toString()
+            val sectionName = downloadedItemItem.name.toString()
+            val sectionDateCreated = downloadedItemItem.dateCreated.toString()
 
             binding.editBtn.setOnClickListener { v : View ->
                 val activity = v.context as AppCompatActivity
@@ -85,22 +69,20 @@ class HomeItemAdapter(
 
                 UpdateItemDialogFragment().show(activity.supportFragmentManager, "UpdateItemDialog")
             }
-
-            
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ItemItemViewHolder).onBind(
-            homeItemItem = homeItemItems[position])
+            downloadedItemItem = downloadedItemItems[position])
     }
 
-    override fun getItemCount(): Int = homeItemItems.size
+    override fun getItemCount(): Int = downloadedItemItems.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setHomeItemItems(newsFeedItems: List<ItemData>?) {
-        this.homeItemItems.clear()
-        this.homeItemItems.addAll(newsFeedItems ?: emptyList())
+    fun setDownloadedItemItems(newsFeedItems: List<ItemData>?) {
+        this.downloadedItemItems.clear()
+        this.downloadedItemItems.addAll(newsFeedItems ?: emptyList())
         notifyDataSetChanged()
     }
 }

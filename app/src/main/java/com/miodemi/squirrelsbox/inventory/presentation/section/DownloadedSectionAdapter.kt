@@ -10,17 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.miodemi.squirrelsbox.HomeViewModel
 import com.miodemi.squirrelsbox.R
 import com.miodemi.squirrelsbox.databinding.ItemSectionBinding
-import com.miodemi.squirrelsbox.inventory.application.item.HomeItemViewModel
+import com.miodemi.squirrelsbox.inventory.application.item.DownloadedItemViewModel
 import com.miodemi.squirrelsbox.inventory.application.item.ItemDialogViewModel
 import com.miodemi.squirrelsbox.inventory.application.section.SectionDialogViewModel
 import com.miodemi.squirrelsbox.inventory.domain.SectionData
-import com.miodemi.squirrelsbox.profile.presentation.home.HomeItemFragment
+import com.miodemi.squirrelsbox.profile.presentation.download.DownloadedItemFragment
 
-class HomeSectionAdapter(
+class DownloadedSectionAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private val homeSectionItems = mutableListOf<SectionData>()
+    private val downloadedSectionItems = mutableListOf<SectionData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SectionItemViewHolder(parent)
@@ -33,14 +31,14 @@ class HomeSectionAdapter(
         private val binding = ItemSectionBinding.bind(itemView)
 
         fun onBind(
-            homeSectionItem : SectionData
+            downloadedSectionItem : SectionData
         ){
-            binding.sectionNameTv.text = homeSectionItem.name.toString()
-            val sectionId = homeSectionItem.id.toString()
-            val boxId = homeSectionItem.boxId.toString()
-            val sectionName = homeSectionItem.name.toString()
+            binding.sectionNameTv.text = downloadedSectionItem.name.toString()
+            val sectionId = downloadedSectionItem.id.toString()
+            val boxId = downloadedSectionItem.boxId.toString()
+            val sectionName = downloadedSectionItem.name.toString()
 
-            val sectionDateCreated = homeSectionItem.dateCreated.toString()
+            //val sectionDateCreated = downloadedSectionItem.dateCreated.toString()
 
             binding.editBtn.setOnClickListener { v : View ->
                 val activity = v.context as AppCompatActivity
@@ -54,23 +52,23 @@ class HomeSectionAdapter(
 
             binding.sectionCV.setOnClickListener { v : View ->
                 val activity = v.context as AppCompatActivity
-                val homeItemViewModel : HomeItemViewModel by activity.viewModels()
+                val downloadedItemViewModel : DownloadedItemViewModel by activity.viewModels()
                 val itemDialogViewModel : ItemDialogViewModel by activity.viewModels()
 
-                homeItemViewModel.setBoxId(boxId)
+                downloadedItemViewModel.setBoxId(boxId)
                 itemDialogViewModel.setBoxId(boxId)
 
-                homeItemViewModel.setSectionId(sectionId)
+                downloadedItemViewModel.setSectionId(sectionId)
                 itemDialogViewModel.setSectionId(sectionId)
 
-                homeItemViewModel.setSectionName(sectionName)
+                downloadedItemViewModel.setSectionName(sectionName)
                 itemDialogViewModel.setSectionName(sectionName)
 
                 val homeViewModel : HomeViewModel by activity.viewModels()
                 homeViewModel.setId(3)
 
                 activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.contentLy, HomeItemFragment()).addToBackStack(null)
+                    .replace(R.id.contentLy, DownloadedItemFragment()).addToBackStack(null)
                     .commit()
             }
 
@@ -80,15 +78,15 @@ class HomeSectionAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as SectionItemViewHolder).onBind(
-            homeSectionItem = homeSectionItems[position])
+            downloadedSectionItem = downloadedSectionItems[position])
     }
 
-    override fun getItemCount(): Int = homeSectionItems.size
+    override fun getItemCount(): Int = downloadedSectionItems.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setHomeSectionItems(newsFeedItems: List<SectionData>?) {
-        this.homeSectionItems.clear()
-        this.homeSectionItems.addAll(newsFeedItems ?: emptyList())
+    fun setDownloadedSectionItems(newsFeedItems: List<SectionData>?) {
+        this.downloadedSectionItems.clear()
+        this.downloadedSectionItems.addAll(newsFeedItems ?: emptyList())
         notifyDataSetChanged()
     }
 }

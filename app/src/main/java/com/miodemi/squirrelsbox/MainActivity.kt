@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var username:String
     private lateinit var password:String
 
-    private lateinit var auth: FirebaseAuth
+    //private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

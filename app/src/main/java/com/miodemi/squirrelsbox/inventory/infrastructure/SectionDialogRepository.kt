@@ -5,8 +5,17 @@ import android.os.Build
 import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.getValue
 import com.miodemi.squirrelsbox.inventory.domain.SectionData
+import com.miodemi.squirrelsbox.session.domain.State
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import java.util.*
+
 
 class SectionDialogRepository {
 
@@ -27,7 +36,7 @@ class SectionDialogRepository {
         val currentDate = sdf.format(Date())
 
         val sectionData = SectionData(id, name, currentDate, color, favourite,boxId)
-        database.child(id).setValue(sectionData)
+        database.child(name).setValue(sectionData)
     }
 
     fun updateData(boxId: String, sectionId: String, sectionName: String, color : String) {
@@ -58,5 +67,22 @@ class SectionDialogRepository {
                 Log.i("RemoveSection", "Not done yet :(")
             }
     }
+
+    fun getSectionsByBoxId(boxId: String): Flow<State<Any>> = flow<State<Any>> {
+        emit(State.loading())
+
+        val sections = FirebaseDatabase.getInstance().getReference("boxes").child(boxId)
+            .child("sections").get().await()
+
+        sections?.let {
+            val data: MutableList<SectionData?> = ArrayList()
+            for (ds in sections.children) {
+                data.add(ds.getValue(SectionData::class.java))
+            }
+            emit(State.success(data))
+        }
+    }.catch {
+        emit(State.failed(it.message!!))
+    }.flowOn(Dispatchers.IO)
 
 }
