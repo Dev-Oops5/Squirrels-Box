@@ -1,23 +1,30 @@
 package com.miodemi.squirrelsbox.inventory.infrastructure
 
 import android.content.ContentValues
+import android.content.Context
+import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.getValue
 import com.miodemi.squirrelsbox.inventory.domain.BoxData
 import com.miodemi.squirrelsbox.session.domain.State
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import org.apache.poi.hssf.usermodel.HSSFCellStyle
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class ExcelRepository {
-    fun addBox(b: BoxData){
+    fun addBox(b: BoxData, context: Context){
         val data = ContentValues()
         data.put("id", b.id)
         data.put("name", b.name)
@@ -87,16 +94,16 @@ class ExcelRepository {
         cell.setCellValue("null")
 
 
-        val file = File(context?.getExternalFilesDir(null), "items.xls")
+        val file = File(context.getExternalFilesDir(null), "items.xls")
         var outputStream: FileOutputStream? = null
 
         try {
             outputStream = FileOutputStream(file)
             wb.write(outputStream)
-            Toast.makeText(context?.applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
+            Toast.makeText(context.applicationContext, "DataSheet Dowloaded", Toast.LENGTH_LONG).show()
         } catch (e: IOException) {
             e.printStackTrace()
-            Toast.makeText(context?.applicationContext, "currency problem", Toast.LENGTH_LONG).show()
+            Toast.makeText(context.applicationContext, "currency problem", Toast.LENGTH_LONG).show()
             try {
                 outputStream!!.close()
             } catch (ex: IOException) {
